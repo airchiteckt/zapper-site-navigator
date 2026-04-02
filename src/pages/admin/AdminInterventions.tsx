@@ -39,7 +39,14 @@ import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { Intervention, InterventionInsert } from '@/types/admin';
+import { Intervention, InterventionInsert, SectorType } from '@/types/admin';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export default function AdminInterventions() {
   const [interventions, setInterventions] = useState<Intervention[]>([]);
