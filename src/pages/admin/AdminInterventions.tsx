@@ -510,6 +510,7 @@ export default function AdminInterventions() {
                         {intervention.location || '-'}
                       </TableCell>
                       <TableCell>{intervention.model_used || '-'}</TableCell>
+                      <TableCell className="capitalize">{(intervention as any).sector || '-'}</TableCell>
                       <TableCell>
                         {intervention.video_url ? (
                           <a
