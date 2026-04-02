@@ -101,6 +101,7 @@ export interface InterventionInsert {
   model_used?: string | null;
   application_type?: string | null;
   problem?: string | null;
+  sector?: SectorType | null;
 }
 
 export interface InterventionUpdate extends Partial<InterventionInsert> {
