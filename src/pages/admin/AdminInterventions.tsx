@@ -169,6 +169,7 @@ export default function AdminInterventions() {
             model_used: formData.model_used,
             application_type: formData.application_type,
             problem: formData.problem,
+            sector: formData.sector,
             updated_by: profile?.id,
           } as any)
           .eq('id', editingIntervention.id);
