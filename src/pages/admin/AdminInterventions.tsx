@@ -136,6 +136,7 @@ export default function AdminInterventions() {
         model_used: '',
         application_type: '',
         problem: '',
+        sector: null,
       });
     }
     setIsDialogOpen(true);
