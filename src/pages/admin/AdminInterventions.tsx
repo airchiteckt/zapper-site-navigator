@@ -122,6 +122,7 @@ export default function AdminInterventions() {
         model_used: intervention.model_used || '',
         application_type: intervention.application_type || '',
         problem: intervention.problem || '',
+        sector: (intervention as any).sector || null,
       });
     } else {
       setEditingIntervention(null);
