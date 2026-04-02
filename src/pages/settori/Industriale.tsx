@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   ArrowRight, 
-  CheckCircle, 
   AlertTriangle, 
   Factory,
   Coffee,
   Milk,
   Flame,
   Warehouse,
-  MapPin
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SectorModelsSection from "@/components/settori/SectorModelsSection";
+import SectorInterventionsSection from "@/components/settori/SectorInterventionsSection";
 
 const Industriale = () => {
   const problemiTipici = [
@@ -30,7 +30,6 @@ const Industriale = () => {
       description: "Impianti di tostatura caffè con fumi densi e odori intensi da abbattere.",
       icon: Coffee,
       href: "/industriale/torrefazioni",
-      interventi: 18,
     },
     {
       id: "caseifici",
@@ -38,7 +37,6 @@ const Industriale = () => {
       description: "Caldaie e forni per la produzione casearia con emissioni da gestire.",
       icon: Milk,
       href: "/industriale/caseifici",
-      interventi: 12,
     },
     {
       id: "affumicatori",
@@ -46,7 +44,6 @@ const Industriale = () => {
       description: "Sistemi di affumicatura industriale con fumi e odori caratteristici.",
       icon: Flame,
       href: "/industriale/affumicatori",
-      interventi: 8,
     },
     {
       id: "forni-industriali",
@@ -54,7 +51,6 @@ const Industriale = () => {
       description: "Forni di grandi dimensioni per processi produttivi industriali.",
       icon: Warehouse,
       href: "/industriale/forni-industriali",
-      interventi: 22,
     },
   ];
 
@@ -64,42 +60,12 @@ const Industriale = () => {
     { name: "Sistemi affumicatura", href: "/applicazioni/affumicatori" },
   ];
 
-  const modelliConsigliati = [
-    { 
-      name: "ZAPPER M", 
-      descrizione: "Per impianti di media portata",
-      href: "/modelli/zapper-m" 
-    },
-    { 
-      name: "ZAPPER L", 
-      descrizione: "Per alte portate e grandi impianti",
-      href: "/modelli/zapper-l" 
-    },
-  ];
-
-  const miniInterventi = [
-    {
-      titolo: "Torrefazione Premium",
-      citta: "Torino",
-      problema: "Emissioni fuori norma",
-      risultato: "Conformità normativa raggiunta",
-      modello: "ZAPPER L",
-    },
-    {
-      titolo: "Caseificio Tradizionale",
-      citta: "Parma",
-      problema: "Caldaia con emissioni eccessive",
-      risultato: "Riduzione emissioni del 90%",
-      modello: "ZAPPER L",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <main>
-        {/* Hero Section */}
+        {/* Hero */}
         <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-zapper-black">
           <div className="container">
             <div className="max-w-3xl">
@@ -171,12 +137,9 @@ const Industriale = () => {
                       <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
                         <ambito.icon className="w-6 h-6 text-primary" />
                       </div>
-                      <div>
-                        <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                          {ambito.title}
-                        </h3>
-                        <span className="text-sm text-muted-foreground">{ambito.interventi}+ interventi</span>
-                      </div>
+                      <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {ambito.title}
+                      </h3>
                     </div>
                     <p className="text-muted-foreground mb-4">
                       {ambito.description}
@@ -192,7 +155,7 @@ const Industriale = () => {
           </div>
         </section>
 
-        {/* Applicazioni Rilevanti */}
+        {/* Applicazioni */}
         <section className="py-12 md:py-16 bg-muted/30">
           <div className="container">
             <div className="max-w-4xl mx-auto">
@@ -214,85 +177,8 @@ const Industriale = () => {
           </div>
         </section>
 
-        {/* Modelli Consigliati */}
-        <section className="py-12 md:py-16">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-                Modelli consigliati per questo settore
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {modelliConsigliati.map((modello) => (
-                  <Link
-                    key={modello.name}
-                    to={modello.href}
-                    className="group block"
-                  >
-                    <div className="p-6 bg-card rounded-2xl shadow-lg hover:shadow-xl transition-all border border-border hover:border-accent/30">
-                      <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {modello.name}
-                      </h3>
-                      <p className="text-muted-foreground mb-4">{modello.descrizione}</p>
-                      <div className="flex items-center text-accent font-medium">
-                        <span>Scopri il modello</span>
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mini Interventi */}
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                  Interventi nel settore
-                </h2>
-                <Link 
-                  to="/interventi" 
-                  className="text-primary hover:text-accent font-medium flex items-center gap-1 transition-colors"
-                >
-                  Vedi tutti
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {miniInterventi.map((intervento, index) => (
-                  <div 
-                    key={index}
-                    className="bg-card rounded-2xl p-6 shadow-lg"
-                  >
-                    <div className="flex items-center gap-2 mb-3">
-                      <MapPin className="w-4 h-4 text-accent" />
-                      <span className="text-sm text-muted-foreground">{intervento.citta}</span>
-                    </div>
-                    <h3 className="font-display text-lg font-bold text-foreground mb-3">
-                      {intervento.titolo}
-                    </h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-start gap-2">
-                        <span className="text-destructive">⚠</span>
-                        <span className="text-muted-foreground">{intervento.problema}</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-primary shrink-0" />
-                        <span className="text-foreground font-medium">{intervento.risultato}</span>
-                      </div>
-                    </div>
-                    <div className="mt-4 px-3 py-1.5 bg-accent/10 rounded-full inline-block">
-                      <span className="text-sm font-semibold text-accent">{intervento.modello}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <SectorModelsSection sector="industriale" />
+        <SectorInterventionsSection sector="industriale" />
 
         {/* CTA */}
         <section className="py-16 md:py-24 bg-zapper-black">
