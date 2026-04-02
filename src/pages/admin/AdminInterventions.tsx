@@ -494,6 +494,7 @@ export default function AdminInterventions() {
                     <TableHead>Cliente</TableHead>
                     <TableHead>Località</TableHead>
                     <TableHead>Modello</TableHead>
+                    <TableHead>Settore</TableHead>
                     <TableHead>Video</TableHead>
                     <TableHead className="text-right">Azioni</TableHead>
                   </TableRow>
