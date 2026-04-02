@@ -52,6 +52,8 @@ export interface Model {
   updated_at: string;
 }
 
+export type SectorType = 'professionale' | 'domestico' | 'industriale';
+
 export interface Intervention {
   id: string;
   title: string;
@@ -63,6 +65,7 @@ export interface Intervention {
   model_used: string | null;
   application_type: string | null;
   problem: string | null;
+  sector: SectorType | null;
   created_by: string | null;
   updated_by: string | null;
   created_at: string;
@@ -98,6 +101,7 @@ export interface InterventionInsert {
   model_used?: string | null;
   application_type?: string | null;
   problem?: string | null;
+  sector?: SectorType | null;
 }
 
 export interface InterventionUpdate extends Partial<InterventionInsert> {

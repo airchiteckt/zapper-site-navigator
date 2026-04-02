@@ -1,0 +1,1 @@
+ALTER TABLE public.interventions ADD COLUMN sector text DEFAULT NULL;

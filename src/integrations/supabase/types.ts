@@ -63,6 +63,7 @@ export type Database = {
           location: string | null
           model_used: string | null
           problem: string | null
+          sector: string | null
           thumbnail_url: string | null
           title: string
           updated_at: string
@@ -79,6 +80,7 @@ export type Database = {
           location?: string | null
           model_used?: string | null
           problem?: string | null
+          sector?: string | null
           thumbnail_url?: string | null
           title: string
           updated_at?: string
@@ -95,6 +97,7 @@ export type Database = {
           location?: string | null
           model_used?: string | null
           problem?: string | null
+          sector?: string | null
           thumbnail_url?: string | null
           title?: string
           updated_at?: string

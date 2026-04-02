@@ -39,7 +39,14 @@ import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { Intervention, InterventionInsert } from '@/types/admin';
+import { Intervention, InterventionInsert, SectorType } from '@/types/admin';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export default function AdminInterventions() {
   const [interventions, setInterventions] = useState<Intervention[]>([]);
@@ -64,6 +71,7 @@ export default function AdminInterventions() {
     model_used: '',
     application_type: '',
     problem: '',
+    sector: null,
   });
 
   const fetchInterventions = async () => {
@@ -114,6 +122,7 @@ export default function AdminInterventions() {
         model_used: intervention.model_used || '',
         application_type: intervention.application_type || '',
         problem: intervention.problem || '',
+        sector: (intervention as any).sector || null,
       });
     } else {
       setEditingIntervention(null);
@@ -127,6 +136,7 @@ export default function AdminInterventions() {
         model_used: '',
         application_type: '',
         problem: '',
+        sector: null,
       });
     }
     setIsDialogOpen(true);
@@ -159,6 +169,7 @@ export default function AdminInterventions() {
             model_used: formData.model_used,
             application_type: formData.application_type,
             problem: formData.problem,
+            sector: formData.sector,
             updated_by: profile?.id,
           } as any)
           .eq('id', editingIntervention.id);
@@ -386,6 +397,25 @@ export default function AdminInterventions() {
                 </div>
 
                 <div className="space-y-2">
+                  <Label htmlFor="sector">Settore</Label>
+                  <Select
+                    value={formData.sector || ''}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, sector: (value || null) as SectorType | null })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleziona settore..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="professionale">Professionale</SelectItem>
+                      <SelectItem value="domestico">Domestico</SelectItem>
+                      <SelectItem value="industriale">Industriale</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
                   <Label htmlFor="video_url">URL Video (YouTube/Vimeo)</Label>
                   <Input
                     id="video_url"
@@ -464,6 +494,7 @@ export default function AdminInterventions() {
                     <TableHead>Cliente</TableHead>
                     <TableHead>Località</TableHead>
                     <TableHead>Modello</TableHead>
+                    <TableHead>Settore</TableHead>
                     <TableHead>Video</TableHead>
                     <TableHead className="text-right">Azioni</TableHead>
                   </TableRow>
@@ -479,6 +510,7 @@ export default function AdminInterventions() {
                         {intervention.location || '-'}
                       </TableCell>
                       <TableCell>{intervention.model_used || '-'}</TableCell>
+                      <TableCell className="capitalize">{(intervention as any).sector || '-'}</TableCell>
                       <TableCell>
                         {intervention.video_url ? (
                           <a

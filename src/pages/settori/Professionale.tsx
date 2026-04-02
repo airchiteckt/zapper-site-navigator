@@ -2,18 +2,17 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   ArrowRight, 
-  CheckCircle, 
   AlertTriangle, 
   ChefHat, 
   Pizza, 
   Croissant, 
   Flame, 
   UtensilsCrossed,
-  Play,
-  MapPin
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SectorModelsSection from "@/components/settori/SectorModelsSection";
+import SectorInterventionsSection from "@/components/settori/SectorInterventionsSection";
 
 const Professionale = () => {
   const problemiTipici = [
@@ -31,7 +30,6 @@ const Professionale = () => {
       description: "Forni a legna e forni elettrici ad alta temperatura con problemi di fumi e odori.",
       icon: Pizza,
       href: "/professionale/pizzerie",
-      interventi: 45,
     },
     {
       id: "panifici",
@@ -39,7 +37,6 @@ const Professionale = () => {
       description: "Forni professionali per la panificazione con emissioni da gestire.",
       icon: Croissant,
       href: "/professionale/panifici",
-      interventi: 28,
     },
     {
       id: "bracerie",
@@ -47,7 +44,6 @@ const Professionale = () => {
       description: "Griglie a carbone e braci con fumi densi e odore intenso.",
       icon: Flame,
       href: "/professionale/bracerie",
-      interventi: 32,
     },
     {
       id: "cucine-professionali",
@@ -55,7 +51,6 @@ const Professionale = () => {
       description: "Ristoranti e hotel con cucine che generano fumi e vapori.",
       icon: UtensilsCrossed,
       href: "/professionale/cucine-professionali",
-      interventi: 56,
     },
   ];
 
@@ -63,36 +58,6 @@ const Professionale = () => {
     { name: "Forni a legna", href: "/applicazioni/forni-a-legna" },
     { name: "Braci e carbonella", href: "/applicazioni/braci-carbone" },
     { name: "Cappe professionali", href: "/applicazioni/cappe" },
-  ];
-
-  const modelliConsigliati = [
-    { 
-      name: "ZAPPER S", 
-      descrizione: "Ideale per pizzerie e piccoli panifici",
-      href: "/modelli/zapper-s" 
-    },
-    { 
-      name: "ZAPPER M", 
-      descrizione: "Perfetto per bracerie e ristoranti",
-      href: "/modelli/zapper-m" 
-    },
-  ];
-
-  const miniInterventi = [
-    {
-      titolo: "Pizzeria Centro Storico",
-      citta: "Napoli",
-      problema: "Fumi neri e segnalazioni ASL",
-      risultato: "Zero segnalazioni in 8 mesi",
-      modello: "ZAPPER M",
-    },
-    {
-      titolo: "Braceria Gourmet",
-      citta: "Roma",
-      problema: "Odore carbone nel vicinato",
-      risultato: "Clienti e vicini soddisfatti",
-      modello: "ZAPPER M",
-    },
   ];
 
   return (
@@ -150,7 +115,7 @@ const Professionale = () => {
           </div>
         </section>
 
-        {/* Ambiti - Card Grandi */}
+        {/* Ambiti */}
         <section className="py-12 md:py-20">
           <div className="container">
             <div className="text-center mb-12">
@@ -175,12 +140,9 @@ const Professionale = () => {
                       <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
                         <ambito.icon className="w-6 h-6 text-primary" />
                       </div>
-                      <div>
-                        <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                          {ambito.title}
-                        </h3>
-                        <span className="text-sm text-muted-foreground">{ambito.interventi}+ interventi</span>
-                      </div>
+                      <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {ambito.title}
+                      </h3>
                     </div>
                     <p className="text-muted-foreground mb-4">
                       {ambito.description}
@@ -218,87 +180,13 @@ const Professionale = () => {
           </div>
         </section>
 
-        {/* Modelli Consigliati */}
-        <section className="py-12 md:py-16">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-                Modelli consigliati per questo settore
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {modelliConsigliati.map((modello) => (
-                  <Link
-                    key={modello.name}
-                    to={modello.href}
-                    className="group block"
-                  >
-                    <div className="p-6 bg-card rounded-2xl shadow-lg hover:shadow-xl transition-all border border-border hover:border-accent/30">
-                      <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {modello.name}
-                      </h3>
-                      <p className="text-muted-foreground mb-4">{modello.descrizione}</p>
-                      <div className="flex items-center text-accent font-medium">
-                        <span>Scopri il modello</span>
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Modelli Consigliati - Dynamic from DB */}
+        <SectorModelsSection sector="professionale" />
 
-        {/* Mini Interventi */}
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                  Interventi nel settore
-                </h2>
-                <Link 
-                  to="/interventi" 
-                  className="text-primary hover:text-accent font-medium flex items-center gap-1 transition-colors"
-                >
-                  Vedi tutti
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {miniInterventi.map((intervento, index) => (
-                  <div 
-                    key={index}
-                    className="bg-card rounded-2xl p-6 shadow-lg"
-                  >
-                    <div className="flex items-center gap-2 mb-3">
-                      <MapPin className="w-4 h-4 text-accent" />
-                      <span className="text-sm text-muted-foreground">{intervento.citta}</span>
-                    </div>
-                    <h3 className="font-display text-lg font-bold text-foreground mb-3">
-                      {intervento.titolo}
-                    </h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-start gap-2">
-                        <span className="text-destructive">⚠</span>
-                        <span className="text-muted-foreground">{intervento.problema}</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-primary shrink-0" />
-                        <span className="text-foreground font-medium">{intervento.risultato}</span>
-                      </div>
-                    </div>
-                    <div className="mt-4 px-3 py-1.5 bg-accent/10 rounded-full inline-block">
-                      <span className="text-sm font-semibold text-accent">{intervento.modello}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Interventi nel settore - Dynamic from DB */}
+        <SectorInterventionsSection sector="professionale" />
 
-        {/* CTA Dedicata */}
+        {/* CTA */}
         <section className="py-16 md:py-24 bg-zapper-black">
           <div className="container text-center">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4">
