@@ -397,6 +397,24 @@ export default function AdminInterventions() {
                 </div>
 
                 <div className="space-y-2">
+                  <Label htmlFor="sector">Settore</Label>
+                  <Select
+                    value={formData.sector || ''}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, sector: (value || null) as SectorType | null })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleziona settore..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="professionale">Professionale</SelectItem>
+                      <SelectItem value="domestico">Domestico</SelectItem>
+                      <SelectItem value="industriale">Industriale</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                   <Label htmlFor="video_url">URL Video (YouTube/Vimeo)</Label>
                   <Input
                     id="video_url"
