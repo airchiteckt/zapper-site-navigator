@@ -29,6 +29,7 @@ import { Model, ModelInsert, Specification, LinkItem, DatasheetUrls } from '@/ty
 import ImageUpload from '@/components/admin/ImageUpload';
 import VideoUpload from '@/components/admin/VideoUpload';
 import MultilingualFileUpload from '@/components/admin/MultilingualFileUpload';
+import LinkListEditor from '@/components/admin/LinkListEditor';
 
 export default function AdminModels() {
   const [models, setModels] = useState<Model[]>([]);
@@ -379,6 +380,31 @@ export default function AdminModels() {
                   value={formData.datasheet_url || {}}
                   onChange={(urls) => setFormData({ ...formData, datasheet_url: urls })}
                   folder={`datasheets/${formData.model_id || 'new'}`}
+                />
+
+                {/* Link editors for relationships */}
+                <LinkListEditor
+                  label="Ambiti ideali"
+                  value={formData.ambiti_ideali || []}
+                  onChange={(items) => setFormData({ ...formData, ambiti_ideali: items })}
+                  namePlaceholder="es. Cucine Professionali"
+                  hrefPlaceholder="es. /professionale/cucine-professionali"
+                />
+
+                <LinkListEditor
+                  label="Applicazioni compatibili"
+                  value={formData.applicazioni_compatibili || []}
+                  onChange={(items) => setFormData({ ...formData, applicazioni_compatibili: items })}
+                  namePlaceholder="es. Cappe"
+                  hrefPlaceholder="es. /applicazioni/cappe"
+                />
+
+                <LinkListEditor
+                  label="Settori di utilizzo"
+                  value={formData.settori_utilizzo || []}
+                  onChange={(items) => setFormData({ ...formData, settori_utilizzo: items })}
+                  namePlaceholder="es. Professionale"
+                  hrefPlaceholder="es. /settori/professionale"
                 />
 
                 <div className="flex gap-2 pt-4">
