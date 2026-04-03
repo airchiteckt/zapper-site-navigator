@@ -29,6 +29,7 @@ const APPLICAZIONI_OPTIONS: LinkItem[] = [
   { name: 'Forni Industriali', href: '/applicazioni/forni-industriali' },
   { name: 'Torrefazioni', href: '/applicazioni/torrefazioni' },
   { name: 'Affumicatori', href: '/applicazioni/affumicatori' },
+  { name: 'Girarrosti', href: '/applicazioni/girarrosti' },
   { name: 'Taglio Laser', href: '/applicazioni/taglio-laser' },
 ];
 
