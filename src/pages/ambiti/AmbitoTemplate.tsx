@@ -31,6 +31,17 @@ interface AmbitoTemplateProps {
 }
 
 const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
+  const { models: dbModels, isLoading: modelsLoading } = useAmbitoModels(data.id);
+
+  // Use DB models if available, otherwise fall back to hardcoded
+  const displayModels = dbModels.length > 0
+    ? dbModels.map((m) => ({
+        name: m.name,
+        descrizione: m.tagline || m.description || '',
+        href: `/modelli/${m.model_id}`,
+      }))
+    : data.modelliConsigliati;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
