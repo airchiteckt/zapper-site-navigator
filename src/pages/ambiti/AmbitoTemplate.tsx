@@ -172,6 +172,7 @@ const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
                   </Link>
                 ))}
               </div>
+              )}
             </div>
           </div>
         </section>
