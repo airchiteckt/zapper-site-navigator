@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, AlertTriangle, MapPin, LucideIcon } from "lucide-react";
+import { ArrowRight, CheckCircle, AlertTriangle, MapPin, LucideIcon, Loader2 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { useAmbitoModels } from "@/hooks/useAmbitoModels";
 
 export interface AmbitoData {
   id: string;
@@ -30,6 +31,17 @@ interface AmbitoTemplateProps {
 }
 
 const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
+  const { models: dbModels, isLoading: modelsLoading } = useAmbitoModels(data.id);
+
+  // Use DB models if available, otherwise fall back to hardcoded
+  const displayModels = dbModels.length > 0
+    ? dbModels.map((m) => ({
+        name: m.name,
+        descrizione: m.tagline || m.description || '',
+        href: `/modelli/${m.model_id}`,
+      }))
+    : data.modelliConsigliati;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -135,8 +147,13 @@ const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
                 Modelli consigliati
               </h2>
+              {modelsLoading ? (
+                <div className="flex justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+                </div>
+              ) : (
               <div className="grid sm:grid-cols-2 gap-6">
-                {data.modelliConsigliati.map((modello) => (
+                {displayModels.map((modello) => (
                   <Link
                     key={modello.name}
                     to={modello.href}
@@ -155,6 +172,7 @@ const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
                   </Link>
                 ))}
               </div>
+              )}
             </div>
           </div>
         </section>
