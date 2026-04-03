@@ -387,24 +387,21 @@ export default function AdminModels() {
                   label="Ambiti ideali"
                   value={formData.ambiti_ideali || []}
                   onChange={(items) => setFormData({ ...formData, ambiti_ideali: items })}
-                  namePlaceholder="es. Cucine Professionali"
-                  hrefPlaceholder="es. /professionale/cucine-professionali"
+                  category="ambiti"
                 />
 
                 <LinkListEditor
                   label="Applicazioni compatibili"
                   value={formData.applicazioni_compatibili || []}
                   onChange={(items) => setFormData({ ...formData, applicazioni_compatibili: items })}
-                  namePlaceholder="es. Cappe"
-                  hrefPlaceholder="es. /applicazioni/cappe"
+                  category="applicazioni"
                 />
 
                 <LinkListEditor
                   label="Settori di utilizzo"
                   value={formData.settori_utilizzo || []}
                   onChange={(items) => setFormData({ ...formData, settori_utilizzo: items })}
-                  namePlaceholder="es. Professionale"
-                  hrefPlaceholder="es. /settori/professionale"
+                  category="settori"
                 />
 
                 <div className="flex gap-2 pt-4">
