@@ -186,6 +186,9 @@ export default function AdminModels() {
           photos: formData.photos || [],
           videos: formData.videos || [],
           datasheet_url: formData.datasheet_url || {},
+          ambiti_ideali: formData.ambiti_ideali || [],
+          applicazioni_compatibili: formData.applicazioni_compatibili || [],
+          settori_utilizzo: formData.settori_utilizzo || [],
           created_by: profile?.id,
           updated_by: profile?.id,
         };
