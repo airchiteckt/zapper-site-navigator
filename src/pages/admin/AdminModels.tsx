@@ -29,6 +29,7 @@ import { Model, ModelInsert, Specification, LinkItem, DatasheetUrls } from '@/ty
 import ImageUpload from '@/components/admin/ImageUpload';
 import VideoUpload from '@/components/admin/VideoUpload';
 import MultilingualFileUpload from '@/components/admin/MultilingualFileUpload';
+import LinkListEditor from '@/components/admin/LinkListEditor';
 
 export default function AdminModels() {
   const [models, setModels] = useState<Model[]>([]);
