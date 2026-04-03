@@ -48,6 +48,14 @@ const categorieApplicazioni: CategoriaApplicazioni[] = [
         href: "/applicazioni/caldaie-biomassa"
       },
       {
+        id: "forni-elettrici",
+        title: "Forni elettrici",
+        icon: Flame,
+        description: "Trattamento fumi e odori da forni elettrici professionali e industriali per cotture prolungate.",
+        applicabileA: ["Pizzerie", "Panifici", "Cucine professionali"],
+        href: "/applicazioni/forni-elettrici"
+      },
+      {
         id: "camini",
         title: "Camini e stufe a legna",
         icon: Home,
