@@ -39,6 +39,7 @@ import ForniIndustrialiApp from "./pages/applicazioni/ForniIndustriali";
 import TorrefazioniApp from "./pages/applicazioni/Torrefazioni";
 import AffumicatoriApp from "./pages/applicazioni/Affumicatori";
 import TaglioLaser from "./pages/applicazioni/TaglioLaser";
+import ForniElettrici from "./pages/applicazioni/ForniElettrici";
 // Modelli imports
 import ZPZ from "./pages/modelli/ZPZ";
 import ZPZMax from "./pages/modelli/ZPZMax";
