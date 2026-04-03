@@ -52,6 +52,9 @@ export default function AdminModels() {
     photos: [],
     videos: [],
     datasheet_url: {},
+    ambiti_ideali: [],
+    applicazioni_compatibili: [],
+    settori_utilizzo: [],
   });
 
   const fetchModels = async () => {
@@ -114,6 +117,9 @@ export default function AdminModels() {
         photos: model.photos || [],
         videos: model.videos || [],
         datasheet_url: model.datasheet_url || {},
+        ambiti_ideali: model.ambiti_ideali || [],
+        applicazioni_compatibili: model.applicazioni_compatibili || [],
+        settori_utilizzo: model.settori_utilizzo || [],
       });
     } else {
       setEditingModel(null);
@@ -127,6 +133,9 @@ export default function AdminModels() {
         photos: [],
         videos: [],
         datasheet_url: {},
+        ambiti_ideali: [],
+        applicazioni_compatibili: [],
+        settori_utilizzo: [],
       });
     }
     setIsDialogOpen(true);
