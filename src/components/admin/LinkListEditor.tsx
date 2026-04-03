@@ -20,6 +20,8 @@ const AMBITI_OPTIONS: LinkItem[] = [
 
 const APPLICAZIONI_OPTIONS: LinkItem[] = [
   { name: 'Forni a Legna', href: '/applicazioni/forni-a-legna' },
+  { name: 'Forni Elettrici', href: '/applicazioni/forni-elettrici' },
+  { name: 'Forni a Gas', href: '/applicazioni/forni-a-gas' },
   { name: 'Braci e Carbone', href: '/applicazioni/braci-carbone' },
   { name: 'Caldaie a Biomassa', href: '/applicazioni/caldaie-biomassa' },
   { name: 'Camini', href: '/applicazioni/camini' },
