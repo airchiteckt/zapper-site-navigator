@@ -39,6 +39,7 @@ import ForniIndustrialiApp from "./pages/applicazioni/ForniIndustriali";
 import TorrefazioniApp from "./pages/applicazioni/Torrefazioni";
 import AffumicatoriApp from "./pages/applicazioni/Affumicatori";
 import TaglioLaser from "./pages/applicazioni/TaglioLaser";
+import ForniElettrici from "./pages/applicazioni/ForniElettrici";
 // Modelli imports
 import ZPZ from "./pages/modelli/ZPZ";
 import ZPZMax from "./pages/modelli/ZPZMax";
@@ -132,6 +133,7 @@ const App = () => (
             <Route path="/applicazioni/torrefazioni" element={<TorrefazioniApp />} />
             <Route path="/applicazioni/affumicatori" element={<AffumicatoriApp />} />
             <Route path="/applicazioni/taglio-laser" element={<TaglioLaser />} />
+            <Route path="/applicazioni/forni-elettrici" element={<ForniElettrici />} />
             {/* Modelli routes */}
             <Route path="/modelli/zpz" element={<ZPZ />} />
             <Route path="/modelli/zpz-max" element={<ZPZMax />} />
