@@ -52,6 +52,9 @@ export default function AdminModels() {
     photos: [],
     videos: [],
     datasheet_url: {},
+    ambiti_ideali: [],
+    applicazioni_compatibili: [],
+    settori_utilizzo: [],
   });
 
   const fetchModels = async () => {
