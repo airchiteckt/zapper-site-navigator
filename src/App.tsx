@@ -82,6 +82,8 @@ import AdminShop from "./pages/admin/AdminShop";
 import AdminPartners from "./pages/admin/AdminPartners";
 import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
+import AIChatWidget from "./components/chat/AIChatWidget";
+import WhatsAppButton from "./components/chat/WhatsAppButton";
 const queryClient = new QueryClient();
 
 const CartSyncWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -183,6 +185,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        <AIChatWidget />
+        <WhatsAppButton />
         </CartSyncWrapper>
         </CartProvider>
       </AuthProvider>
