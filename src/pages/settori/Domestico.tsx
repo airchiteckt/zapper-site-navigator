@@ -54,6 +54,7 @@ const Domestico = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Settore Domestico" description="Soluzioni ZAPPER® per camini, caldaie a biomassa e stufe domestiche. Elimina fumi e odori dalla tua abitazione." />
       <Header />
       
       <main>

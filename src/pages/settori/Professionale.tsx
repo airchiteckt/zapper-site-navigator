@@ -63,6 +63,7 @@ const Professionale = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Settore Professionale" description="Soluzioni ZAPPER® per ristoranti, pizzerie, panifici e bracerie. Abbattimento fumi, odori e polveri per cucine professionali." />
       <Header />
       
       <main>

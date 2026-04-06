@@ -76,6 +76,7 @@ const ModelloTemplate = ({ data }: ModelloTemplateProps) => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title={`${data.name} – ${data.tagline}`} description={`${data.name} ZAPPER® (${data.diameter}): ${data.description.slice(0, 140)}`} />
       <Header />
       <main>
         {/* Hero */}

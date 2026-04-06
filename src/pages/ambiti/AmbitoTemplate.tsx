@@ -45,6 +45,7 @@ const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title={data.title} description={data.description} />
       <Header />
       
       <main>

@@ -25,6 +25,7 @@ interface ApplicazioneTemplateProps {
 const ApplicazioneTemplate = ({ data }: ApplicazioneTemplateProps) => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title={`${data.title} – Abbattimento Fumi`} description={`Sistemi ZAPPER® per ${data.title.toLowerCase()}: ${data.subtitle}`} />
       <Header />
       <main>
         {/* 1. Hero Applicazione */}

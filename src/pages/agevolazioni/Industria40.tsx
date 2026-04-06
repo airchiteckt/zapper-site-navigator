@@ -30,6 +30,7 @@ const Industria40 = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO title="Industria 4.0 – Credito d'Imposta" description="Approfitta del credito d'imposta Industria 4.0 fino al 180% per i sistemi ZAPPER®. Scopri requisiti e vantaggi fiscali." />
       <Header />
       
       {/* Hero Section */}

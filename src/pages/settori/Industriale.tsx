@@ -63,6 +63,7 @@ const Industriale = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Settore Industriale" description="Soluzioni ZAPPER® per torrefazioni, caseifici, affumicatori e forni industriali. Sistemi ad alta portata per emissioni industriali." />
       <Header />
       
       <main>

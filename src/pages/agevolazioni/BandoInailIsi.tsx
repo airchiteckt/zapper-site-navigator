@@ -32,6 +32,7 @@ const BandoInailIsi = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO title="Bando INAIL ISI" description="Finanziamento a fondo perduto fino al 65% con il Bando INAIL ISI per i sistemi ZAPPER®. Scopri come partecipare." />
       <Header />
       
       {/* Hero Section */}
