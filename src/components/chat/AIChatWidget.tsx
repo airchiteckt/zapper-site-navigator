@@ -84,6 +84,7 @@ export default function AIChatWidget() {
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
   const [contactFormShown, setContactFormShown] = useState(false);
   const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [showWhatsAppCta, setShowWhatsAppCta] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -154,6 +155,7 @@ export default function AIChatWidget() {
       ...prev,
       { role: "assistant", content: `Grazie ${name}! 🎉 Un nostro tecnico ti contatterà al più presto.` },
     ]);
+    setShowWhatsAppCta(true);
   };
 
   const send = useCallback(
@@ -318,6 +320,19 @@ export default function AIChatWidget() {
             {/* Inline contact form */}
             {contactFormShown && !contactSubmitted && (
               <ContactForm onSubmitted={handleContactSubmitted} />
+            )}
+
+            {/* WhatsApp CTA after contact submitted */}
+            {showWhatsAppCta && (
+              <a
+                href={`https://wa.me/393XXXXXXXXX?text=${encodeURIComponent("Ciao, ho appena lasciato i miei dati sul sito. Vorrei informazioni rapide sui sistemi ZAPPER®")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-[#25D366] text-white rounded-xl px-4 py-2.5 text-sm font-medium hover:bg-[#1da851] transition-colors my-1 w-fit"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Scrivici su WhatsApp per una risposta rapida
+              </a>
             )}
 
             {isLoading && messages[messages.length - 1]?.role === "user" && (
