@@ -159,6 +159,7 @@ export default function AIChatWidget() {
   const send = useCallback(
     async (text: string) => {
       if (!text.trim() || isLoading) return;
+      playSound(600, 0.1); // send sound
       const userMsg: Msg = { role: "user", content: text.trim() };
       const allMessages = [...messages, userMsg];
       setMessages(allMessages);
