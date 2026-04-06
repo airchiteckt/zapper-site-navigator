@@ -2,31 +2,95 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/zapper-chat`;
 
 type Msg = { role: "user" | "assistant"; content: string };
+
+const CONTACT_TRIGGER = "Lascia i tuoi dati";
+
+function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("datasheet_requests").insert({
+        first_name: form.name.split(" ")[0] || form.name,
+        last_name: form.name.split(" ").slice(1).join(" ") || "-",
+        email: form.email,
+        phone: form.phone,
+      });
+      if (error) throw error;
+      onSubmitted(form.name.split(" ")[0]);
+    } catch {
+      toast({ title: "Errore nell'invio", description: "Riprova più tardi.", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-accent/5 border border-accent/20 rounded-xl p-3 space-y-2 my-1">
+      <p className="text-xs font-medium text-foreground">📋 Lascia i tuoi dati per essere ricontattato:</p>
+      <input
+        placeholder="Nome e Cognome"
+        value={form.name}
+        onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+        className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
+        required
+        maxLength={100}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+        className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
+        required
+        maxLength={255}
+      />
+      <input
+        type="tel"
+        placeholder="Telefono"
+        value={form.phone}
+        onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+        className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
+        required
+        maxLength={20}
+      />
+      <Button type="submit" size="sm" className="w-full" disabled={submitting}>
+        {submitting ? "Invio..." : "Invia i miei dati"}
+      </Button>
+    </form>
+  );
+}
 
 export default function AIChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
-      content:
-        "Ciao! 👋 Sono l'assistente tecnico ZAPPER®. Come posso aiutarti? Descrivi il tuo impianto o il problema e ti suggerirò la soluzione più adatta.",
+      content: "Ciao! 👋 Sono l'assistente ZAPPER®. Descrivi il tuo impianto o problema e ti suggerirò la soluzione più adatta.",
     },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
+  const [contactFormShown, setContactFormShown] = useState(false);
+  const [contactSubmitted, setContactSubmitted] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-open after 5 seconds with notification sound
+  // Auto-open after 5 seconds
   useEffect(() => {
     if (hasAutoOpened) return;
     const timer = setTimeout(() => {
-      // Play a short notification sound
       try {
         const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
         const osc = audioCtx.createOscillator();
@@ -48,11 +112,29 @@ export default function AIChatWidget() {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, contactFormShown]);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
   }, [open]);
+
+  // Detect contact trigger in last assistant message
+  useEffect(() => {
+    if (contactSubmitted) return;
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg?.role === "assistant" && lastMsg.content.includes(CONTACT_TRIGGER)) {
+      setContactFormShown(true);
+    }
+  }, [messages, contactSubmitted]);
+
+  const handleContactSubmitted = (name: string) => {
+    setContactSubmitted(true);
+    setContactFormShown(false);
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: `Grazie ${name}! 🎉 Un nostro tecnico ti contatterà al più presto.` },
+    ]);
+  };
 
   const send = useCallback(
     async (text: string) => {
@@ -88,9 +170,7 @@ export default function AIChatWidget() {
           body: JSON.stringify({ messages: allMessages }),
         });
 
-        if (!resp.ok || !resp.body) {
-          throw new Error("Stream failed");
-        }
+        if (!resp.ok || !resp.body) throw new Error("Stream failed");
 
         const reader = resp.body.getReader();
         const decoder = new TextDecoder();
@@ -129,9 +209,22 @@ export default function AIChatWidget() {
     [messages, isLoading]
   );
 
+  const renderMessageContent = (msg: Msg) => {
+    // Strip the trigger phrase from displayed content
+    const displayContent = msg.content.replace(CONTACT_TRIGGER, "").trim();
+    if (msg.role === "assistant") {
+      return (
+        <div className="prose prose-sm max-w-none [&_p]:m-0">
+          <ReactMarkdown>{displayContent || msg.content}</ReactMarkdown>
+        </div>
+      );
+    }
+    return msg.content;
+  };
+
   return (
     <>
-      {/* Floating button - hidden on mobile where WhatsApp shows */}
+      {/* Desktop floating button */}
       <button
         onClick={() => setOpen((o) => !o)}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-accent text-accent-foreground shadow-lg hover:shadow-xl transition-all flex items-center justify-center hover:scale-105 md:flex hidden"
@@ -140,7 +233,7 @@ export default function AIChatWidget() {
         {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
       </button>
 
-      {/* Mobile: small AI icon above WhatsApp */}
+      {/* Mobile AI icon */}
       <button
         onClick={() => setOpen((o) => !o)}
         className="fixed bottom-20 right-4 z-50 w-12 h-12 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center md:hidden"
@@ -151,7 +244,8 @@ export default function AIChatWidget() {
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-4 md:bottom-24 md:right-6 z-50 w-[calc(100vw-2rem)] max-w-md bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+        <div
+          className="fixed bottom-24 right-4 md:bottom-24 md:right-6 z-50 w-[calc(100vw-2rem)] max-w-md bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           style={{ height: "min(500px, calc(100vh - 10rem))" }}
         >
           {/* Header */}
@@ -185,13 +279,7 @@ export default function AIChatWidget() {
                       : "bg-muted text-foreground rounded-bl-md"
                   }`}
                 >
-                  {msg.role === "assistant" ? (
-                    <div className="prose prose-sm max-w-none [&_p]:m-0">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
-                    </div>
-                  ) : (
-                    msg.content
-                  )}
+                  {renderMessageContent(msg)}
                 </div>
                 {msg.role === "user" && (
                   <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
@@ -200,6 +288,12 @@ export default function AIChatWidget() {
                 )}
               </div>
             ))}
+
+            {/* Inline contact form */}
+            {contactFormShown && !contactSubmitted && (
+              <ContactForm onSubmitted={handleContactSubmitted} />
+            )}
+
             {isLoading && messages[messages.length - 1]?.role === "user" && (
               <div className="flex gap-2">
                 <div className="w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
