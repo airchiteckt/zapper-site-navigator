@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Flame, ChefHat, Factory, Thermometer, Wind, Coffee, Scissors, Beef, Home } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 import { LucideIcon } from "lucide-react";
 
 interface Applicazione {

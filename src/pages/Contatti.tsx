@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MessageCircle, ArrowRight, ArrowLeft, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import SEO from "@/components/SEO";
 
 type FormStep = "prefiltro" | "form";
 

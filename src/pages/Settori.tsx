@@ -6,6 +6,7 @@ import settoreDomesticoHero from "@/assets/settore-domestico-hero.webp";
 import settoreIndustrialeHero from "@/assets/settore-industriale-hero.webp";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 
 const Settori = () => {
   const sectors = [
