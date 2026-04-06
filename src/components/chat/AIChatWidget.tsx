@@ -127,7 +127,7 @@ export default function AIChatWidget() {
       } catch {}
       setOpen(true);
       setHasAutoOpened(true);
-    }, 5000);
+    }, 10000);
     return () => clearTimeout(timer);
   }, [hasAutoOpened]);
 
