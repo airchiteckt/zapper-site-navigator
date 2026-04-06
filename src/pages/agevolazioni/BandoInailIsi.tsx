@@ -2,6 +2,7 @@ import { ArrowRight, ShieldCheck, CheckCircle, FileText, Calendar, Info, AlertTr
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 
 const BandoInailIsi = () => {

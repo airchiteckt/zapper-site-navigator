@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Play, AlertTriangle, FileDown } from "lucide-react";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 import DatasheetRequestModal from "@/components/modelli/DatasheetRequestModal";
 import { supabase } from "@/integrations/supabase/client";

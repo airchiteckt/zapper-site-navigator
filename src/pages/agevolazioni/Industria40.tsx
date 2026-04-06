@@ -2,6 +2,7 @@ import { ArrowRight, Factory, CheckCircle, FileText, Calendar, Info } from "luci
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 
 const Industria40 = () => {

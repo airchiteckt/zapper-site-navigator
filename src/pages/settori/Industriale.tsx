@@ -10,6 +10,7 @@ import {
   Warehouse,
 } from "lucide-react";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 import SectorModelsSection from "@/components/settori/SectorModelsSection";
 import SectorInterventionsSection from "@/components/settori/SectorInterventionsSection";
