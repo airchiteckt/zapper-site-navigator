@@ -86,6 +86,26 @@ export default function AIChatWidget() {
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+
+  const playSound = useCallback((freq: number, duration = 0.15) => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = "sine";
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + duration);
+    } catch {}
+  }, []);
 
   // Auto-open after 5 seconds
   useEffect(() => {
@@ -139,6 +159,7 @@ export default function AIChatWidget() {
   const send = useCallback(
     async (text: string) => {
       if (!text.trim() || isLoading) return;
+      playSound(600, 0.1); // send sound
       const userMsg: Msg = { role: "user", content: text.trim() };
       const allMessages = [...messages, userMsg];
       setMessages(allMessages);
@@ -146,8 +167,13 @@ export default function AIChatWidget() {
       setIsLoading(true);
 
       let assistantSoFar = "";
+      let playedReceiveSound = false;
 
       const upsertAssistant = (chunk: string) => {
+        if (!playedReceiveSound) {
+          playSound(900, 0.12); // receive sound
+          playedReceiveSound = true;
+        }
         assistantSoFar += chunk;
         setMessages((prev) => {
           const last = prev[prev.length - 1];
