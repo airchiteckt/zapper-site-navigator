@@ -121,6 +121,7 @@ const categorieApplicazioni: CategoriaApplicazioni[] = [
 const Applicazioni = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Applicazioni" description="Tutte le applicazioni dei sistemi ZAPPER®: forni a legna, caldaie biomassa, braci, camini, forni industriali, torrefazioni, affumicatori e taglio laser." />
       <Header />
       <main className="pt-20">
         {/* Hero Section */}

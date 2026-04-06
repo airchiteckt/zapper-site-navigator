@@ -209,6 +209,7 @@ const sectors: SectorSection[] = [
 const Modelli = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Modelli e Sistemi" description="Scopri tutti i modelli ZAPPER®: sistemi di abbattimento fumi per pizzerie, panifici, bracerie, caldaie, forni industriali e altro." />
       <Header />
       
       <main className="pt-20">

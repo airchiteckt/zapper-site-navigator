@@ -33,6 +33,7 @@ const Agevolazioni = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO title="Agevolazioni e Incentivi" description="Incentivi fiscali per i sistemi ZAPPER®: Industria 4.0, Bando INAIL ISI e crediti d'imposta fino al 180%. Scopri come risparmiare." />
       <Header />
       
       {/* Hero Section */}

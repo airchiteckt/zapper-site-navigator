@@ -32,6 +32,7 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Shop Accessori" description="Acquista accessori e ricambi originali ZAPPER® per i sistemi di abbattimento fumi." noindex />
       <Header />
       <main className="pt-20 md:pt-24">
         {/* Hero */}

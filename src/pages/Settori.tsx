@@ -47,6 +47,7 @@ const Settori = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Settori di Utilizzo" description="Scopri i settori in cui i sistemi ZAPPER® risolvono problemi di fumi, odori e polveri: professionale, domestico e industriale." />
       <Header />
       
       <main className="pt-20">

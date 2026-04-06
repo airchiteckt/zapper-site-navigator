@@ -574,6 +574,7 @@ const Calcolatore = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <SEO title="Calcolatore Portata e Prevalenza" description="Calcola portata e prevalenza per il tuo impianto di abbattimento fumi. Strumento tecnico gratuito basato su normativa UNI EN 16282." />
       <Header />
       <main className="pt-20 md:pt-24">
         {/* Hero */}
