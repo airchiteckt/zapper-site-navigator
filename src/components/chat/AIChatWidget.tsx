@@ -84,6 +84,7 @@ export default function AIChatWidget() {
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
   const [contactFormShown, setContactFormShown] = useState(false);
   const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [showWhatsAppCta, setShowWhatsAppCta] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
