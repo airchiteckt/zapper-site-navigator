@@ -154,6 +154,7 @@ export default function AIChatWidget() {
       ...prev,
       { role: "assistant", content: `Grazie ${name}! 🎉 Un nostro tecnico ti contatterà al più presto.` },
     ]);
+    setShowWhatsAppCta(true);
   };
 
   const send = useCallback(
