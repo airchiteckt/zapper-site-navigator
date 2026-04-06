@@ -167,8 +167,13 @@ export default function AIChatWidget() {
       setIsLoading(true);
 
       let assistantSoFar = "";
+      let playedReceiveSound = false;
 
       const upsertAssistant = (chunk: string) => {
+        if (!playedReceiveSound) {
+          playSound(900, 0.12); // receive sound
+          playedReceiveSound = true;
+        }
         assistantSoFar += chunk;
         setMessages((prev) => {
           const last = prev[prev.length - 1];
