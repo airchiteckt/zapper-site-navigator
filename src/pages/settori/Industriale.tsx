@@ -10,6 +10,7 @@ import {
   Warehouse,
 } from "lucide-react";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 import SectorModelsSection from "@/components/settori/SectorModelsSection";
 import SectorInterventionsSection from "@/components/settori/SectorInterventionsSection";
@@ -62,6 +63,7 @@ const Industriale = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Settore Industriale" description="Soluzioni ZAPPER® per torrefazioni, caseifici, affumicatori e forni industriali. Sistemi ad alta portata per emissioni industriali." />
       <Header />
       
       <main>

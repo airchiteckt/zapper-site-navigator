@@ -13,10 +13,15 @@ import CTASection from "@/components/home/CTASection";
 import IndustrialSection from "@/components/home/IndustrialSection";
 import ProfessionalSection from "@/components/home/ProfessionalSection";
 import UTASection from "@/components/home/UTASection";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <SEO
+        title="ZAPPER®"
+        description="ZAPPER® progetta e produce sistemi di abbattimento fumi, odori e polveri per il settore professionale, domestico e industriale. Tecnologia italiana per aria più pulita."
+      />
       <Header />
       <main>
         <HeroSection />

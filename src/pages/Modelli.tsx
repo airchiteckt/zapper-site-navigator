@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Flame, Home, Factory, Pizza, Croissant, Beef, Drumstick, ChefHat, Heater, TreeDeciduous, Coffee, Beef as Smoke, Zap } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 
 interface ModelloCard {
   id: string;
@@ -208,6 +209,7 @@ const sectors: SectorSection[] = [
 const Modelli = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Modelli e Sistemi" description="Scopri tutti i modelli ZAPPER®: sistemi di abbattimento fumi per pizzerie, panifici, bracerie, caldaie, forni industriali e altro." />
       <Header />
       
       <main className="pt-20">

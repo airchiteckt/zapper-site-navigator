@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -573,6 +574,7 @@ const Calcolatore = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <SEO title="Calcolatore Portata e Prevalenza" description="Calcola portata e prevalenza per il tuo impianto di abbattimento fumi. Strumento tecnico gratuito basato su normativa UNI EN 16282." />
       <Header />
       <main className="pt-20 md:pt-24">
         {/* Hero */}

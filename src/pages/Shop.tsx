@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,6 +32,7 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Shop Accessori" description="Acquista accessori e ricambi originali ZAPPER® per i sistemi di abbattimento fumi." noindex />
       <Header />
       <main className="pt-20 md:pt-24">
         {/* Hero */}

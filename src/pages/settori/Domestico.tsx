@@ -9,6 +9,7 @@ import {
   Wind,
 } from "lucide-react";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 import SectorModelsSection from "@/components/settori/SectorModelsSection";
 import SectorInterventionsSection from "@/components/settori/SectorInterventionsSection";
@@ -53,6 +54,7 @@ const Domestico = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Settore Domestico" description="Soluzioni ZAPPER® per camini, caldaie a biomassa e stufe domestiche. Elimina fumi e odori dalla tua abitazione." />
       <Header />
       
       <main>

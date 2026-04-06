@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 
 const Agevolazioni = () => {
   const incentives = [
@@ -32,6 +33,7 @@ const Agevolazioni = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO title="Agevolazioni e Incentivi" description="Incentivi fiscali per i sistemi ZAPPER®: Industria 4.0, Bando INAIL ISI e crediti d'imposta fino al 180%. Scopri come risparmiare." />
       <Header />
       
       {/* Hero Section */}

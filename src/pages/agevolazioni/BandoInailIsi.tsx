@@ -2,6 +2,7 @@ import { ArrowRight, ShieldCheck, CheckCircle, FileText, Calendar, Info, AlertTr
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
+import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 
 const BandoInailIsi = () => {
@@ -31,6 +32,7 @@ const BandoInailIsi = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO title="Bando INAIL ISI" description="Finanziamento a fondo perduto fino al 65% con il Bando INAIL ISI per i sistemi ZAPPER®. Scopri come partecipare." />
       <Header />
       
       {/* Hero Section */}

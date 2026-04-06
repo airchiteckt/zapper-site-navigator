@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MessageCircle, ArrowRight, ArrowLeft, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import SEO from "@/components/SEO";
 
 type FormStep = "prefiltro" | "form";
 
@@ -56,6 +57,7 @@ const Contatti = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO title="Contatti e Valutazione Tecnica" description="Richiedi una valutazione tecnica gratuita per il tuo impianto. Contatta ZAPPER® per soluzioni di abbattimento fumi, odori e polveri." />
       <Header />
       
       <main className="flex-grow">

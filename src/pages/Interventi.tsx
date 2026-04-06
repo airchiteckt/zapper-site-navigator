@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Play, ArrowRight, MapPin, CheckCircle, Wrench, AlertTriangle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import SEO from "@/components/SEO";
 
 interface InterventionData {
   id: string;
@@ -57,6 +58,7 @@ const Interventi = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO title="Interventi Reali" description="Scopri gli interventi reali ZAPPER® su forni, caldaie e impianti industriali. Sopralluoghi, installazioni e casi di successo documentati." />
       <Header />
       <main className="pt-20">
         {/* Hero Section */}

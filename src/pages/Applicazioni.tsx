@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Flame, ChefHat, Factory, Thermometer, Wind, Coffee, Scissors, Beef, Home } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 import { LucideIcon } from "lucide-react";
 
 interface Applicazione {
@@ -120,6 +121,7 @@ const categorieApplicazioni: CategoriaApplicazioni[] = [
 const Applicazioni = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Applicazioni" description="Tutte le applicazioni dei sistemi ZAPPER®: forni a legna, caldaie biomassa, braci, camini, forni industriali, torrefazioni, affumicatori e taglio laser." />
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
