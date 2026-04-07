@@ -325,6 +325,60 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_locations: {
+        Row: {
+          address: string | null
+          city: string | null
+          country: string
+          created_at: string
+          description: string | null
+          email: string | null
+          id: string
+          is_active: boolean
+          latitude: number
+          longitude: number
+          name: string
+          phone: string | null
+          sort_order: number
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          country?: string
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          latitude: number
+          longitude: number
+          name: string
+          phone?: string | null
+          sort_order?: number
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          country?: string
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          latitude?: number
+          longitude?: number
+          name?: string
+          phone?: string | null
+          sort_order?: number
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       partner_price_lists: {
         Row: {
           created_at: string
