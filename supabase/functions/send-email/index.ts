@@ -49,7 +49,7 @@ Deno.serve(async (req) => {
         'X-Connection-Api-Key': RESEND_API_KEY,
       },
       body: JSON.stringify({
-        from: from || 'ZAPPER® <info@mail.smokezapper.it>',
+        from: from || 'ZAPPER® <info@email.smokezapper.it>',
         to: Array.isArray(to) ? to : [to],
         subject,
         html,
