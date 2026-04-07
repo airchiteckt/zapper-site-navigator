@@ -108,9 +108,10 @@ export default function PartnerMap() {
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    const filtered = locations.filter(loc => activeFilters.has(loc.partner_type));
+    // Only show importatori on the map (they have real coordinates)
+    const mappable = locations.filter(loc => loc.partner_type === 'importatore' && loc.latitude !== 0 && loc.longitude !== 0);
 
-    filtered.forEach((loc) => {
+    mappable.forEach((loc) => {
       const cfg = TYPE_CONFIG[loc.partner_type];
       const popup = new mapboxgl.Popup({ offset: 25, className: 'partner-popup' }).setHTML(`
         <div style="font-family: 'Inter', sans-serif; padding: 4px;">
