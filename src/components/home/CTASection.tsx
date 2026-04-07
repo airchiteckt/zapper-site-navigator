@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, ArrowRight, CheckCircle, Shield, Clock, Truck } from "lucide-react";
+import { Phone, Mail, ArrowRight, CheckCircle, Shield, Clock, Truck, Loader2 } from "lucide-react";
+import { sendContactEmails } from "@/lib/emailService";
+import { useToast } from "@/hooks/use-toast";
 
 const CTASection = () => {
   const [formData, setFormData] = useState({
@@ -13,10 +15,33 @@ const CTASection = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    try {
+      const result = await sendContactEmails({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        sector: formData.sector,
+        message: formData.message,
+        source: "Form CTA Homepage",
+      });
+      if (result.success) {
+        setIsSuccess(true);
+        setFormData({ name: "", email: "", phone: "", sector: "", message: "" });
+      } else {
+        toast({ title: "Errore", description: "Impossibile inviare il form. Riprova.", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Errore", description: "Si è verificato un errore. Riprova.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const benefits = [
@@ -158,10 +183,14 @@ const CTASection = () => {
                 />
               </div>
 
-              <Button type="submit" variant="accent" size="default" className="w-full h-10 sm:h-11 text-sm sm:text-base">
-                Richiedi valutazione
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button type="submit" variant="accent" size="default" className="w-full h-10 sm:h-11 text-sm sm:text-base" disabled={isSubmitting}>
+                {isSubmitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Invio in corso...</> : <>Richiedi valutazione<ArrowRight className="w-4 h-4 ml-2" /></>}
               </Button>
+              {isSuccess && (
+                <div className="flex items-center gap-2 justify-center text-primary text-sm mt-2">
+                  <CheckCircle className="w-4 h-4" /> Richiesta inviata! Ti ricontatteremo presto.
+                </div>
+              )}
 
               <p className="text-[10px] sm:text-xs text-muted-foreground text-center">
                 Inviando il form accetti la nostra{" "}

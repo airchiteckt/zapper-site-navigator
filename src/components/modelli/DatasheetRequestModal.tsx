@@ -13,6 +13,7 @@ import { Loader2, FileDown, CheckCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { DatasheetUrls, DatasheetLanguage } from '@/types/admin';
+import { sendContactEmails } from '@/lib/emailService';
 
 const LANGUAGES: { code: DatasheetLanguage; label: string; flag: string }[] = [
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
@@ -102,6 +103,18 @@ export default function DatasheetRequestModal({
       });
 
       if (error) throw error;
+
+      // Send emails
+      await sendContactEmails({
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        source: `Scheda tecnica — ${modelName}`,
+        extra: {
+          'Modello': modelName,
+          'Lingua': effectiveLanguage?.toUpperCase() || '—',
+        },
+      });
 
       setIsSuccess(true);
 
