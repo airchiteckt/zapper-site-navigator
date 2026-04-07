@@ -416,6 +416,7 @@ const AdminBlog = () => {
         </DialogContent>
       </Dialog>
     </div>
+    </AdminLayout>
   );
 };
 
