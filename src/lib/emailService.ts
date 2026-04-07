@@ -107,6 +107,11 @@ function buildNotificationEmailHtml(data: ContactData): string {
 }
 
 export async function sendContactEmails(data: ContactData): Promise<{ success: boolean }> {
+  if (!data.email || !data.email.includes('@')) {
+    console.error('sendContactEmails: invalid email', data.email);
+    return { success: false };
+  }
+
   try {
     // Send welcome email to client
     const welcomePromise = supabase.functions.invoke('send-email', {
