@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
@@ -85,7 +84,6 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
 }
 
 export default function AIChatWidget() {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
@@ -333,7 +331,7 @@ export default function AIChatWidget() {
 
             {/* Inline contact form */}
             {contactFormShown && !contactSubmitted && (
-              <ContactForm onSubmitted={handleContactSubmitted} onNavigate={(path) => navigate(path)} />
+              <ContactForm onSubmitted={handleContactSubmitted} onNavigate={(path) => { window.location.href = path; }} />
             )}
 
             {/* WhatsApp CTA after contact submitted */}
