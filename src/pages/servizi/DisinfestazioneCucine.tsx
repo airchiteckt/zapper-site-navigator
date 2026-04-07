@@ -1,7 +1,9 @@
 import ServizioTemplate, { ServizioData } from "./ServizioTemplate";
+import heroImg from "@/assets/servizi/disinfestazione-cucine.jpg";
 
 const data: ServizioData = {
   slug: "disinfestazione-cucine",
+  heroImage: heroImg,
   title: "Disinfestazione Cucine",
   metaDescription: "Disinfestazione professionale HACCP per cucine: interventi rapidi contro insetti e roditori, monitoraggio continuo e piani di prevenzione.",
   hero: {

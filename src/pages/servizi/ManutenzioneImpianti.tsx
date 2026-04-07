@@ -1,7 +1,9 @@
 import ServizioTemplate, { ServizioData } from "./ServizioTemplate";
+import heroImg from "@/assets/servizi/manutenzione-impianti.jpg";
 
 const data: ServizioData = {
   slug: "manutenzione-impianti",
+  heroImage: heroImg,
   title: "Manutenzione Impianti",
   metaDescription: "Manutenzione preventiva completa per impianti cucine professionali: controlli programmati, prevenzione guasti e ottimizzazione performance.",
   hero: {

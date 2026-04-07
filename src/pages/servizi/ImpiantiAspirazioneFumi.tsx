@@ -1,7 +1,9 @@
 import ServizioTemplate, { ServizioData } from "./ServizioTemplate";
+import heroImg from "@/assets/servizi/aspirazione-fumi.jpg";
 
 const data: ServizioData = {
   slug: "impianti-aspirazione-fumi",
+  heroImage: heroImg,
   title: "Impianti Aspirazione Fumi",
   metaDescription: "Soluzioni professionali per aspirazione e abbattimento fumi in cucina: pulizia canne fumarie, manutenzione aspirazione e installazione abbattitori.",
   hero: {
