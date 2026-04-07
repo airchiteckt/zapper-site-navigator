@@ -148,7 +148,7 @@ export default function PartnerMap() {
                   <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
                 </div>
               ) : (
-                <div ref={mapContainer} className="h-[600px] w-full" />
+                <div ref={mapRef} className="h-[600px] w-full" />
               )}
             </div>
 
