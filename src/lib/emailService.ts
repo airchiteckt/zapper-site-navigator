@@ -114,7 +114,7 @@ export async function sendContactEmails(data: ContactData): Promise<{ success: b
         to: data.email,
         subject: 'Grazie per averci contattato — ZAPPER®',
         html: buildWelcomeEmailHtml(data),
-        from: 'ZAPPER® <noreply@mail.smokezapper.it>',
+        from: 'ZAPPER® <info@mail.smokezapper.it>',
         replyTo: 'info@smokezapper.it',
       },
     });
@@ -125,6 +125,8 @@ export async function sendContactEmails(data: ContactData): Promise<{ success: b
         to: 'info@smokezapper.it',
         subject: `Nuovo contatto: ${data.name || data.email} — ${data.source}`,
         html: buildNotificationEmailHtml(data),
+        from: 'ZAPPER® <info@mail.smokezapper.it>',
+        replyTo: 'info@smokezapper.it',
       },
     });
 
