@@ -44,7 +44,7 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="tel:+390000000000" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <a href="tel:+3908119968436" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-4 h-4" />
               <span className="font-medium">Chiama ora</span>
             </a>

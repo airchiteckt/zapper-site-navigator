@@ -63,13 +63,13 @@ const CTASection = () => {
                 Preferisci parlare direttamente con noi?
               </p>
               <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
-                <a href="tel:+390000000000" className="flex items-center gap-2 text-primary hover:underline">
+                <a href="tel:+3908119968436" className="flex items-center gap-2 text-primary hover:underline">
                   <Phone className="w-4 h-4 flex-shrink-0" />
-                  <span className="font-semibold text-xs sm:text-base">+39 000 000 0000</span>
+                  <span className="font-semibold text-xs sm:text-base">+39 081 199 68 436</span>
                 </a>
-                <a href="mailto:info@zapper.it" className="flex items-center gap-2 text-primary hover:underline">
+                <a href="mailto:info@smokezapper.it" className="flex items-center gap-2 text-primary hover:underline">
                   <Mail className="w-4 h-4 flex-shrink-0" />
-                  <span className="font-semibold text-xs sm:text-base">info@zapper.it</span>
+                  <span className="font-semibold text-xs sm:text-base">info@smokezapper.it</span>
                 </a>
               </div>
             </div>

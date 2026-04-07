@@ -375,21 +375,21 @@ const Contatti = () => {
               
               <div className="flex flex-wrap justify-center gap-6">
                 <a 
-                  href="tel:+39XXXXXXXXXX" 
+                  href="tel:+3908119968436" 
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  <span>Telefono</span>
+                  <span>+39 081 199 68 436</span>
                 </a>
                 <a 
-                  href="mailto:info@zapper.it" 
+                  href="mailto:info@smokezapper.it" 
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Mail className="w-5 h-5" />
-                  <span>Email</span>
+                  <span>info@smokezapper.it</span>
                 </a>
                 <a 
-                  href="https://wa.me/39XXXXXXXXXX" 
+                  href="https://wa.me/393248996189" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
