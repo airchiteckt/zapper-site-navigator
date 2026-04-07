@@ -55,7 +55,7 @@ function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
         value={form.name}
         onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
         className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
-        required
+        maxLength={100}
         maxLength={100}
       />
       <input
