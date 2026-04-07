@@ -309,27 +309,23 @@ const Contatti = () => {
                           <div className="grid md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                               <Label htmlFor="nome">Nome e Cognome</Label>
-                              <Input id="nome" placeholder="Mario Rossi" className="h-11" />
+                              <Input id="nome" placeholder="Mario Rossi" className="h-11" value={formData.nome} onChange={(e) => setFormData(p => ({ ...p, nome: e.target.value }))} />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="email">Email *</Label>
-                              <Input id="email" type="email" placeholder="mario@esempio.it" required className="h-11" />
+                              <Input id="email" type="email" placeholder="mario@esempio.it" required className="h-11" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="telefono">Telefono *</Label>
-                              <Input id="telefono" type="tel" placeholder="+39 333 1234567" required className="h-11" />
+                              <Input id="telefono" type="tel" placeholder="+39 333 1234567" required className="h-11" value={formData.telefono} onChange={(e) => setFormData(p => ({ ...p, telefono: e.target.value }))} />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="azienda">Azienda</Label>
-                              <Input id="azienda" placeholder="Nome azienda" className="h-11" />
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="azienda">Azienda (se presente)</Label>
-                              <Input id="azienda" placeholder="Nome azienda" className="h-11" />
+                              <Input id="azienda" placeholder="Nome azienda" className="h-11" value={formData.azienda} onChange={(e) => setFormData(p => ({ ...p, azienda: e.target.value }))} />
                             </div>
                             <div className="space-y-2 md:col-span-2">
                               <Label htmlFor="citta">Città / Paese</Label>
-                              <Input id="citta" placeholder="Milano, Italia" className="h-11" />
+                              <Input id="citta" placeholder="Milano, Italia" className="h-11" value={formData.citta} onChange={(e) => setFormData(p => ({ ...p, citta: e.target.value }))} />
                             </div>
                           </div>
                           <Button 
