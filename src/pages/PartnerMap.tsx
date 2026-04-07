@@ -115,37 +115,40 @@ export default function PartnerMap() {
       const cfg = TYPE_CONFIG[loc.partner_type as PartnerType];
       const isImportatore = loc.partner_type === 'importatore';
 
-      const popup = new mapboxgl.Popup({ offset: 25, className: 'partner-popup' }).setHTML(`
-        <div style="font-family: 'Inter', sans-serif; padding: 4px;">
-          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${cfg.color};"></span>
-            <span style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${TYPE_LABELS[loc.partner_type as PartnerType]}</span>
-          </div>
-          <h3 style="margin: 0 0 4px; font-size: 14px; font-weight: 600; color: #1c1e1c;">${loc.name}</h3>
-          ${loc.city ? `<p style="margin: 0 0 2px; font-size: 12px; color: #666;">${loc.city}, ${loc.country}</p>` : ''}
-          ${loc.address ? `<p style="margin: 0 0 4px; font-size: 11px; color: #888;">${loc.address}</p>` : ''}
-          ${isImportatore && loc.phone ? `<p style="margin: 0; font-size: 11px;"><a href="tel:${loc.phone}" style="color: ${cfg.color};">${loc.phone}</a></p>` : ''}
-          ${isImportatore && loc.email ? `<p style="margin: 0; font-size: 11px;"><a href="mailto:${loc.email}" style="color: ${cfg.color};">${loc.email}</a></p>` : ''}
-          ${isImportatore && loc.website ? `<p style="margin: 4px 0 0; font-size: 11px;"><a href="${loc.website}" target="_blank" rel="noopener" style="color: ${cfg.color};">Visita il sito →</a></p>` : ''}
-        </div>
-      `);
-
-      const size = isImportatore ? '18px' : '12px';
+      const size = isImportatore ? '18px' : '10px';
       const el = document.createElement('div');
       el.style.width = size;
       el.style.height = size;
       el.style.borderRadius = '50%';
       el.style.backgroundColor = cfg.color;
-      el.style.border = `3px solid ${cfg.border}`;
-      el.style.boxShadow = `0 0 12px ${cfg.shadow}`;
-      el.style.cursor = 'pointer';
+      el.style.border = `2px solid ${cfg.border}`;
+      el.style.boxShadow = `0 0 10px ${cfg.shadow}`;
+      el.style.cursor = isImportatore ? 'pointer' : 'default';
+      el.style.pointerEvents = isImportatore ? 'auto' : 'none';
 
-      const marker = new mapboxgl.Marker(el)
-        .setLngLat([loc.longitude, loc.latitude])
-        .setPopup(popup)
-        .addTo(map.current!);
+      const marker = new mapboxgl.Marker({ element: el })
+        .setLngLat([loc.longitude, loc.latitude]);
 
+      if (isImportatore) {
+        const popup = new mapboxgl.Popup({ offset: 25, className: 'partner-popup' }).setHTML(`
+          <div style="font-family: 'Inter', sans-serif; padding: 4px;">
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${cfg.color};"></span>
+              <span style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${TYPE_LABELS.importatore}</span>
+            </div>
+            <h3 style="margin: 0 0 4px; font-size: 14px; font-weight: 600; color: #1c1e1c;">${loc.name}</h3>
+            ${loc.city ? `<p style="margin: 0 0 2px; font-size: 12px; color: #666;">${loc.city}, ${loc.country}</p>` : ''}
+            ${loc.phone ? `<p style="margin: 0; font-size: 11px;"><a href="tel:${loc.phone}" style="color: ${cfg.color};">${loc.phone}</a></p>` : ''}
+            ${loc.email ? `<p style="margin: 0; font-size: 11px;"><a href="mailto:${loc.email}" style="color: ${cfg.color};">${loc.email}</a></p>` : ''}
+            ${loc.website ? `<p style="margin: 4px 0 0; font-size: 11px;"><a href="${loc.website}" target="_blank" rel="noopener" style="color: ${cfg.color};">Visita il sito →</a></p>` : ''}
+          </div>
+        `);
+        marker.setPopup(popup);
+      }
+
+      marker.addTo(map.current!);
       markersRef.current.push(marker);
+    });
     });
   }, [locations, mapReady]);
 
