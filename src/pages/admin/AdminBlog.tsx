@@ -481,6 +481,32 @@ const AdminBlog = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Media Picker Dialog */}
+      <Dialog open={showMediaPicker} onOpenChange={setShowMediaPicker}>
+        <DialogContent className="max-w-2xl max-h-[70vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Seleziona immagine di riferimento</DialogTitle>
+          </DialogHeader>
+          {isLoadingMedia ? (
+            <div className="flex items-center justify-center py-8"><Loader2 className="h-6 w-6 animate-spin" /></div>
+          ) : mediaFiles.length === 0 ? (
+            <p className="text-muted-foreground text-center py-8">Nessuna immagine trovata nel bucket media</p>
+          ) : (
+            <div className="grid grid-cols-4 gap-3">
+              {mediaFiles.map((file) => (
+                <button key={file.url} onClick={() => { setCoverReferenceUrl(file.url); setShowMediaPicker(false); }}
+                  className="group relative rounded-lg overflow-hidden border hover:border-accent transition-colors aspect-square">
+                  <img src={file.url} alt={file.name} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end">
+                    <span className="text-[10px] text-white opacity-0 group-hover:opacity-100 p-1 truncate w-full">{file.name}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
     </AdminLayout>
   );
