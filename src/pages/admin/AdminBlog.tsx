@@ -144,7 +144,10 @@ const AdminBlog = () => {
     const topic = coverTopic.trim() || (editingPost as any).title_it || 'smoke abatement system';
     setIsGeneratingCover(true);
     try {
-      const { data, error } = await supabase.functions.invoke('generate-blog-cover', { body: { topic } });
+      const body: any = { topic };
+      if (coverCustomPrompt.trim()) body.customPrompt = coverCustomPrompt.trim();
+      if (coverReferenceUrl.trim()) body.referenceImageUrl = coverReferenceUrl.trim();
+      const { data, error } = await supabase.functions.invoke('generate-blog-cover', { body });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       setEditingPost({ ...editingPost, featured_image: data.imageUrl });
@@ -153,6 +156,35 @@ const AdminBlog = () => {
       toast.error(e?.message || 'Errore generazione immagine');
     } finally {
       setIsGeneratingCover(false);
+    }
+  };
+
+  const loadMediaFiles = async () => {
+    setIsLoadingMedia(true);
+    try {
+      const { data, error } = await supabase.storage.from('media').list('', { limit: 100, sortBy: { column: 'created_at', order: 'desc' } });
+      if (error) throw error;
+      const files = (data || [])
+        .filter(f => f.name && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name))
+        .map(f => ({
+          name: f.name,
+          url: supabase.storage.from('media').getPublicUrl(f.name).data.publicUrl,
+        }));
+      // Also check blog-covers subfolder
+      const { data: covers } = await supabase.storage.from('media').list('blog-covers', { limit: 50, sortBy: { column: 'created_at', order: 'desc' } });
+      if (covers) {
+        covers.filter(f => f.name && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name)).forEach(f => {
+          files.push({
+            name: `blog-covers/${f.name}`,
+            url: supabase.storage.from('media').getPublicUrl(`blog-covers/${f.name}`).data.publicUrl,
+          });
+        });
+      }
+      setMediaFiles(files);
+    } catch (e) {
+      console.error('Error loading media:', e);
+    } finally {
+      setIsLoadingMedia(false);
     }
   };
 
