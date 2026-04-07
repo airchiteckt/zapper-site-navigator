@@ -30,9 +30,12 @@ serve(async (req) => {
     console.log("Generating blog cover:", { topic, hasCustomPrompt: !!customPrompt, hasReference: !!referenceImageUrl });
 
     // Build the prompt - use customPrompt if provided, otherwise use the default
-    const prompt = customPrompt
+    const basePrompt = customPrompt
       ? customPrompt
       : `Create a professional, modern editorial blog cover image (16:9 landscape) about "${topic}" in the context of industrial smoke abatement and air filtration systems. Style: clean, high-tech industrial photography with green (#6BBF3D) accent highlights, professional lighting, modern factory or kitchen environment. Do NOT add any text, watermarks, logos, or overlays. The image should be purely photographic and editorial.`;
+
+    // Force image generation instruction
+    const prompt = `GENERATE AN IMAGE. Do not reply with text. Only output an image.\n\n${basePrompt}`;
 
     // Build message content - if reference image provided, use multimodal
     const messageContent: any[] = [{ type: "text", text: prompt }];
@@ -44,41 +47,49 @@ serve(async (req) => {
       });
     }
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3.1-flash-image-preview",
-        messages: [{ role: "user", content: messageContent }],
-        modalities: ["image", "text"],
-      }),
-    });
+    // Try up to 2 times
+    let imageUrl: string | null = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      console.log(`Attempt ${attempt + 1} to generate image...`);
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("Image generation error:", response.status, errText);
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Rate limit, riprova tra qualche secondo." }), {
-          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+      const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-3.1-flash-image-preview",
+          messages: [{ role: "user", content: messageContent }],
+          modalities: ["image", "text"],
+        }),
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Image generation error:", response.status, errText);
+        if (response.status === 429) {
+          return new Response(JSON.stringify({ error: "Rate limit, riprova tra qualche secondo." }), {
+            status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        if (response.status === 402) {
+          return new Response(JSON.stringify({ error: "Crediti esauriti." }), {
+            status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        throw new Error(`Image generation failed: ${response.status}`);
       }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "Crediti esauriti." }), {
-          status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      throw new Error(`Image generation failed: ${response.status}`);
+
+      const data = await response.json();
+      imageUrl = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+
+      if (imageUrl) break;
+      console.warn(`Attempt ${attempt + 1}: No image in response, model returned text only. Retrying...`);
     }
 
-    const data = await response.json();
-    const imageUrl = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-
     if (!imageUrl) {
-      console.error("No image returned:", JSON.stringify(data).substring(0, 500));
-      throw new Error("No image returned from AI");
+      throw new Error("L'AI non ha generato un'immagine. Riprova con un prompt diverso.");
     }
 
     const base64Data = imageUrl.split(",")[1];
