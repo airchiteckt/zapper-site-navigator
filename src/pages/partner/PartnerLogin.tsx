@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -24,16 +24,14 @@ export default function PartnerLogin() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Redirect if already logged in as partner
-  if (user && profile?.role === 'partner') {
-    navigate('/partner/dashboard');
-    return null;
-  }
-  // If logged in but not partner, redirect to admin
-  if (user && profile && profile.role !== 'partner') {
-    navigate('/admin');
-    return null;
-  }
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && profile?.role === 'partner') {
+      navigate('/partner/dashboard');
+    } else if (user && profile && profile.role !== 'partner') {
+      navigate('/admin');
+    }
+  }, [user, profile, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
