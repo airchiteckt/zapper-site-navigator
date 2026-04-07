@@ -12,8 +12,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 
 const CONTACT_TRIGGER = "Lascia i tuoi dati";
 
-function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
-  const navigate = (window as any).__ZAPPER_NAVIGATE as ((path: string) => void) | undefined;
+function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) => void; onNavigate: (path: string) => void }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
 
