@@ -360,13 +360,15 @@ const Contatti = () => {
                         )} />
                       </CollapsibleTrigger>
                       <CollapsibleContent>
-                        <div className="px-5 pb-5 pt-2 space-y-4">
+                          <div className="px-5 pb-5 pt-2 space-y-4">
                           <div className="space-y-2">
                             <Label htmlFor="note">Descrivi il problema o aggiungi dettagli utili</Label>
                             <Textarea 
                               id="note" 
                               placeholder="Es. Fumi persistenti anche dopo pulizia, odori che arrivano ai vicini, problemi di tiraggio..."
                               rows={4}
+                              value={formData.note}
+                              onChange={(e) => setFormData(p => ({ ...p, note: e.target.value }))}
                             />
                           </div>
 
