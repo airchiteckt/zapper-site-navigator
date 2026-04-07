@@ -71,6 +71,8 @@ import Calcolatore from "./pages/Calcolatore";
 import Shop from "./pages/Shop";
 import ShopProduct from "./pages/ShopProduct";
 import ShopCheckout from "./pages/ShopCheckout";
+import BlogList from "./pages/BlogList";
+import BlogPostPage from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 // Admin pages
 import AdminAuth from "./pages/admin/AdminAuth";
@@ -80,6 +82,7 @@ import AdminInterventions from "./pages/admin/AdminInterventions";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminShop from "./pages/admin/AdminShop";
 import AdminPartners from "./pages/admin/AdminPartners";
+import AdminBlog from "./pages/admin/AdminBlog";
 import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
@@ -167,6 +170,9 @@ const App = () => (
             <Route path="/modelli/ztgl" element={<ZTGL />} />
             <Route path="/modelli/ztgl-max" element={<ZTGLMax />} />
             <Route path="/modelli/ztgl-max-ultra" element={<ZTGLMaxUltra />} />
+            {/* Blog routes */}
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             {/* Shop routes (hidden - not in nav) */}
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/product/:handle" element={<ShopProduct />} />
@@ -179,6 +185,7 @@ const App = () => (
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/shop" element={<AdminShop />} />
             <Route path="/admin/partners" element={<AdminPartners />} />
+            <Route path="/admin/blog" element={<AdminBlog />} />
             {/* Partner routes */}
             <Route path="/partner" element={<PartnerLogin />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />

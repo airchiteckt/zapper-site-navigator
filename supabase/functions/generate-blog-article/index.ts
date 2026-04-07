@@ -1,0 +1,149 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
+
+    const { topic, keywords, tone } = await req.json();
+    if (!topic) {
+      return new Response(JSON.stringify({ error: "Missing topic" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const systemPrompt = `You are an expert SEO content writer for ZAPPER®, an Italian company leader in smoke, odour and particulate abatement systems for combustion plants (pizza ovens, bakeries, grills, fireplaces, industrial furnaces, coffee roasters, laser cutting, etc.).
+
+Your task is to generate a complete, SEO-optimized blog article in ALL 5 languages: Italian, English, French, German, Spanish.
+
+For EACH language, produce:
+- slug: URL-friendly slug (lowercase, hyphens, no accented characters — ASCII only)
+- title: SEO title (max 60 chars) with primary keyword
+- meta_description: compelling meta description (max 155 chars) with call-to-action
+- content: full HTML article (1200-2000 words) with:
+  - <h2> and <h3> headings with keywords
+  - Short paragraphs (2-3 sentences)
+  - Bullet lists where appropriate
+  - Internal links using https://www.smokezapper.it as base URL. Available pages:
+    - /modelli (all models)
+    - /applicazioni (applications)
+    - /settori (sectors: professionale, domestico, industriale)
+    - /agevolazioni (incentives: industria 4.0, bando INAIL ISI)
+    - /contatti (contacts)
+    - /interventi (case studies)
+  - Natural keyword density (1-2%)
+  - Engaging intro and strong conclusion with CTA
+  - Semantic HTML (<p>, <ul>, <li>, <strong>, <em>)
+
+The content must be NATIVE quality in each language, not just translated. Adapt idioms, cultural references, and search intent per market.
+
+Company details to reference naturally:
+- Brand: ZAPPER®
+- Location: Via Galileo Ferraris 24, Scafati (SA) 84018 - Italy
+- Products: smoke abatement systems, electrostatic filters, odour control
+- USP: Made in Italy, patented technology, compliant with EU regulations, plug & play installation
+- Website: https://www.smokezapper.it
+- Models: ZPZ (pizza ovens), ZBR (grills), ZPF (bakeries), ZCL (biomass boilers), ZCM (fireplaces), ZTRF (coffee roasters), ZAF (smokers), ZTGL (laser cutting), DESTINK (kitchen hoods), Z MAX (universal)`;
+
+    const userPrompt = `Generate a complete SEO blog article about: "${topic}"
+${keywords ? `Target keywords: ${keywords}` : ""}
+${tone ? `Tone: ${tone}` : "Tone: professional yet warm, authoritative"}
+
+Respond ONLY with a valid JSON object (no markdown, no code blocks) with this exact structure:
+{
+  "slug_it": "...", "slug_en": "...", "slug_fr": "...", "slug_de": "...", "slug_es": "...",
+  "title_it": "...", "title_en": "...", "title_fr": "...", "title_de": "...", "title_es": "...",
+  "meta_description_it": "...", "meta_description_en": "...", "meta_description_fr": "...", "meta_description_de": "...", "meta_description_es": "...",
+  "content_it": "...", "content_en": "...", "content_fr": "...", "content_de": "...", "content_es": "...",
+  "category": "general|guide|novita|tecnica"
+}`;
+
+    console.log("Generating blog article for topic:", topic);
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash",
+        max_tokens: 40000,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error("AI gateway error:", response.status, errText);
+      if (response.status === 429) {
+        return new Response(JSON.stringify({ error: "Rate limit exceeded, riprova tra qualche secondo." }), {
+          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (response.status === 402) {
+        return new Response(JSON.stringify({ error: "Crediti AI esauriti." }), {
+          status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      throw new Error(`AI gateway error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const raw = data.choices?.[0]?.message?.content || "";
+    const finishReason = data.choices?.[0]?.finish_reason;
+
+    if (finishReason === "length") {
+      throw new Error("La risposta AI è stata troncata. Riprova con un argomento più specifico.");
+    }
+
+    let cleaned = raw.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+    const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
+    if (jsonMatch) cleaned = jsonMatch[0];
+
+    let article;
+    try {
+      article = JSON.parse(cleaned);
+    } catch {
+      console.error("Failed to parse AI response:", cleaned.substring(0, 500));
+      throw new Error("AI returned invalid JSON. Riprova.");
+    }
+
+    const langs = ["it", "en", "fr", "de", "es"];
+    const fieldTypes = ["slug", "title", "content"];
+    const missingFields: string[] = [];
+    for (const lang of langs) {
+      for (const ft of fieldTypes) {
+        const key = `${ft}_${lang}`;
+        if (!article[key] || (typeof article[key] === "string" && article[key].trim().length < 5)) {
+          missingFields.push(key);
+        }
+      }
+    }
+    if (missingFields.length > 0) {
+      throw new Error(`Articolo incompleto: mancano ${missingFields.join(", ")}. Riprova.`);
+    }
+
+    return new Response(JSON.stringify({ success: true, article }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  } catch (e: any) {
+    console.error("generate-blog-article error:", e?.message || e);
+    return new Response(JSON.stringify({ error: e?.message || "Unexpected error" }), {
+      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+});

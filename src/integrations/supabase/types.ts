@@ -14,6 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          author: string | null
+          category: string
+          content_de: string
+          content_en: string
+          content_es: string
+          content_fr: string
+          content_it: string
+          created_at: string
+          featured_image: string | null
+          id: string
+          is_published: boolean
+          meta_description_de: string | null
+          meta_description_en: string | null
+          meta_description_es: string | null
+          meta_description_fr: string | null
+          meta_description_it: string | null
+          published_at: string | null
+          slug_de: string
+          slug_en: string
+          slug_es: string
+          slug_fr: string
+          slug_it: string
+          title_de: string
+          title_en: string
+          title_es: string
+          title_fr: string
+          title_it: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          category?: string
+          content_de?: string
+          content_en?: string
+          content_es?: string
+          content_fr?: string
+          content_it?: string
+          created_at?: string
+          featured_image?: string | null
+          id?: string
+          is_published?: boolean
+          meta_description_de?: string | null
+          meta_description_en?: string | null
+          meta_description_es?: string | null
+          meta_description_fr?: string | null
+          meta_description_it?: string | null
+          published_at?: string | null
+          slug_de?: string
+          slug_en?: string
+          slug_es?: string
+          slug_fr?: string
+          slug_it?: string
+          title_de?: string
+          title_en?: string
+          title_es?: string
+          title_fr?: string
+          title_it?: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          category?: string
+          content_de?: string
+          content_en?: string
+          content_es?: string
+          content_fr?: string
+          content_it?: string
+          created_at?: string
+          featured_image?: string | null
+          id?: string
+          is_published?: boolean
+          meta_description_de?: string | null
+          meta_description_en?: string | null
+          meta_description_es?: string | null
+          meta_description_fr?: string | null
+          meta_description_it?: string | null
+          published_at?: string | null
+          slug_de?: string
+          slug_en?: string
+          slug_es?: string
+          slug_fr?: string
+          slug_it?: string
+          title_de?: string
+          title_en?: string
+          title_es?: string
+          title_fr?: string
+          title_it?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       datasheet_requests: {
         Row: {
           created_at: string
