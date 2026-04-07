@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_locations ADD COLUMN partner_type TEXT NOT NULL DEFAULT 'rivenditore' CHECK (partner_type IN ('installatore', 'rivenditore', 'importatore'));

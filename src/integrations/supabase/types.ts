@@ -338,6 +338,7 @@ export type Database = {
           latitude: number
           longitude: number
           name: string
+          partner_type: string
           phone: string | null
           sort_order: number
           updated_at: string
@@ -355,6 +356,7 @@ export type Database = {
           latitude: number
           longitude: number
           name: string
+          partner_type?: string
           phone?: string | null
           sort_order?: number
           updated_at?: string
@@ -372,6 +374,7 @@ export type Database = {
           latitude?: number
           longitude?: number
           name?: string
+          partner_type?: string
           phone?: string | null
           sort_order?: number
           updated_at?: string
