@@ -82,6 +82,7 @@ import AdminInterventions from "./pages/admin/AdminInterventions";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminShop from "./pages/admin/AdminShop";
 import AdminPartners from "./pages/admin/AdminPartners";
+import AdminBlog from "./pages/admin/AdminBlog";
 import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
