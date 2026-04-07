@@ -211,22 +211,42 @@ export default function PartnerMap() {
         {locations.length > 0 && (
           <section className="pb-20">
             <div className="container mx-auto px-4">
-              {(Object.entries(TYPE_CONFIG) as [PartnerType, typeof TYPE_CONFIG[PartnerType]][]).map(([type, cfg]) => {
-                const typeLocations = locations.filter(l => l.partner_type === type);
-                if (typeLocations.length === 0) return null;
+              {/* Installatori & Rivenditori: solo conteggio */}
+              {(['installatore', 'rivenditore'] as PartnerType[]).map((type) => {
+                const cfg = TYPE_CONFIG[type];
+                const count = locations.filter(l => l.partner_type === type).length;
+                if (count === 0) return null;
                 return (
-                  <div key={type} className="mb-12">
+                  <div key={type} className="mb-8 flex items-center gap-3">
+                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: cfg.color }} />
+                    <h2 className="text-2xl font-bold text-primary-foreground font-display">
+                      {cfg.label}
+                    </h2>
+                    <Badge variant="outline" className="text-xs" style={{ borderColor: cfg.color + '44', color: cfg.color }}>
+                      {count}
+                    </Badge>
+                  </div>
+                );
+              })}
+
+              {/* Importatori: dettaglio completo */}
+              {(() => {
+                const cfg = TYPE_CONFIG.importatore;
+                const importatori = locations.filter(l => l.partner_type === 'importatore');
+                if (importatori.length === 0) return null;
+                return (
+                  <div className="mb-12">
                     <div className="flex items-center gap-3 mb-6">
                       <span className="w-3 h-3 rounded-full" style={{ backgroundColor: cfg.color }} />
                       <h2 className="text-2xl font-bold text-primary-foreground font-display">
                         {cfg.label}
                       </h2>
                       <Badge variant="outline" className="text-xs" style={{ borderColor: cfg.color + '44', color: cfg.color }}>
-                        {typeLocations.length}
+                        {importatori.length}
                       </Badge>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {typeLocations.map((loc) => (
+                      {importatori.map((loc) => (
                         <div
                           key={loc.id}
                           className="bg-card/5 border rounded-xl p-5 hover:border-opacity-50 transition-colors"
@@ -263,7 +283,7 @@ export default function PartnerMap() {
                     </div>
                   </div>
                 );
-              })}
+              })()}
             </div>
           </section>
         )}
