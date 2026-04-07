@@ -14,7 +14,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { DatasheetUrls, DatasheetLanguage } from '@/types/admin';
 import { sendContactEmails } from '@/lib/emailService';
-import { DatasheetUrls, DatasheetLanguage } from '@/types/admin';
 
 const LANGUAGES: { code: DatasheetLanguage; label: string; flag: string }[] = [
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
