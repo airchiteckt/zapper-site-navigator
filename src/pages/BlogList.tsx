@@ -30,7 +30,7 @@ const BlogList = () => {
       <SEO
         title="Blog — ZAPPER® Sistemi di Abbattimento Fumi"
         description="Articoli, guide e approfondimenti su abbattimento fumi, filtri elettrostatici e normative ambientali."
-        path="/blog"
+        canonical="https://www.smokezapper.it/blog"
       />
       <Header />
 

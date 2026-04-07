@@ -71,6 +71,8 @@ import Calcolatore from "./pages/Calcolatore";
 import Shop from "./pages/Shop";
 import ShopProduct from "./pages/ShopProduct";
 import ShopCheckout from "./pages/ShopCheckout";
+import BlogList from "./pages/BlogList";
+import BlogPostPage from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 // Admin pages
 import AdminAuth from "./pages/admin/AdminAuth";
