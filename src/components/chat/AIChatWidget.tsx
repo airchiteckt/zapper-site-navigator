@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { sendContactEmails } from "@/lib/emailService";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/zapper-chat`;
 
@@ -17,17 +18,28 @@ function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) return;
+    if (!form.email.trim() || !form.phone.trim()) return;
     setSubmitting(true);
     try {
+      // Save to database
       const { error } = await supabase.from("datasheet_requests").insert({
-        first_name: form.name.split(" ")[0] || form.name,
+        first_name: form.name.split(" ")[0] || "-",
         last_name: form.name.split(" ").slice(1).join(" ") || "-",
         email: form.email,
         phone: form.phone,
       });
       if (error) throw error;
-      onSubmitted(form.name.split(" ")[0]);
+
+      // Send emails
+      await sendContactEmails({
+        name: form.name || "Visitatore",
+        email: form.email,
+        phone: form.phone,
+        source: "Chat AI ZAPPER®",
+        message: "Contatto generato dall'assistente AI del sito.",
+      });
+
+      onSubmitted(form.name.split(" ")[0] || "");
     } catch {
       toast({ title: "Errore nell'invio", description: "Riprova più tardi.", variant: "destructive" });
     } finally {
@@ -43,7 +55,6 @@ function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
         value={form.name}
         onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
         className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
-        required
         maxLength={100}
       />
       <input
