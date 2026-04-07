@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured')
     }
 
-    const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
+    const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY_1') || Deno.env.get('RESEND_API_KEY')
     if (!RESEND_API_KEY) {
       throw new Error('RESEND_API_KEY is not configured')
     }
