@@ -44,7 +44,6 @@ export default function PartnerMap() {
   const [mapToken, setMapToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [mapReady, setMapReady] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<Set<PartnerType>>(new Set(['installatore', 'rivenditore', 'importatore']));
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -80,8 +79,8 @@ export default function PartnerMap() {
     map.current = new mapboxgl.Map({
       container: node,
       style: 'mapbox://styles/mapbox/dark-v11',
-      center: [12.5, 42],
-      zoom: 4,
+      center: [5, 50],
+      zoom: 3.5,
       projection: 'globe',
     });
 
@@ -100,27 +99,25 @@ export default function PartnerMap() {
     map.current.on('load', () => setMapReady(true));
   }, [mapToken]);
 
-  // Add/update markers based on filters
+  // Only show importatori on the map
   useEffect(() => {
     if (!map.current) return;
 
-    // Remove old markers
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    // Only show importatori on the map (they have real coordinates)
-    const mappable = locations.filter(loc => loc.partner_type === 'importatore' && loc.latitude !== 0 && loc.longitude !== 0);
+    const importatori = locations.filter(loc => loc.partner_type === 'importatore' && loc.latitude !== 0 && loc.longitude !== 0);
 
-    mappable.forEach((loc) => {
-      const cfg = TYPE_CONFIG[loc.partner_type];
+    importatori.forEach((loc) => {
+      const cfg = TYPE_CONFIG.importatore;
       const popup = new mapboxgl.Popup({ offset: 25, className: 'partner-popup' }).setHTML(`
         <div style="font-family: 'Inter', sans-serif; padding: 4px;">
           <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
             <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${cfg.color};"></span>
-            <span style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${TYPE_LABELS[loc.partner_type]}</span>
+            <span style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${TYPE_LABELS.importatore}</span>
           </div>
           <h3 style="margin: 0 0 4px; font-size: 14px; font-weight: 600; color: #1c1e1c;">${loc.name}</h3>
-          ${loc.city ? `<p style="margin: 0 0 2px; font-size: 12px; color: #666;">${loc.city}${loc.country !== 'Italia' ? ', ' + loc.country : ''}</p>` : ''}
+          ${loc.city ? `<p style="margin: 0 0 2px; font-size: 12px; color: #666;">${loc.city}, ${loc.country}</p>` : ''}
           ${loc.address ? `<p style="margin: 0 0 4px; font-size: 11px; color: #888;">${loc.address}</p>` : ''}
           ${loc.phone ? `<p style="margin: 0; font-size: 11px;"><a href="tel:${loc.phone}" style="color: ${cfg.color};">${loc.phone}</a></p>` : ''}
           ${loc.email ? `<p style="margin: 0; font-size: 11px;"><a href="mailto:${loc.email}" style="color: ${cfg.color};">${loc.email}</a></p>` : ''}
@@ -144,21 +141,7 @@ export default function PartnerMap() {
 
       markersRef.current.push(marker);
     });
-  }, [locations, mapReady, activeFilters]);
-
-  const toggleFilter = (type: PartnerType) => {
-    setActiveFilters(prev => {
-      const next = new Set(prev);
-      if (next.has(type)) {
-        if (next.size > 1) next.delete(type); // Keep at least one active
-      } else {
-        next.add(type);
-      }
-      return next;
-    });
-  };
-
-  const filteredLocations = locations.filter(loc => activeFilters.has(loc.partner_type));
+  }, [locations, mapReady]);
 
   return (
     <>
@@ -174,41 +157,14 @@ export default function PartnerMap() {
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4 font-display">
               La nostra rete nel mondo
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Trova il rivenditore o partner ZAPPER® autorizzato più vicino a te.
               Una rete globale al tuo servizio.
             </p>
-
-            {/* Filter buttons */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {(Object.entries(TYPE_CONFIG) as [PartnerType, typeof TYPE_CONFIG[PartnerType]][]).map(([type, cfg]) => {
-                const isActive = activeFilters.has(type);
-                const count = locations.filter(l => l.partner_type === type).length;
-                return (
-                  <button
-                    key={type}
-                    onClick={() => toggleFilter(type)}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium transition-all duration-200 ${
-                      isActive
-                        ? 'border-transparent text-white shadow-lg'
-                        : 'border-white/10 text-white/40 hover:text-white/60'
-                    }`}
-                    style={isActive ? { backgroundColor: cfg.color + '22', borderColor: cfg.color + '66' } : {}}
-                  >
-                    <span
-                      className="w-2.5 h-2.5 rounded-full"
-                      style={{ backgroundColor: isActive ? cfg.color : 'rgba(255,255,255,0.2)' }}
-                    />
-                    {cfg.label}
-                    <span className="text-xs opacity-60">({count})</span>
-                  </button>
-                );
-              })}
-            </div>
           </div>
         </section>
 
-        {/* Map */}
+        {/* Map - only importatori */}
         <section className="pb-16">
           <div className="container mx-auto px-4">
             <div className="rounded-2xl overflow-hidden border border-primary/20 shadow-2xl">
@@ -252,11 +208,11 @@ export default function PartnerMap() {
         </section>
 
         {/* Partner List by Type */}
-        {filteredLocations.length > 0 && (
+        {locations.length > 0 && (
           <section className="pb-20">
             <div className="container mx-auto px-4">
               {(Object.entries(TYPE_CONFIG) as [PartnerType, typeof TYPE_CONFIG[PartnerType]][]).map(([type, cfg]) => {
-                const typeLocations = filteredLocations.filter(l => l.partner_type === type);
+                const typeLocations = locations.filter(l => l.partner_type === type);
                 if (typeLocations.length === 0) return null;
                 return (
                   <div key={type} className="mb-12">
