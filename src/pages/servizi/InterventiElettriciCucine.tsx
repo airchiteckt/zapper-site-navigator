@@ -1,7 +1,9 @@
 import ServizioTemplate, { ServizioData } from "./ServizioTemplate";
+import heroImg from "@/assets/servizi/interventi-elettrici.jpg";
 
 const data: ServizioData = {
   slug: "interventi-elettrici-cucine",
+  heroImage: heroImg,
   title: "Interventi Elettrici Cucine",
   metaDescription: "Interventi elettrici rapidi per cucine professionali: riparazioni, adeguamenti impianti e soluzioni d'emergenza per continuità operativa.",
   hero: {

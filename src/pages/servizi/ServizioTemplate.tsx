@@ -10,6 +10,7 @@ export interface ServizioData {
   slug: string;
   title: string;
   metaDescription: string;
+  heroImage?: string;
   hero: {
     headline: string;
     sublines: string[];
@@ -44,8 +45,14 @@ export default function ServizioTemplate({ data }: { data: ServizioData }) {
       <Header />
       <main className="pt-20">
         {/* HERO */}
-        <section className="bg-zapper-black text-white py-20 md:py-28">
-          <div className="container px-4 sm:px-6 max-w-4xl text-center">
+        <section className="relative bg-zapper-black text-white py-20 md:py-28 overflow-hidden">
+          {data.heroImage && (
+            <div className="absolute inset-0">
+              <img src={data.heroImage} alt={data.title} className="w-full h-full object-cover opacity-30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-zapper-black via-zapper-black/70 to-zapper-black/50" />
+            </div>
+          )}
+          <div className="container px-4 sm:px-6 max-w-4xl text-center relative z-10">
             <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
               {data.hero.headline}
             </h1>

@@ -1,7 +1,9 @@
 import ServizioTemplate, { ServizioData } from "./ServizioTemplate";
+import heroImg from "@/assets/servizi/pulizia-cucine.jpg";
 
 const data: ServizioData = {
   slug: "pulizia-cucine-professionali",
+  heroImage: heroImg,
   title: "Pulizia Cucine Professionali",
   metaDescription: "Pulizia professionale completa per cucine industriali: vapore ad alta temperatura, rimozione grassi, sanificazione HACCP. Sopralluogo gratuito in Campania.",
   hero: {
