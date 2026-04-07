@@ -20,16 +20,29 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const { topic } = await req.json();
-    if (!topic) {
-      return new Response(JSON.stringify({ error: "Missing topic" }), {
+    const { topic, customPrompt, referenceImageUrl } = await req.json();
+    if (!topic && !customPrompt) {
+      return new Response(JSON.stringify({ error: "Missing topic or customPrompt" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    console.log("Generating blog cover for topic:", topic);
+    console.log("Generating blog cover:", { topic, hasCustomPrompt: !!customPrompt, hasReference: !!referenceImageUrl });
 
-    const prompt = `Create a professional, modern editorial blog cover image (16:9 landscape) about "${topic}" in the context of industrial smoke abatement and air filtration systems. Style: clean, high-tech industrial photography with green (#6BBF3D) accent highlights, professional lighting, modern factory or kitchen environment. Do NOT add any text, watermarks, logos, or overlays. The image should be purely photographic and editorial.`;
+    // Build the prompt - use customPrompt if provided, otherwise use the default
+    const prompt = customPrompt
+      ? customPrompt
+      : `Create a professional, modern editorial blog cover image (16:9 landscape) about "${topic}" in the context of industrial smoke abatement and air filtration systems. Style: clean, high-tech industrial photography with green (#6BBF3D) accent highlights, professional lighting, modern factory or kitchen environment. Do NOT add any text, watermarks, logos, or overlays. The image should be purely photographic and editorial.`;
+
+    // Build message content - if reference image provided, use multimodal
+    const messageContent: any[] = [{ type: "text", text: prompt }];
+
+    if (referenceImageUrl) {
+      messageContent.push({
+        type: "image_url",
+        image_url: { url: referenceImageUrl },
+      });
+    }
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -39,7 +52,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: "google/gemini-3.1-flash-image-preview",
-        messages: [{ role: "user", content: prompt }],
+        messages: [{ role: "user", content: messageContent }],
         modalities: ["image", "text"],
       }),
     });
@@ -75,7 +88,8 @@ serve(async (req) => {
       bytes[i] = binaryString.charCodeAt(i);
     }
 
-    const fileName = `blog-covers/${Date.now()}-${topic.replace(/[^a-z0-9]/gi, "-").substring(0, 40)}.png`;
+    const safeName = (topic || "cover").replace(/[^a-z0-9]/gi, "-").substring(0, 40);
+    const fileName = `blog-covers/${Date.now()}-${safeName}.png`;
 
     const { error: uploadError } = await supabase.storage
       .from("media")

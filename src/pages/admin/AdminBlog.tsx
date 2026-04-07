@@ -38,6 +38,11 @@ const AdminBlog = () => {
   const [isGeneratingCover, setIsGeneratingCover] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const [coverTopic, setCoverTopic] = useState('');
+  const [coverCustomPrompt, setCoverCustomPrompt] = useState('');
+  const [coverReferenceUrl, setCoverReferenceUrl] = useState('');
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
+  const [mediaFiles, setMediaFiles] = useState<{ name: string; url: string }[]>([]);
+  const [isLoadingMedia, setIsLoadingMedia] = useState(false);
   const coverInputRef = useRef<HTMLInputElement>(null);
 
   const { data: posts, isLoading } = useQuery({
