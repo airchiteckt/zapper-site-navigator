@@ -301,24 +301,28 @@ const Contatti = () => {
                         <div className="px-5 pb-5 pt-2 space-y-4">
                           <div className="grid md:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                              <Label htmlFor="nome">Nome e Cognome *</Label>
-                              <Input id="nome" placeholder="Mario Rossi" required className="h-11" />
+                              <Label htmlFor="nome">Nome e Cognome</Label>
+                              <Input id="nome" placeholder="Mario Rossi" className="h-11" />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="email">Email *</Label>
                               <Input id="email" type="email" placeholder="mario@esempio.it" required className="h-11" />
                             </div>
                             <div className="space-y-2">
-                              <Label htmlFor="telefono">Telefono (consigliato)</Label>
-                              <Input id="telefono" type="tel" placeholder="+39 333 1234567" className="h-11" />
+                              <Label htmlFor="telefono">Telefono *</Label>
+                              <Input id="telefono" type="tel" placeholder="+39 333 1234567" required className="h-11" />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="azienda">Azienda</Label>
+                              <Input id="azienda" placeholder="Nome azienda" className="h-11" />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="azienda">Azienda (se presente)</Label>
                               <Input id="azienda" placeholder="Nome azienda" className="h-11" />
                             </div>
                             <div className="space-y-2 md:col-span-2">
-                              <Label htmlFor="citta">Città / Paese *</Label>
-                              <Input id="citta" placeholder="Milano, Italia" required className="h-11" />
+                              <Label htmlFor="citta">Città / Paese</Label>
+                              <Input id="citta" placeholder="Milano, Italia" className="h-11" />
                             </div>
                           </div>
                           <Button 

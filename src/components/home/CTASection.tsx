@@ -109,12 +109,11 @@ const CTASection = () => {
               <div className="space-y-3 sm:space-y-0 sm:grid sm:gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="block text-xs font-medium mb-1.5">
-                    Nome e Cognome *
+                    Nome e Cognome
                   </label>
                   <Input
                     id="name"
                     type="text"
-                    required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Mario Rossi"

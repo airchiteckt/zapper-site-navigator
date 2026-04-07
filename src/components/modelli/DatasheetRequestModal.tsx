@@ -61,7 +61,7 @@ export default function DatasheetRequestModal({
     e.preventDefault();
 
     // Basic validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+    if (!formData.email || !formData.phone) {
       toast({
         title: 'Campi obbligatori',
         description: 'Compila tutti i campi per procedere.',
@@ -222,23 +222,21 @@ export default function DatasheetRequestModal({
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">Nome *</Label>
+                <Label htmlFor="firstName">Nome</Label>
                 <Input
                   id="firstName"
                   value={formData.firstName}
                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                   placeholder="Mario"
-                  required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Cognome *</Label>
+                <Label htmlFor="lastName">Cognome</Label>
                 <Input
                   id="lastName"
                   value={formData.lastName}
                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                   placeholder="Rossi"
-                  required
                 />
               </div>
             </div>
