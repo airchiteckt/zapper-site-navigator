@@ -139,6 +139,8 @@ export async function sendContactEmails(data: ContactData): Promise<{ success: b
 
     if (welcomeRes.error) console.error('Welcome email error:', welcomeRes.error);
     if (notifyRes.error) console.error('Notification email error:', notifyRes.error);
+    console.log('Welcome email result:', JSON.stringify(welcomeRes.data));
+    console.log('Notification email result:', JSON.stringify(notifyRes.data));
 
     return { success: !welcomeRes.error && !notifyRes.error };
   } catch (error) {
