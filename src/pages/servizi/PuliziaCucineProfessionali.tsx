@@ -35,12 +35,6 @@ const data: ServizioData = {
     "Maggiore durata attrezzature",
     "Ambiente più sicuro",
   ],
-  prova: {
-    punti: [
-      "Foto prima / dopo ogni intervento",
-      "Video interventi reali",
-    ],
-  },
   offerta: [
     "Sopralluogo gratuito",
     "Intervento entro 48h",

@@ -4,7 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
-import { AlertTriangle, CheckCircle2, Sparkles, Camera, Gift, ArrowRight } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Sparkles, Gift, ArrowRight } from "lucide-react";
+import daAlfonso from "@/assets/clients/da-alfonso.webp";
+import pummarolaNcoppa from "@/assets/clients/pummarola-ncoppa.webp";
+import daMichele from "@/assets/clients/da-michele.webp";
+import hakunaMatata from "@/assets/clients/hakuna-matata.webp";
+import francuccio from "@/assets/clients/francuccio.webp";
 
 export interface ServizioData {
   slug: string;
@@ -22,9 +27,6 @@ export interface ServizioData {
     punti: string[];
   };
   benefici: string[];
-  prova?: {
-    punti: string[];
-  };
   offerta: string[];
   crossSell?: {
     testo: string;
@@ -130,26 +132,31 @@ export default function ServizioTemplate({ data }: { data: ServizioData }) {
           </div>
         </section>
 
-        {/* PROVA */}
-        {data.prova && (
-          <section className="py-16 md:py-20">
-            <div className="container px-4 sm:px-6 max-w-4xl">
-              <div className="flex items-center gap-3 mb-8">
-                <Camera className="w-8 h-8 text-primary" />
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground">La prova</h2>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {data.prova.punti.map((p, i) => (
-                  <Card key={i}>
-                    <CardContent className="p-5">
-                      <p className="text-foreground">{p}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+        {/* SCELTI DA */}
+        <section className="py-12 md:py-16">
+          <div className="container px-4 sm:px-6 max-w-4xl">
+            <p className="text-center text-muted-foreground text-sm uppercase tracking-wider mb-8">
+              Scelto da
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+              {[
+                { src: daAlfonso, alt: "Da Alfonso" },
+                { src: pummarolaNcoppa, alt: "Pummarola 'Ncoppa" },
+                { src: daMichele, alt: "Da Michele" },
+                { src: hakunaMatata, alt: "Hakuna Matata" },
+                { src: francuccio, alt: "Francuccio" },
+              ].map((client) => (
+                <img
+                  key={client.alt}
+                  src={client.src}
+                  alt={client.alt}
+                  className="h-12 sm:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+                  loading="lazy"
+                />
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
         {/* OFFERTA + BONUS */}
         <section className="py-16 md:py-20 bg-muted">
