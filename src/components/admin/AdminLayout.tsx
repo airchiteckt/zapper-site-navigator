@@ -11,7 +11,8 @@ import {
   Menu,
   X,
   ChevronRight,
-  ShoppingBag
+  ShoppingBag,
+  FileText
 } from 'lucide-react';
 import logoVerde from '@/assets/logo-zapper-verde.svg';
 import { useState } from 'react';
@@ -26,6 +27,7 @@ const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/models', label: 'Modelli', icon: Package },
   { href: '/admin/interventions', label: 'Interventi', icon: Video },
+  { href: '/admin/blog', label: 'Blog', icon: FileText },
   { href: '/admin/shop', label: 'Shop', icon: ShoppingBag },
 ];
 
