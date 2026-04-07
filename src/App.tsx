@@ -170,6 +170,9 @@ const App = () => (
             <Route path="/modelli/ztgl" element={<ZTGL />} />
             <Route path="/modelli/ztgl-max" element={<ZTGLMax />} />
             <Route path="/modelli/ztgl-max-ultra" element={<ZTGLMaxUltra />} />
+            {/* Blog routes */}
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             {/* Shop routes (hidden - not in nav) */}
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/product/:handle" element={<ShopProduct />} />
@@ -182,6 +185,7 @@ const App = () => (
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/shop" element={<AdminShop />} />
             <Route path="/admin/partners" element={<AdminPartners />} />
+            <Route path="/admin/blog" element={<AdminBlog />} />
             {/* Partner routes */}
             <Route path="/partner" element={<PartnerLogin />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
