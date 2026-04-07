@@ -368,13 +368,42 @@ const AdminBlog = () => {
                       {isUploadingCover ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
                     </Button>
                   </div>
-                  <div className="flex gap-2 mt-2">
-                    <Input value={coverTopic} onChange={(e) => setCoverTopic(e.target.value)}
-                      placeholder="Topic per l'AI (opzionale)" className="flex-1" />
-                    <Button variant="outline" onClick={generateCover} disabled={isGeneratingCover}>
-                      {isGeneratingCover ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Image className="h-4 w-4 mr-1" /> Genera AI</>}
+
+                  {/* AI Cover Generation */}
+                  <div className="mt-3 p-3 border rounded-lg bg-muted/30 space-y-3">
+                    <p className="text-xs font-medium flex items-center gap-1.5"><Image className="h-3.5 w-3.5" /> Genera copertina con AI</p>
+                    <div>
+                      <Label className="text-xs">Soggetto (usato se non specifichi un prompt)</Label>
+                      <Input value={coverTopic} onChange={(e) => setCoverTopic(e.target.value)}
+                        placeholder="es. forno a legna con fumo" className="text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Prompt personalizzato (opzionale — sovrascrive il prompt automatico)</Label>
+                      <Textarea value={coverCustomPrompt} onChange={(e) => setCoverCustomPrompt(e.target.value)}
+                        placeholder="Descrivi l'immagine che vuoi generare. Es: Foto editoriale 16:9 di una pizzeria moderna con forno a legna, ambiente luminoso, colori caldi. Senza testo o loghi."
+                        rows={3} className="text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Immagine di riferimento (opzionale)</Label>
+                      <div className="flex gap-2">
+                        <Input value={coverReferenceUrl} onChange={(e) => setCoverReferenceUrl(e.target.value)}
+                          placeholder="URL immagine di riferimento" className="text-sm flex-1" />
+                        <Button variant="outline" size="sm" onClick={() => { loadMediaFiles(); setShowMediaPicker(true); }}>
+                          📂 Media
+                        </Button>
+                      </div>
+                      {coverReferenceUrl && (
+                        <div className="mt-2 flex items-center gap-2">
+                          <img src={coverReferenceUrl} alt="Ref" className="h-16 w-24 object-cover rounded" />
+                          <Button variant="ghost" size="sm" onClick={() => setCoverReferenceUrl('')} className="text-xs text-destructive">Rimuovi</Button>
+                        </div>
+                      )}
+                    </div>
+                    <Button variant="outline" onClick={generateCover} disabled={isGeneratingCover} className="w-full">
+                      {isGeneratingCover ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Generazione...</> : <><Image className="h-4 w-4 mr-1" /> Genera Copertina AI</>}
                     </Button>
                   </div>
+
                   {editingPost.featured_image && (
                     <img src={editingPost.featured_image} alt="Cover" className="mt-2 rounded-lg max-h-32 object-cover" />
                   )}
