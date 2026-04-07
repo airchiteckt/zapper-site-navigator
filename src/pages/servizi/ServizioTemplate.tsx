@@ -4,7 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
-import { AlertTriangle, CheckCircle2, Sparkles, Camera, Gift, ArrowRight } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Sparkles, Gift, ArrowRight } from "lucide-react";
+import daAlfonso from "@/assets/clients/da-alfonso.webp";
+import pummarolaNcoppa from "@/assets/clients/pummarola-ncoppa.webp";
+import daMichele from "@/assets/clients/da-michele.webp";
+import hakunaMatata from "@/assets/clients/hakuna-matata.webp";
+import francuccio from "@/assets/clients/francuccio.webp";
 
 export interface ServizioData {
   slug: string;
