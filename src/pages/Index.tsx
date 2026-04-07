@@ -20,7 +20,8 @@ const Index = () => {
     <div className="min-h-screen overflow-x-hidden">
       <SEO
         title="ZAPPER®"
-        description="ZAPPER® progetta e produce sistemi di abbattimento fumi, odori e polveri per il settore professionale, domestico e industriale. Tecnologia italiana per aria più pulita."
+        description="ZAPPER® progetta e produce sistemi di abbattimento fumi, odori e polveri per pizzerie, bracerie, forni a legna, camini e industria. Tecnologia italiana certificata."
+        canonical="/"
       />
       <Header />
       <main>
