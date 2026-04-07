@@ -148,8 +148,6 @@ export default function PartnerMap() {
 
       marker.addTo(map.current!);
       markersRef.current.push(marker);
-    });
-    });
   }, [locations, mapReady]);
 
   return (
