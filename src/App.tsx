@@ -73,6 +73,7 @@ import ShopProduct from "./pages/ShopProduct";
 import ShopCheckout from "./pages/ShopCheckout";
 import BlogList from "./pages/BlogList";
 import BlogPostPage from "./pages/BlogPost";
+import Grazie from "./pages/Grazie";
 import NotFound from "./pages/NotFound";
 // Admin pages
 import AdminAuth from "./pages/admin/AdminAuth";
@@ -189,6 +190,7 @@ const App = () => (
             {/* Partner routes */}
             <Route path="/partner" element={<PartnerLogin />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
+            <Route path="/grazie" element={<Grazie />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
