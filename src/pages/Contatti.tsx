@@ -276,7 +276,7 @@ const Contatti = () => {
                     });
                     if (result.success) {
                       setIsSuccess(true);
-                      form.reset();
+                      setFormData({ nome: "", email: "", telefono: "", azienda: "", citta: "", note: "" });
                     } else {
                       toast({ title: "Errore", description: "Impossibile inviare. Riprova.", variant: "destructive" });
                     }
