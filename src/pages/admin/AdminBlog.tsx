@@ -170,6 +170,7 @@ const AdminBlog = () => {
   };
 
   return (
+    <AdminLayout title="Blog">
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">Gestione Blog</h2>
