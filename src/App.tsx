@@ -85,6 +85,7 @@ import AdminShop from "./pages/admin/AdminShop";
 import AdminPartners from "./pages/admin/AdminPartners";
 import AdminBlog from "./pages/admin/AdminBlog";
 import PartnerLogin from "./pages/partner/PartnerLogin";
+import PartnerMap from "./pages/PartnerMap";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
 import WhatsAppButton from "./components/chat/WhatsAppButton";
