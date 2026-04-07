@@ -29,6 +29,16 @@ const Contatti = () => {
     diametroRange: ""
   });
 
+  // Form data (controlled state)
+  const [formData, setFormData] = useState({
+    nome: "",
+    email: "",
+    telefono: "",
+    azienda: "",
+    citta: "",
+    note: "",
+  });
+
   // Accordion states for mobile
   const [openSections, setOpenSections] = useState({
     contatto: true,
