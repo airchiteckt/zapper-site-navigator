@@ -68,6 +68,13 @@ import ZTGL from "./pages/modelli/ZTGL";
 import ZTGLMax from "./pages/modelli/ZTGLMax";
 import ZTGLMaxUltra from "./pages/modelli/ZTGLMaxUltra";
 import Calcolatore from "./pages/Calcolatore";
+import Servizi from "./pages/Servizi";
+import PuliziaCucineProfessionali from "./pages/servizi/PuliziaCucineProfessionali";
+import DisinfestazioneCucine from "./pages/servizi/DisinfestazioneCucine";
+import ManutenzioneCucineIndustriali from "./pages/servizi/ManutenzioneCucineIndustriali";
+import ImpiantiAspirazioneFumi from "./pages/servizi/ImpiantiAspirazioneFumi";
+import InterventiElettriciCucine from "./pages/servizi/InterventiElettriciCucine";
+import ManutenzioneImpianti from "./pages/servizi/ManutenzioneImpianti";
 import Shop from "./pages/Shop";
 import ShopProduct from "./pages/ShopProduct";
 import ShopCheckout from "./pages/ShopCheckout";
@@ -114,6 +121,13 @@ const App = () => (
             <Route path="/applicazioni" element={<Applicazioni />} />
             <Route path="/modelli" element={<Modelli />} />
             <Route path="/calcolatore" element={<Calcolatore />} />
+            <Route path="/servizi" element={<Servizi />} />
+            <Route path="/pulizia-cucine-professionali" element={<PuliziaCucineProfessionali />} />
+            <Route path="/disinfestazione-cucine" element={<DisinfestazioneCucine />} />
+            <Route path="/manutenzione-cucine-industriali" element={<ManutenzioneCucineIndustriali />} />
+            <Route path="/impianti-aspirazione-fumi" element={<ImpiantiAspirazioneFumi />} />
+            <Route path="/interventi-elettrici-cucine" element={<InterventiElettriciCucine />} />
+            <Route path="/manutenzione-impianti" element={<ManutenzioneImpianti />} />
             <Route path="/agevolazioni" element={<Agevolazioni />} />
             <Route path="/agevolazioni/industria-40" element={<Industria40 />} />
             <Route path="/agevolazioni/bando-inail-isi" element={<BandoInailIsi />} />
