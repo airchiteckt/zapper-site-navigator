@@ -38,6 +38,11 @@ const AdminBlog = () => {
   const [isGeneratingCover, setIsGeneratingCover] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const [coverTopic, setCoverTopic] = useState('');
+  const [coverCustomPrompt, setCoverCustomPrompt] = useState('');
+  const [coverReferenceUrl, setCoverReferenceUrl] = useState('');
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
+  const [mediaFiles, setMediaFiles] = useState<{ name: string; url: string }[]>([]);
+  const [isLoadingMedia, setIsLoadingMedia] = useState(false);
   const coverInputRef = useRef<HTMLInputElement>(null);
 
   const { data: posts, isLoading } = useQuery({
@@ -139,7 +144,10 @@ const AdminBlog = () => {
     const topic = coverTopic.trim() || (editingPost as any).title_it || 'smoke abatement system';
     setIsGeneratingCover(true);
     try {
-      const { data, error } = await supabase.functions.invoke('generate-blog-cover', { body: { topic } });
+      const body: any = { topic };
+      if (coverCustomPrompt.trim()) body.customPrompt = coverCustomPrompt.trim();
+      if (coverReferenceUrl.trim()) body.referenceImageUrl = coverReferenceUrl.trim();
+      const { data, error } = await supabase.functions.invoke('generate-blog-cover', { body });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       setEditingPost({ ...editingPost, featured_image: data.imageUrl });
@@ -148,6 +156,35 @@ const AdminBlog = () => {
       toast.error(e?.message || 'Errore generazione immagine');
     } finally {
       setIsGeneratingCover(false);
+    }
+  };
+
+  const loadMediaFiles = async () => {
+    setIsLoadingMedia(true);
+    try {
+      const { data, error } = await supabase.storage.from('media').list('', { limit: 100, sortBy: { column: 'created_at', order: 'desc' } });
+      if (error) throw error;
+      const files = (data || [])
+        .filter(f => f.name && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name))
+        .map(f => ({
+          name: f.name,
+          url: supabase.storage.from('media').getPublicUrl(f.name).data.publicUrl,
+        }));
+      // Also check blog-covers subfolder
+      const { data: covers } = await supabase.storage.from('media').list('blog-covers', { limit: 50, sortBy: { column: 'created_at', order: 'desc' } });
+      if (covers) {
+        covers.filter(f => f.name && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name)).forEach(f => {
+          files.push({
+            name: `blog-covers/${f.name}`,
+            url: supabase.storage.from('media').getPublicUrl(`blog-covers/${f.name}`).data.publicUrl,
+          });
+        });
+      }
+      setMediaFiles(files);
+    } catch (e) {
+      console.error('Error loading media:', e);
+    } finally {
+      setIsLoadingMedia(false);
     }
   };
 
@@ -331,13 +368,42 @@ const AdminBlog = () => {
                       {isUploadingCover ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
                     </Button>
                   </div>
-                  <div className="flex gap-2 mt-2">
-                    <Input value={coverTopic} onChange={(e) => setCoverTopic(e.target.value)}
-                      placeholder="Topic per l'AI (opzionale)" className="flex-1" />
-                    <Button variant="outline" onClick={generateCover} disabled={isGeneratingCover}>
-                      {isGeneratingCover ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Image className="h-4 w-4 mr-1" /> Genera AI</>}
+
+                  {/* AI Cover Generation */}
+                  <div className="mt-3 p-3 border rounded-lg bg-muted/30 space-y-3">
+                    <p className="text-xs font-medium flex items-center gap-1.5"><Image className="h-3.5 w-3.5" /> Genera copertina con AI</p>
+                    <div>
+                      <Label className="text-xs">Soggetto (usato se non specifichi un prompt)</Label>
+                      <Input value={coverTopic} onChange={(e) => setCoverTopic(e.target.value)}
+                        placeholder="es. forno a legna con fumo" className="text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Prompt personalizzato (opzionale — sovrascrive il prompt automatico)</Label>
+                      <Textarea value={coverCustomPrompt} onChange={(e) => setCoverCustomPrompt(e.target.value)}
+                        placeholder="Descrivi l'immagine che vuoi generare. Es: Foto editoriale 16:9 di una pizzeria moderna con forno a legna, ambiente luminoso, colori caldi. Senza testo o loghi."
+                        rows={3} className="text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Immagine di riferimento (opzionale)</Label>
+                      <div className="flex gap-2">
+                        <Input value={coverReferenceUrl} onChange={(e) => setCoverReferenceUrl(e.target.value)}
+                          placeholder="URL immagine di riferimento" className="text-sm flex-1" />
+                        <Button variant="outline" size="sm" onClick={() => { loadMediaFiles(); setShowMediaPicker(true); }}>
+                          📂 Media
+                        </Button>
+                      </div>
+                      {coverReferenceUrl && (
+                        <div className="mt-2 flex items-center gap-2">
+                          <img src={coverReferenceUrl} alt="Ref" className="h-16 w-24 object-cover rounded" />
+                          <Button variant="ghost" size="sm" onClick={() => setCoverReferenceUrl('')} className="text-xs text-destructive">Rimuovi</Button>
+                        </div>
+                      )}
+                    </div>
+                    <Button variant="outline" onClick={generateCover} disabled={isGeneratingCover} className="w-full">
+                      {isGeneratingCover ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Generazione...</> : <><Image className="h-4 w-4 mr-1" /> Genera Copertina AI</>}
                     </Button>
                   </div>
+
                   {editingPost.featured_image && (
                     <img src={editingPost.featured_image} alt="Cover" className="mt-2 rounded-lg max-h-32 object-cover" />
                   )}
@@ -411,6 +477,32 @@ const AdminBlog = () => {
                   {saveMutation.isPending ? 'Salvataggio...' : editingPost.is_published ? '✅ Salva e Pubblica' : '💾 Salva Bozza'}
                 </Button>
               </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Media Picker Dialog */}
+      <Dialog open={showMediaPicker} onOpenChange={setShowMediaPicker}>
+        <DialogContent className="max-w-2xl max-h-[70vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Seleziona immagine di riferimento</DialogTitle>
+          </DialogHeader>
+          {isLoadingMedia ? (
+            <div className="flex items-center justify-center py-8"><Loader2 className="h-6 w-6 animate-spin" /></div>
+          ) : mediaFiles.length === 0 ? (
+            <p className="text-muted-foreground text-center py-8">Nessuna immagine trovata nel bucket media</p>
+          ) : (
+            <div className="grid grid-cols-4 gap-3">
+              {mediaFiles.map((file) => (
+                <button key={file.url} onClick={() => { setCoverReferenceUrl(file.url); setShowMediaPicker(false); }}
+                  className="group relative rounded-lg overflow-hidden border hover:border-accent transition-colors aspect-square">
+                  <img src={file.url} alt={file.name} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end">
+                    <span className="text-[10px] text-white opacity-0 group-hover:opacity-100 p-1 truncate w-full">{file.name}</span>
+                  </div>
+                </button>
+              ))}
             </div>
           )}
         </DialogContent>
