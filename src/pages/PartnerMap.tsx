@@ -99,35 +99,41 @@ export default function PartnerMap() {
     map.current.on('load', () => setMapReady(true));
   }, [mapToken]);
 
-  // Only show importatori on the map
+  // Show installatori + importatori on the map
   useEffect(() => {
     if (!map.current) return;
 
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    const importatori = locations.filter(loc => loc.partner_type === 'importatore' && loc.latitude !== 0 && loc.longitude !== 0);
+    const mapPartners = locations.filter(loc =>
+      (loc.partner_type === 'installatore' || loc.partner_type === 'importatore') &&
+      loc.latitude !== 0 && loc.longitude !== 0
+    );
 
-    importatori.forEach((loc) => {
-      const cfg = TYPE_CONFIG.importatore;
+    mapPartners.forEach((loc) => {
+      const cfg = TYPE_CONFIG[loc.partner_type as PartnerType];
+      const isImportatore = loc.partner_type === 'importatore';
+
       const popup = new mapboxgl.Popup({ offset: 25, className: 'partner-popup' }).setHTML(`
         <div style="font-family: 'Inter', sans-serif; padding: 4px;">
           <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
             <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${cfg.color};"></span>
-            <span style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${TYPE_LABELS.importatore}</span>
+            <span style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${TYPE_LABELS[loc.partner_type as PartnerType]}</span>
           </div>
           <h3 style="margin: 0 0 4px; font-size: 14px; font-weight: 600; color: #1c1e1c;">${loc.name}</h3>
           ${loc.city ? `<p style="margin: 0 0 2px; font-size: 12px; color: #666;">${loc.city}, ${loc.country}</p>` : ''}
           ${loc.address ? `<p style="margin: 0 0 4px; font-size: 11px; color: #888;">${loc.address}</p>` : ''}
-          ${loc.phone ? `<p style="margin: 0; font-size: 11px;"><a href="tel:${loc.phone}" style="color: ${cfg.color};">${loc.phone}</a></p>` : ''}
-          ${loc.email ? `<p style="margin: 0; font-size: 11px;"><a href="mailto:${loc.email}" style="color: ${cfg.color};">${loc.email}</a></p>` : ''}
-          ${loc.website ? `<p style="margin: 4px 0 0; font-size: 11px;"><a href="${loc.website}" target="_blank" rel="noopener" style="color: ${cfg.color};">Visita il sito →</a></p>` : ''}
+          ${isImportatore && loc.phone ? `<p style="margin: 0; font-size: 11px;"><a href="tel:${loc.phone}" style="color: ${cfg.color};">${loc.phone}</a></p>` : ''}
+          ${isImportatore && loc.email ? `<p style="margin: 0; font-size: 11px;"><a href="mailto:${loc.email}" style="color: ${cfg.color};">${loc.email}</a></p>` : ''}
+          ${isImportatore && loc.website ? `<p style="margin: 4px 0 0; font-size: 11px;"><a href="${loc.website}" target="_blank" rel="noopener" style="color: ${cfg.color};">Visita il sito →</a></p>` : ''}
         </div>
       `);
 
+      const size = isImportatore ? '18px' : '12px';
       const el = document.createElement('div');
-      el.style.width = '16px';
-      el.style.height = '16px';
+      el.style.width = size;
+      el.style.height = size;
       el.style.borderRadius = '50%';
       el.style.backgroundColor = cfg.color;
       el.style.border = `3px solid ${cfg.border}`;
