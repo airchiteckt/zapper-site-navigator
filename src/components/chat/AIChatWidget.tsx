@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
@@ -12,7 +13,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 
 const CONTACT_TRIGGER = "Lascia i tuoi dati";
 
-function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
+function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) => void; onNavigate: (path: string) => void }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
 
@@ -39,6 +40,7 @@ function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
         message: "Contatto generato dall'assistente AI del sito.",
       });
 
+      onNavigate("/grazie");
       onSubmitted(form.name.split(" ")[0] || "");
     } catch {
       toast({ title: "Errore nell'invio", description: "Riprova più tardi.", variant: "destructive" });
@@ -83,6 +85,7 @@ function ContactForm({ onSubmitted }: { onSubmitted: (name: string) => void }) {
 }
 
 export default function AIChatWidget() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
@@ -330,7 +333,7 @@ export default function AIChatWidget() {
 
             {/* Inline contact form */}
             {contactFormShown && !contactSubmitted && (
-              <ContactForm onSubmitted={handleContactSubmitted} />
+              <ContactForm onSubmitted={handleContactSubmitted} onNavigate={(path) => navigate(path)} />
             )}
 
             {/* WhatsApp CTA after contact submitted */}
