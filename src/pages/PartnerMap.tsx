@@ -116,7 +116,7 @@ export default function PartnerMap() {
         .setPopup(popup)
         .addTo(map.current!);
     });
-  }, [locations, mapToken]);
+  }, [locations, mapReady]);
 
   return (
     <>
