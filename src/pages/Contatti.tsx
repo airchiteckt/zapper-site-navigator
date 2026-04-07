@@ -375,7 +375,6 @@ const Contatti = () => {
                             <p className="text-xs text-muted-foreground text-center mt-3">
                               Riceverai una risposta dal nostro team tecnico entro 24-48 ore lavorative.
                             </p>
-                            </p>
                           </div>
                         </div>
                       </CollapsibleContent>
