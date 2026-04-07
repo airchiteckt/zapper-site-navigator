@@ -190,6 +190,7 @@ const App = () => (
             <Route path="/admin/blog" element={<AdminBlog />} />
             {/* Partner routes */}
             <Route path="/partner" element={<PartnerLogin />} />
+            <Route path="/partner/mappa" element={<PartnerMap />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
             <Route path="/grazie" element={<Grazie />} />
             <Route path="*" element={<NotFound />} />
