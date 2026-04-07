@@ -254,25 +254,22 @@ const Contatti = () => {
 
                 <form className="space-y-4" onSubmit={async (e) => {
                   e.preventDefault();
-                  const form = e.currentTarget;
-                  const nome = (form.querySelector('#nome') as HTMLInputElement)?.value;
-                  const email = (form.querySelector('#email') as HTMLInputElement)?.value;
-                  const telefono = (form.querySelector('#telefono') as HTMLInputElement)?.value;
-                  const azienda = (form.querySelector('#azienda') as HTMLInputElement)?.value;
-                  const citta = (form.querySelector('#citta') as HTMLInputElement)?.value;
-                  const note = (form.querySelector('#note') as HTMLTextAreaElement)?.value;
+                  if (!formData.email || !formData.telefono) {
+                    toast({ title: "Errore", description: "Email e telefono sono obbligatori.", variant: "destructive" });
+                    return;
+                  }
                   setIsSubmitting(true);
                   try {
                     const result = await sendContactEmails({
-                      name: nome,
-                      email,
-                      phone: telefono,
+                      name: formData.nome,
+                      email: formData.email,
+                      phone: formData.telefono,
                       sector: prefiltroData.settore,
-                      message: note,
+                      message: formData.note,
                       source: "Pagina Contatti",
                       extra: {
-                        'Azienda': azienda || '—',
-                        'Città': citta || '—',
+                        'Azienda': formData.azienda || '—',
+                        'Città': formData.citta || '—',
                         'Tipo impianto': prefiltroData.tipoImpianto || '—',
                         'Diametro': prefiltroData.diametroRange || '—',
                       },
