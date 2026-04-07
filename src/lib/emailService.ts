@@ -116,8 +116,6 @@ export async function sendContactEmails(data: ContactData): Promise<{ success: b
         html: buildWelcomeEmailHtml(data),
         from: 'ZAPPER® <info@mail.smokezapper.it>',
         replyTo: 'info@smokezapper.it',
-        from: 'ZAPPER® <noreply@mail.smokezapper.it>',
-        replyTo: 'info@smokezapper.it',
       },
     });
 
