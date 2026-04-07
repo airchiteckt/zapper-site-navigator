@@ -26,6 +26,7 @@ export default function PartnerMap() {
   const [locations, setLocations] = useState<PartnerLocation[]>([]);
   const [mapToken, setMapToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [mapReady, setMapReady] = useState(false);
 
   // Fetch Mapbox token
   useEffect(() => {
