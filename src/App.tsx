@@ -88,7 +88,7 @@ import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerMap from "./pages/PartnerMap";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
-import WhatsAppButton from "./components/chat/WhatsAppButton";
+
 const queryClient = new QueryClient();
 
 const CartSyncWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -197,7 +197,7 @@ const App = () => (
           </Routes>
         </BrowserRouter>
         <AIChatWidget />
-        <WhatsAppButton />
+        
         </CartSyncWrapper>
         </CartProvider>
       </AuthProvider>
