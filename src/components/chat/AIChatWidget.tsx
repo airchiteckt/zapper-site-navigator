@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
@@ -39,6 +40,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
         message: "Contatto generato dall'assistente AI del sito.",
       });
 
+      onNavigate("/grazie");
       onSubmitted(form.name.split(" ")[0] || "");
     } catch {
       toast({ title: "Errore nell'invio", description: "Riprova più tardi.", variant: "destructive" });
