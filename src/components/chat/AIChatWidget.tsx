@@ -85,6 +85,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
 }
 
 export default function AIChatWidget() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
@@ -332,7 +333,7 @@ export default function AIChatWidget() {
 
             {/* Inline contact form */}
             {contactFormShown && !contactSubmitted && (
-              <ContactForm onSubmitted={handleContactSubmitted} />
+              <ContactForm onSubmitted={handleContactSubmitted} onNavigate={(path) => navigate(path)} />
             )}
 
             {/* WhatsApp CTA after contact submitted */}
