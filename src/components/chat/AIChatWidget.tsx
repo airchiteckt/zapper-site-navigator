@@ -325,7 +325,7 @@ export default function AIChatWidget() {
             {/* WhatsApp CTA after contact submitted */}
             {showWhatsAppCta && (
               <a
-                href={`https://wa.me/393XXXXXXXXX?text=${encodeURIComponent("Ciao, ho appena lasciato i miei dati sul sito. Vorrei informazioni rapide sui sistemi ZAPPER®")}`}
+                href={`https://wa.me/393248996189?text=${encodeURIComponent("Ciao, ho appena lasciato i miei dati sul sito. Vorrei informazioni rapide sui sistemi ZAPPER®")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-[#25D366] text-white rounded-xl px-4 py-2.5 text-sm font-medium hover:bg-[#1da851] transition-colors my-1 w-fit"

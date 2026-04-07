@@ -109,17 +109,17 @@ const Footer = () => {
         {/* Contact Info */}
         <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10">
           <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-            <a href="tel:+390000000000" className="flex items-center gap-2 sm:gap-3 text-white/70 hover:text-primary transition-colors text-sm sm:text-base">
+            <a href="tel:+3908119968436" className="flex items-center gap-2 sm:gap-3 text-white/70 hover:text-primary transition-colors text-sm sm:text-base">
               <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-              <span>+39 000 000 0000</span>
+              <span>+39 081 199 68 436</span>
             </a>
-            <a href="mailto:info@zapper.it" className="flex items-center gap-2 sm:gap-3 text-white/70 hover:text-primary transition-colors text-sm sm:text-base">
+            <a href="mailto:info@smokezapper.it" className="flex items-center gap-2 sm:gap-3 text-white/70 hover:text-primary transition-colors text-sm sm:text-base">
               <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-              <span>info@zapper.it</span>
+              <span>info@smokezapper.it</span>
             </a>
             <div className="flex items-center gap-2 sm:gap-3 text-white/70 text-sm sm:text-base">
               <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-              <span>Via Esempio, 123 - Milano (MI)</span>
+              <span>Via Galileo Ferraris 24, Scafati (SA) 84018 - Italy</span>
             </div>
           </div>
         </div>
