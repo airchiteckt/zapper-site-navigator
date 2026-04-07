@@ -56,13 +56,14 @@ export default function PartnerMap() {
     fetchLocations();
   }, []);
 
-  // Initialize map
-  useEffect(() => {
-    if (!mapToken || !mapContainer.current || map.current) return;
+  // Initialize map after container is rendered
+  const mapRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node || !mapToken || map.current) return;
+    mapContainer.current = node;
 
     mapboxgl.accessToken = mapToken;
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: node,
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [12.5, 42],
       zoom: 4,
@@ -81,10 +82,7 @@ export default function PartnerMap() {
       });
     });
 
-    return () => {
-      map.current?.remove();
-      map.current = null;
-    };
+    map.current.on('load', () => setMapReady(true));
   }, [mapToken]);
 
   // Add markers
