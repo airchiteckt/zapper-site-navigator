@@ -37,6 +37,7 @@ const Index = () => {
         <IncentivesCarousel />
         <CaseStudyTeaser />
         <TrustpilotSection />
+        <BlogSection />
         <CTASection />
       </main>
       <Footer />
