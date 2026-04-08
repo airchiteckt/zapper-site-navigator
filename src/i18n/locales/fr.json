@@ -228,7 +228,9 @@
     "errorMessage": "Impossible d'envoyer le formulaire. Réessayez.",
     "errorGeneric": "Une erreur s'est produite. Réessayez.",
     "privacyConsent": "En soumettant ce formulaire, vous acceptez notre",
-    "privacyPolicy": "Politique de confidentialité"
+    "privacyPolicy": "Politique de confidentialité",
+    "compassTitle": "Financement aux entreprises",
+    "compassDescription": "Nous sommes affiliés à Compass - Groupe Mediobanca pour des solutions de financement dédiées."
   },
   "footer": {
     "description": "Systèmes d'abattement des fumées et poussières pour les secteurs professionnel, domestique et industriel. Technologie italienne pour un air plus pur.",
@@ -250,7 +252,8 @@
     "copyright": "© {{year}} ZAPPER®. Tous droits réservés.",
     "privacyPolicy": "Politique de confidentialité",
     "cookiePolicy": "Politique des cookies",
-    "termsOfService": "Conditions d'utilisation"
+    "termsOfService": "Conditions d'utilisation",
+    "compassAffiliate": "Affiliés Compass - Groupe Mediobanca pour le financement aux entreprises"
   },
   "common": {
     "learnMore": "En savoir plus",

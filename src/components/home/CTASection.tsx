@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, ArrowRight, CheckCircle, Shield, Clock, Truck, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { sendContactEmails } from "@/lib/emailService";
+import logoCompass from "@/assets/logo-compass.jpg";
 import { useToast } from "@/hooks/use-toast";
 
 const CTASection = () => {
@@ -73,6 +74,14 @@ const CTASection = () => {
                   <Mail className="w-4 h-4 flex-shrink-0" />
                   <span className="font-semibold text-xs sm:text-base">info@smokezapper.it</span>
                 </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-3 sm:p-4 bg-white/10 rounded-lg sm:rounded-xl mt-3 sm:mt-4">
+              <img src={logoCompass} alt="Compass - Gruppo Mediobanca" className="h-10 sm:h-12 w-auto rounded bg-white p-1" />
+              <div>
+                <p className="text-white text-xs sm:text-sm font-semibold">{t("cta.compassTitle")}</p>
+                <p className="text-white/70 text-[10px] sm:text-xs">{t("cta.compassDescription")}</p>
               </div>
             </div>
           </div>

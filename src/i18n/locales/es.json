@@ -228,7 +228,9 @@
     "errorMessage": "No se pudo enviar el formulario. Inténtalo de nuevo.",
     "errorGeneric": "Se ha producido un error. Inténtalo de nuevo.",
     "privacyConsent": "Al enviar este formulario aceptas nuestra",
-    "privacyPolicy": "Política de Privacidad"
+    "privacyPolicy": "Política de Privacidad",
+    "compassTitle": "Financiación para empresas",
+    "compassDescription": "Somos afiliados de Compass - Grupo Mediobanca para soluciones de financiación dedicadas."
   },
   "footer": {
     "description": "Sistemas de reducción de humos y polvo para los sectores profesional, doméstico e industrial. Tecnología italiana para un aire más limpio.",
@@ -250,7 +252,8 @@
     "copyright": "© {{year}} ZAPPER®. Todos los derechos reservados.",
     "privacyPolicy": "Política de Privacidad",
     "cookiePolicy": "Política de Cookies",
-    "termsOfService": "Términos de Servicio"
+    "termsOfService": "Términos de Servicio",
+    "compassAffiliate": "Afiliados a Compass - Grupo Mediobanca para financiación empresarial"
   },
   "common": {
     "learnMore": "Saber más",
