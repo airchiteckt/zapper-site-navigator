@@ -10,6 +10,7 @@ import IncentivesCarousel from "@/components/home/IncentivesCarousel";
 import CaseStudyTeaser from "@/components/home/CaseStudyTeaser";
 import TrustpilotSection from "@/components/home/TrustpilotSection";
 import CTASection from "@/components/home/CTASection";
+import BlogSection from "@/components/home/BlogSection";
 import IndustrialSection from "@/components/home/IndustrialSection";
 import ProfessionalSection from "@/components/home/ProfessionalSection";
 import UTASection from "@/components/home/UTASection";
