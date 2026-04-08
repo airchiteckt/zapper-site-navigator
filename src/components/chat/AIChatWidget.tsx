@@ -47,7 +47,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
       });
       if (error) throw error;
 
-      await sendContactEmails({
+      sendContactEmails({
         name: form.name || "Visitatore",
         email: form.email,
         phone: form.phone,
@@ -55,7 +55,6 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
         message: "Contatto generato dall'assistente AI del sito.",
       });
 
-      onNavigate("/grazie");
       onSubmitted(form.name.split(" ")[0] || "");
     } catch {
       toast({ title: "Errore nell'invio", description: "Riprova più tardi.", variant: "destructive" });
