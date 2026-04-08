@@ -12,7 +12,8 @@ import {
   X,
   ChevronRight,
   ShoppingBag,
-  FileText
+  FileText,
+  MessageCircle
 } from 'lucide-react';
 import logoVerde from '@/assets/logo-zapper-verde.svg';
 import { useState } from 'react';
@@ -29,6 +30,7 @@ const navItems = [
   { href: '/admin/interventions', label: 'Interventi', icon: Video },
   { href: '/admin/blog', label: 'Blog', icon: FileText },
   { href: '/admin/shop', label: 'Shop', icon: ShoppingBag },
+  { href: '/admin/chat-logs', label: 'Chat Logs', icon: MessageCircle },
 ];
 
 const adminOnlyItems = [
