@@ -537,5 +537,30 @@
     "sector3App3": "Corte láser y metalurgia",
     "sectorsCtaTitle": "Cubre todos los sectores con una sola marca",
     "sectorsCtaBtn": "Conviértete en Partner ahora"
+  },
+  "wetScrubber": {
+    "badge": "Cómo funciona",
+    "title": "El sistema de purificación Wet Scrubber",
+    "subtitle": "Agua atomizada a alta presión que captura humos, hollín y olores en un proceso simple y eficaz",
+    "dirtyFumes": "💨 Humos sucios (horno de leña)",
+    "cleanVapor": "🌫️ Vapor limpio en salida",
+    "ovenLabel": "Fuente de humos",
+    "ovenTag": "Horno de leña — FUENTE DE HUMOS",
+    "cleanAir": "Aire purificado",
+    "poolLabel": "Agua + contaminantes recogidos",
+    "legendDirty": "Humos sucios (horno de leña)",
+    "legendWater": "Agua de lavado atomizada",
+    "legendClean": "Vapor / aire purificado",
+    "legendWaste": "Agua + contaminantes descargados",
+    "step1Title": "Horno de leña",
+    "step1Desc": "La combustión de leña produce humos ricos en partículas finas, hollín, PM10, compuestos orgánicos y olores.",
+    "step2Title": "Entrada arriba-izq",
+    "step2Desc": "Los humos sucios se canalizan a la cámara de tratamiento ZAPPER desde la entrada superior izquierda.",
+    "step3Title": "Atomización",
+    "step3Desc": "Agua atomizada a alta presión de la bomba Grundfos impacta los humos, capturando partículas y contaminantes.",
+    "step4Title": "Recogida de residuos",
+    "step4Desc": "El agua sucia con todos los contaminantes se deposita en la cubeta de recogida en el fondo del sistema.",
+    "step5Title": "Salida arriba-dcha",
+    "step5Desc": "El aire purificado, libre de contaminantes, sale como vapor limpio por la salida superior derecha."
   }
 }

@@ -537,5 +537,30 @@
     "sector3App3": "Laser cutting and metalwork",
     "sectorsCtaTitle": "Cover all sectors with one brand",
     "sectorsCtaBtn": "Become a Partner now"
+  },
+  "wetScrubber": {
+    "badge": "How it works",
+    "title": "The Wet Scrubber Purification System",
+    "subtitle": "High-pressure atomized water that captures smoke, soot and odors in a simple and effective process",
+    "dirtyFumes": "💨 Dirty fumes (wood oven)",
+    "cleanVapor": "🌫️ Clean vapor output",
+    "ovenLabel": "Fume source",
+    "ovenTag": "Wood oven — FUME SOURCE",
+    "cleanAir": "Purified air",
+    "poolLabel": "Water + collected contaminants",
+    "legendDirty": "Dirty fumes (wood oven)",
+    "legendWater": "Atomized wash water",
+    "legendClean": "Vapor / purified air",
+    "legendWaste": "Water + discharged contaminants",
+    "step1Title": "Wood oven",
+    "step1Desc": "Wood combustion produces fumes rich in fine particles, soot, PM10, organic compounds and odors.",
+    "step2Title": "Top-left inlet",
+    "step2Desc": "Dirty fumes are channeled into the ZAPPER treatment chamber from the top-left inlet.",
+    "step3Title": "Atomization",
+    "step3Desc": "High-pressure atomized water from the Grundfos pump hits the fumes, capturing particles and contaminants.",
+    "step4Title": "Waste collection",
+    "step4Desc": "Dirty water with all contaminants settles in the collection basin at the bottom of the system.",
+    "step5Title": "Top-right outlet",
+    "step5Desc": "Purified air, free of pollutants, exits as clean vapor from the top-right outlet."
   }
 }

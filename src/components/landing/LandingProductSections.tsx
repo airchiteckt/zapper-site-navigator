@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import techImg from "@/assets/landing-partners-technology.jpg";
 import sectorsImg from "@/assets/landing-partners-sectors.jpg";
+import WetScrubberAnimation from "./WetScrubberAnimation";
 
 const MODELS = [
   { name: "ZPZ", desc: "Pizzerie & Panifici", diameter: "Ø 200–350 mm" },
@@ -78,7 +79,23 @@ export default function LandingProductSections({ scrollToForm }: Props) {
         </div>
       </section>
 
-      {/* PRODUCT CATALOG */}
+      {/* HOW IT WORKS - ANIMATED */}
+      <section className="py-16 md:py-24 bg-foreground border-b border-primary/10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <span className="inline-block bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+              {t("wetScrubber.badge")}
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+              {t("wetScrubber.title")}
+            </h2>
+            <p className="text-muted-foreground text-base max-w-2xl mx-auto">
+              {t("wetScrubber.subtitle")}
+            </p>
+          </div>
+          <WetScrubberAnimation />
+        </div>
+      </section>
       <section className="py-16 md:py-24 bg-primary/5 border-b border-primary/10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">

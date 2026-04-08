@@ -537,5 +537,30 @@
     "sector3App3": "Laserschnitt und Metallbearbeitung",
     "sectorsCtaTitle": "Alle Sektoren mit einer Marke abdecken",
     "sectorsCtaBtn": "Jetzt Partner werden"
+  },
+  "wetScrubber": {
+    "badge": "So funktioniert's",
+    "title": "Das Wet-Scrubber-Reinigungssystem",
+    "subtitle": "Hochdruck-Sprühwasser fängt Rauch, Ruß und Gerüche in einem einfachen und effektiven Prozess ein",
+    "dirtyFumes": "💨 Schmutziger Rauch (Holzofen)",
+    "cleanVapor": "🌫️ Sauberer Dampf am Ausgang",
+    "ovenLabel": "Rauchquelle",
+    "ovenTag": "Holzofen — RAUCHQUELLE",
+    "cleanAir": "Gereinigte Luft",
+    "poolLabel": "Wasser + gesammelte Schadstoffe",
+    "legendDirty": "Schmutziger Rauch (Holzofen)",
+    "legendWater": "Zerstäubtes Waschwasser",
+    "legendClean": "Dampf / gereinigte Luft",
+    "legendWaste": "Wasser + abgeleitete Schadstoffe",
+    "step1Title": "Holzofen",
+    "step1Desc": "Die Holzverbrennung erzeugt Rauch mit Feinstaub, Ruß, PM10, organischen Verbindungen und Gerüchen.",
+    "step2Title": "Einlass oben-links",
+    "step2Desc": "Schmutziger Rauch wird über den Einlass oben links in die ZAPPER-Behandlungskammer geleitet.",
+    "step3Title": "Zerstäubung",
+    "step3Desc": "Hochdruck-Sprühwasser der Grundfos-Pumpe trifft den Rauch und fängt Partikel und Schadstoffe ein.",
+    "step4Title": "Abfallsammlung",
+    "step4Desc": "Das verschmutzte Wasser mit allen Schadstoffen setzt sich im Sammelbecken am Boden des Systems ab.",
+    "step5Title": "Auslass oben-rechts",
+    "step5Desc": "Gereinigte Luft, frei von Schadstoffen, tritt als sauberer Dampf aus dem Auslass oben rechts aus."
   }
 }

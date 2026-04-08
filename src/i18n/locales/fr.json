@@ -537,5 +537,30 @@
     "sector3App3": "Découpe laser et métallurgie",
     "sectorsCtaTitle": "Couvrez tous les secteurs avec une seule marque",
     "sectorsCtaBtn": "Devenez Partenaire maintenant"
+  },
+  "wetScrubber": {
+    "badge": "Comment ça fonctionne",
+    "title": "Le système de purification Wet Scrubber",
+    "subtitle": "Eau atomisée à haute pression qui capture fumées, suie et odeurs dans un processus simple et efficace",
+    "dirtyFumes": "💨 Fumées sales (four à bois)",
+    "cleanVapor": "🌫️ Vapeur propre en sortie",
+    "ovenLabel": "Source de fumées",
+    "ovenTag": "Four à bois — SOURCE DE FUMÉES",
+    "cleanAir": "Air purifié",
+    "poolLabel": "Eau + contaminants collectés",
+    "legendDirty": "Fumées sales (four à bois)",
+    "legendWater": "Eau de lavage atomisée",
+    "legendClean": "Vapeur / air purifié",
+    "legendWaste": "Eau + contaminants évacués",
+    "step1Title": "Four à bois",
+    "step1Desc": "La combustion du bois produit des fumées riches en particules fines, suie, PM10, composés organiques et odeurs.",
+    "step2Title": "Entrée haut-gauche",
+    "step2Desc": "Les fumées sales sont acheminées dans la chambre de traitement ZAPPER par l'entrée en haut à gauche.",
+    "step3Title": "Atomisation",
+    "step3Desc": "L'eau atomisée à haute pression par la pompe Grundfos frappe les fumées, capturant particules et contaminants.",
+    "step4Title": "Collecte des déchets",
+    "step4Desc": "L'eau sale avec tous les contaminants se dépose dans le bassin de collecte au fond du système.",
+    "step5Title": "Sortie haut-droite",
+    "step5Desc": "L'air purifié, exempt de polluants, sort sous forme de vapeur propre par la sortie en haut à droite."
   }
 }
