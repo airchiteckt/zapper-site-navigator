@@ -195,25 +195,32 @@ export default function AIChatWidget() {
     }
   }, [messages.length]);
 
-  // Auto-open after 20 seconds
+  // Auto-open after 20 seconds (desktop only); show tooltip on mobile
   useEffect(() => {
     if (hasAutoOpened) return;
+    const isMobile = window.innerWidth < 768;
     const timer = setTimeout(() => {
-      try {
-        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.frequency.value = 800;
-        osc.type = "sine";
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-        osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.4);
-      } catch {}
-      setOpen(true);
-      setHasAutoOpened(true);
+      if (isMobile) {
+        // On mobile, just show a tooltip bubble
+        setShowMobileTooltip(true);
+        setHasAutoOpened(true);
+      } else {
+        try {
+          const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.frequency.value = 800;
+          osc.type = "sine";
+          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+          osc.start(audioCtx.currentTime);
+          osc.stop(audioCtx.currentTime + 0.4);
+        } catch {}
+        setOpen(true);
+        setHasAutoOpened(true);
+      }
     }, 20000);
     return () => clearTimeout(timer);
   }, [hasAutoOpened]);
