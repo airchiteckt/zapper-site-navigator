@@ -257,9 +257,25 @@ export default function AIChatWidget() {
       if (!text.trim() || isLoading) return;
       playSound(600, 0.1);
       const userMsg: Msg = { role: "user", content: text.trim() };
-      const allMessages = [...messages, userMsg];
-      setMessages(allMessages);
+      setMessages((prev) => [...prev, userMsg]);
       setInput("");
+      setUserMessageCount((c) => c + 1);
+
+      // If first message and contact not yet submitted, ask for info first
+      if (userMessageCount === 0 && !contactSubmitted) {
+        setPendingQuestion(text.trim());
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Prima di risponderti, avrei bisogno cortesemente di alcune informazioni. Presentiamoci! 😊",
+          },
+        ]);
+        setContactFormShown(true);
+        return;
+      }
+
+      const allMessages = [...messages, userMsg];
       setIsLoading(true);
 
       // Persist user message
