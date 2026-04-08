@@ -409,5 +409,10 @@
     "submit": "Commencer la consultation",
     "inputPlaceholder": "Écrivez votre message...",
     "send": "Envoyer"
+  },
+  "blog": {
+    "sectionTitle": "Notre Blog",
+    "sectionSubtitle": "Guides, analyses techniques et actualités du traitement des fumées",
+    "viewAll": "Tous les articles"
   }
 }

@@ -409,5 +409,10 @@
     "submit": "Beratung starten",
     "inputPlaceholder": "Schreiben Sie Ihre Nachricht...",
     "send": "Senden"
+  },
+  "blog": {
+    "sectionTitle": "Aus unserem Blog",
+    "sectionSubtitle": "Leitfäden, technische Einblicke und Neuigkeiten aus der Welt der Rauchabscheidung",
+    "viewAll": "Alle Artikel"
   }
 }

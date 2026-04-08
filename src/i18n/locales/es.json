@@ -409,5 +409,10 @@
     "submit": "Iniciar consulta",
     "inputPlaceholder": "Escribe tu mensaje...",
     "send": "Enviar"
+  },
+  "blog": {
+    "sectionTitle": "Desde nuestro Blog",
+    "sectionSubtitle": "Guías, análisis técnicos y novedades del mundo de la reducción de humos",
+    "viewAll": "Todos los artículos"
   }
 }

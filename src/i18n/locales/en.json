@@ -409,5 +409,10 @@
     "submit": "Start consultation",
     "inputPlaceholder": "Type your message...",
     "send": "Send"
+  },
+  "blog": {
+    "sectionTitle": "From our Blog",
+    "sectionSubtitle": "Guides, technical insights and news from the world of smoke abatement",
+    "viewAll": "All articles"
   }
 }
