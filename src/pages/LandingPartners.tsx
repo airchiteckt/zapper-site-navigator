@@ -12,6 +12,7 @@ import { sendContactEmails } from "@/lib/emailService";
 import { useToast } from "@/hooks/use-toast";
 import logoWhite from "@/assets/logo-zapper-bianco.svg";
 import heroImg from "@/assets/landing-partners-hero.jpg";
+import LandingProductSections from "@/components/landing/LandingProductSections";
 
 const STATS_KEYS = [
   { value: "30+", key: "stat1" },
@@ -140,6 +141,9 @@ export default function LandingPartners() {
             </div>
           </div>
         </section>
+
+        {/* TECHNOLOGY, CATALOG & SECTORS */}
+        <LandingProductSections scrollToForm={scrollToForm} />
 
         {/* WHY PARTNER */}
         <section className="py-16 md:py-24">
