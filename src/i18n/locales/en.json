@@ -408,7 +408,8 @@
     "phonePlaceholder": "Your phone",
     "submit": "Start consultation",
     "inputPlaceholder": "Type your message...",
-    "send": "Send"
+    "send": "Send",
+    "askMe": "Ask me anything! 💬"
   },
   "blog": {
     "sectionTitle": "From our Blog",
