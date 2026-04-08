@@ -12,6 +12,24 @@ type Msg = { role: "user" | "assistant"; content: string };
 
 const CONTACT_TRIGGER = "Lascia i tuoi dati";
 
+// Generate or retrieve a persistent visitor ID
+function getVisitorId(): string {
+  const KEY = "zapper_visitor_id";
+  let id = localStorage.getItem(KEY);
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem(KEY, id);
+  }
+  return id;
+}
+
+function getVisitCount(): number {
+  const KEY = "zapper_visit_count";
+  const count = parseInt(localStorage.getItem(KEY) || "0", 10) + 1;
+  localStorage.setItem(KEY, String(count));
+  return count;
+}
+
 function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) => void; onNavigate: (path: string) => void }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
@@ -21,7 +39,6 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
     if (!form.email.trim() || !form.phone.trim()) return;
     setSubmitting(true);
     try {
-      // Save to database
       const { error } = await supabase.from("datasheet_requests").insert({
         first_name: form.name.split(" ")[0] || "-",
         last_name: form.name.split(" ").slice(1).join(" ") || "-",
@@ -30,7 +47,6 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
       });
       if (error) throw error;
 
-      // Send emails
       await sendContactEmails({
         name: form.name || "Visitatore",
         email: form.email,
@@ -84,13 +100,14 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
 }
 
 export default function AIChatWidget() {
+  const visitorId = useRef(getVisitorId());
+  const visitCount = useRef(0);
+  const sessionIdRef = useRef<string | null>(null);
+
+  const isReturning = useRef(false);
+
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Msg[]>([
-    {
-      role: "assistant",
-      content: "Ciao! 👋 Sono l'assistente ZAPPER®. Descrivi il tuo impianto o problema e ti suggerirò la soluzione più adatta.",
-    },
-  ]);
+  const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
@@ -100,6 +117,20 @@ export default function AIChatWidget() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
+
+  // Initialize greeting and visit count on mount
+  useEffect(() => {
+    visitCount.current = getVisitCount();
+    isReturning.current = visitCount.current > 1;
+
+    const greeting: Msg = {
+      role: "assistant",
+      content: isReturning.current
+        ? "Bentornato! 👋 Sono l'assistente ZAPPER®. Come posso aiutarti oggi?"
+        : "Ciao! 👋 Sono l'assistente ZAPPER®. Descrivi il tuo impianto o problema e ti suggerirò la soluzione più adatta.",
+    };
+    setMessages([greeting]);
+  }, []);
 
   const playSound = useCallback((freq: number, duration = 0.15) => {
     try {
@@ -120,7 +151,47 @@ export default function AIChatWidget() {
     } catch {}
   }, []);
 
-  // Auto-open after 5 seconds
+  // Create a session when user sends first message
+  const ensureSession = useCallback(async () => {
+    if (sessionIdRef.current) return sessionIdRef.current;
+    try {
+      const { data, error } = await supabase
+        .from("chat_sessions")
+        .insert({
+          visitor_id: visitorId.current,
+          page_url: window.location.pathname,
+          user_agent: navigator.userAgent.slice(0, 500),
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      sessionIdRef.current = data.id;
+      return data.id;
+    } catch (err) {
+      console.error("Failed to create chat session:", err);
+      return null;
+    }
+  }, []);
+
+  const saveMessage = useCallback(async (sessionId: string | null, role: string, content: string) => {
+    if (!sessionId) return;
+    try {
+      await supabase.from("chat_messages").insert({
+        session_id: sessionId,
+        role,
+        content,
+      });
+      // Update message count
+      await supabase
+        .from("chat_sessions")
+        .update({ message_count: messages.length + 1 })
+        .eq("id", sessionId);
+    } catch (err) {
+      console.error("Failed to save message:", err);
+    }
+  }, [messages.length]);
+
+  // Auto-open after 20 seconds
   useEffect(() => {
     if (hasAutoOpened) return;
     const timer = setTimeout(() => {
@@ -160,7 +231,7 @@ export default function AIChatWidget() {
     }
   }, [messages, contactSubmitted]);
 
-  const handleContactSubmitted = (name: string) => {
+  const handleContactSubmitted = async (name: string) => {
     setContactSubmitted(true);
     setContactFormShown(false);
     setMessages((prev) => [
@@ -168,24 +239,38 @@ export default function AIChatWidget() {
       { role: "assistant", content: `Grazie ${name}! 🎉 Un nostro tecnico ti contatterà al più presto.` },
     ]);
     setShowWhatsAppCta(true);
+
+    // Update session with contact info
+    if (sessionIdRef.current) {
+      try {
+        await supabase
+          .from("chat_sessions")
+          .update({ contact_submitted: true, visitor_name: name })
+          .eq("id", sessionIdRef.current);
+      } catch {}
+    }
   };
 
   const send = useCallback(
     async (text: string) => {
       if (!text.trim() || isLoading) return;
-      playSound(600, 0.1); // send sound
+      playSound(600, 0.1);
       const userMsg: Msg = { role: "user", content: text.trim() };
       const allMessages = [...messages, userMsg];
       setMessages(allMessages);
       setInput("");
       setIsLoading(true);
 
+      // Persist user message
+      const sid = await ensureSession();
+      saveMessage(sid, "user", text.trim());
+
       let assistantSoFar = "";
       let playedReceiveSound = false;
 
       const upsertAssistant = (chunk: string) => {
         if (!playedReceiveSound) {
-          playSound(900, 0.12); // receive sound
+          playSound(900, 0.12);
           playedReceiveSound = true;
         }
         assistantSoFar += chunk;
@@ -240,17 +325,23 @@ export default function AIChatWidget() {
             }
           }
         }
+
+        // Save the complete assistant response
+        if (assistantSoFar) {
+          saveMessage(sid, "assistant", assistantSoFar);
+        }
       } catch {
-        upsertAssistant("Mi dispiace, si è verificato un errore. Riprova o contattaci direttamente.");
+        const errMsg = "Mi dispiace, si è verificato un errore. Riprova o contattaci direttamente.";
+        upsertAssistant(errMsg);
+        saveMessage(sid, "assistant", errMsg);
       } finally {
         setIsLoading(false);
       }
     },
-    [messages, isLoading]
+    [messages, isLoading, ensureSession, saveMessage, playSound]
   );
 
   const renderMessageContent = (msg: Msg) => {
-    // Strip the trigger phrase from displayed content
     const displayContent = msg.content.replace(CONTACT_TRIGGER, "").trim();
     if (msg.role === "assistant") {
       return (
@@ -329,12 +420,10 @@ export default function AIChatWidget() {
               </div>
             ))}
 
-            {/* Inline contact form */}
             {contactFormShown && !contactSubmitted && (
               <ContactForm onSubmitted={handleContactSubmitted} onNavigate={(path) => { window.location.href = path; }} />
             )}
 
-            {/* WhatsApp CTA after contact submitted */}
             {showWhatsAppCta && (
               <a
                 href={`https://wa.me/393248996189?text=${encodeURIComponent("Ciao, ho appena lasciato i miei dati sul sito. Vorrei informazioni rapide sui sistemi ZAPPER®")}`}

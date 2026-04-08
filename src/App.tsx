@@ -91,6 +91,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminShop from "./pages/admin/AdminShop";
 import AdminPartners from "./pages/admin/AdminPartners";
 import AdminBlog from "./pages/admin/AdminBlog";
+import AdminChatLogs from "./pages/admin/AdminChatLogs";
 import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerMap from "./pages/PartnerMap";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
@@ -202,6 +203,7 @@ const App = () => (
             <Route path="/admin/shop" element={<AdminShop />} />
             <Route path="/admin/partners" element={<AdminPartners />} />
             <Route path="/admin/blog" element={<AdminBlog />} />
+            <Route path="/admin/chat-logs" element={<AdminChatLogs />} />
             {/* Partner routes */}
             <Route path="/partners" element={<PartnerMap />} />
             <Route path="/partner" element={<PartnerLogin />} />
