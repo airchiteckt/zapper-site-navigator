@@ -210,6 +210,8 @@ const App = () => (
             <Route path="/partner" element={<PartnerLogin />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
             <Route path="/grazie" element={<Grazie />} />
+            {/* Language prefix redirect: /en, /fr/contatti, etc. */}
+            <Route path="/:lang/*" element={<LanguageRedirect />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
