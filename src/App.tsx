@@ -94,6 +94,7 @@ import AdminBlog from "./pages/admin/AdminBlog";
 import AdminChatLogs from "./pages/admin/AdminChatLogs";
 import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerMap from "./pages/PartnerMap";
+import LandingPartners from "./pages/LandingPartners";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
 import LanguageRedirect from "./components/LanguageRedirect";
@@ -207,6 +208,7 @@ const App = () => (
             <Route path="/admin/chat-logs" element={<AdminChatLogs />} />
             {/* Partner routes */}
             <Route path="/partners" element={<PartnerMap />} />
+            <Route path="/landing-partners" element={<LandingPartners />} />
             <Route path="/partner" element={<PartnerLogin />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
             <Route path="/grazie" element={<Grazie />} />
