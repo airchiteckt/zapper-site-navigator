@@ -96,6 +96,7 @@ import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerMap from "./pages/PartnerMap";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
+import LanguageRedirect from "./components/LanguageRedirect";
 
 const queryClient = new QueryClient();
 
