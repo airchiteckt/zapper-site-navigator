@@ -235,11 +235,9 @@ export default function AIChatWidget() {
   const handleContactSubmitted = async (name: string) => {
     setContactSubmitted(true);
     setContactFormShown(false);
-    setMessages((prev) => [
-      ...prev,
-      { role: "assistant", content: `Grazie ${name}! 🎉 Un nostro tecnico ti contatterà al più presto.` },
-    ]);
-    setShowWhatsAppCta(true);
+
+    const thankYouMsg = `Grazie ${name}! 😊 Ora rispondo alla tua domanda...`;
+    setMessages((prev) => [...prev, { role: "assistant", content: thankYouMsg }]);
 
     // Update session with contact info
     if (sessionIdRef.current) {
@@ -249,6 +247,16 @@ export default function AIChatWidget() {
           .update({ contact_submitted: true, visitor_name: name })
           .eq("id", sessionIdRef.current);
       } catch {}
+    }
+
+    // Now send the pending question to AI
+    if (pendingQuestion) {
+      const questionToSend = pendingQuestion;
+      setPendingQuestion(null);
+      // Small delay so the user sees the thank you message
+      setTimeout(() => {
+        sendToAI(questionToSend);
+      }, 500);
     }
   };
 
