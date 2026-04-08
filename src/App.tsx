@@ -96,6 +96,7 @@ import PartnerLogin from "./pages/partner/PartnerLogin";
 import PartnerMap from "./pages/PartnerMap";
 import PartnerDashboard from "./pages/partner/PartnerDashboard";
 import AIChatWidget from "./components/chat/AIChatWidget";
+import LanguageRedirect from "./components/LanguageRedirect";
 
 const queryClient = new QueryClient();
 
@@ -209,6 +210,8 @@ const App = () => (
             <Route path="/partner" element={<PartnerLogin />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
             <Route path="/grazie" element={<Grazie />} />
+            {/* Language prefix redirect: /en, /fr/contatti, etc. */}
+            <Route path="/:lang/*" element={<LanguageRedirect />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
