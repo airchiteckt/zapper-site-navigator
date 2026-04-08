@@ -253,7 +253,6 @@ export default function AIChatWidget() {
     if (pendingQuestion) {
       const questionToSend = pendingQuestion;
       setPendingQuestion(null);
-      // Small delay so the user sees the thank you message
       setTimeout(() => {
         sendToAI(questionToSend);
       }, 500);
