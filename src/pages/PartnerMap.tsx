@@ -7,7 +7,19 @@ import SEO from '@/components/SEO';
 import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
 
+import logoArtistica from '@/assets/partners/artistica-salernitana.png';
+import logoFazzone from '@/assets/partners/pasquale-fazzone.png';
+import logoDiVicino from '@/assets/partners/di-vicino-forni.png';
+import logoSaraceno from '@/assets/partners/forni-del-saraceno.png';
+
 type PartnerType = 'installatore' | 'rivenditore' | 'importatore';
+
+const COLLABORATING_COMPANIES = [
+  { name: 'Artistica Salernitana', logo: logoArtistica },
+  { name: 'Pasquale Fazzone - Mastro Fornaro', logo: logoFazzone },
+  { name: 'Di Vicino Forni', logo: logoDiVicino },
+  { name: 'Forni del Saraceno', logo: logoSaraceno },
+];
 
 interface PartnerLocation {
   id: string;
