@@ -103,11 +103,6 @@ export default function WetScrubberAnimation() {
             </div>
           </div>
 
-          {/* Pump */}
-          <div className="ws-pump">
-            <div className="ws-pump-rotor" />
-            <div className="ws-pump-text">GRUNDFOS<br />PUMP</div>
-          </div>
         </div>
 
         {/* Arrow clean */}
