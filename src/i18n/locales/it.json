@@ -409,5 +409,10 @@
     "submit": "Inizia la consulenza",
     "inputPlaceholder": "Scrivi il tuo messaggio...",
     "send": "Invia"
+  },
+  "blog": {
+    "sectionTitle": "Dal nostro Blog",
+    "sectionSubtitle": "Guide, approfondimenti tecnici e novità dal mondo dell'abbattimento fumi",
+    "viewAll": "Tutti gli articoli"
   }
 }
