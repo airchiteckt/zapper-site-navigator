@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight, Flame, Wind, Zap, Factory, Home, UtensilsCrossed,
-  Shield, Gauge, Leaf, Settings
+  ArrowRight, Flame, Droplets, Zap, Factory, Home, UtensilsCrossed,
+  ShieldCheck, Gauge, FlameKindling, Settings
 } from "lucide-react";
 import techImg from "@/assets/landing-partners-technology.jpg";
 import sectorsImg from "@/assets/landing-partners-sectors.jpg";
@@ -18,7 +18,7 @@ const MODELS = [
   { name: "Destink", desc: "Odori & VOC", diameter: "Ø 150–300 mm" },
 ];
 
-const TECH_FEATURES_ICONS = [Flame, Wind, Shield, Gauge, Leaf, Settings];
+const TECH_FEATURES_ICONS = [Droplets, Flame, ShieldCheck, Gauge, FlameKindling, Settings];
 
 const SECTOR_ICONS = [UtensilsCrossed, Home, Factory];
 const SECTOR_KEYS = ["professional", "residential", "industrial"] as const;
