@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
 import { Sparkles, Bug, Wrench, Wind, Zap, Settings, ArrowRight } from "lucide-react";
+import heroImage from "@/assets/servizi-hero.jpg";
 
 const servizi = [
   {
@@ -56,8 +57,16 @@ export default function Servizi() {
       <Header />
       <main className="pt-20">
         {/* Hero */}
-        <section className="bg-zapper-black text-white py-20 md:py-28">
-          <div className="container px-4 sm:px-6 max-w-4xl text-center">
+        <section className="relative text-white py-20 md:py-28 overflow-hidden">
+          <img
+            src={heroImage}
+            alt="Team ZAPPER® al lavoro in cucina professionale"
+            className="absolute inset-0 w-full h-full object-cover"
+            width={1920}
+            height={768}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/60 to-foreground/40" />
+          <div className="container px-4 sm:px-6 max-w-4xl text-center relative z-10">
             <h1 className="text-3xl md:text-5xl font-bold mb-6">
               Servizi per Cucine Professionali
             </h1>
