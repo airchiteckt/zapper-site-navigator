@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import techImg from "@/assets/landing-partners-technology.jpg";
 import sectorsImg from "@/assets/landing-partners-sectors.jpg";
+import WetScrubberAnimation from "./WetScrubberAnimation";
 
 const MODELS = [
   { name: "ZPZ", desc: "Pizzerie & Panifici", diameter: "Ø 200–350 mm" },
