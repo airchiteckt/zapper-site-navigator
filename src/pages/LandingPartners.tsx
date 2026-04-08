@@ -142,6 +142,9 @@ export default function LandingPartners() {
           </div>
         </section>
 
+        {/* TECHNOLOGY, CATALOG & SECTORS */}
+        <LandingProductSections scrollToForm={scrollToForm} />
+
         {/* WHY PARTNER */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
