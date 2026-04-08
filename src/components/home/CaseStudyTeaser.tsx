@@ -28,7 +28,7 @@ const CaseStudyTeaser = () => {
           {/* Content */}
           <div className="text-center lg:text-left">
             <span className="inline-block text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4">
-              Case study
+              Interventi
             </span>
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
               {caseStudy.name}
