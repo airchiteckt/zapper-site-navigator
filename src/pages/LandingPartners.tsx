@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,81 +13,23 @@ import { useToast } from "@/hooks/use-toast";
 import logoWhite from "@/assets/logo-zapper-bianco.svg";
 import heroImg from "@/assets/landing-partners-hero.jpg";
 
-const STATS = [
-  { value: "30+", label: "Modelli a catalogo" },
-  { value: "500+", label: "Installazioni completate" },
-  { value: "15+", label: "Paesi raggiunti" },
-  { value: "95%", label: "Abbattimento fumi garantito" },
+const STATS_KEYS = [
+  { value: "30+", key: "stat1" },
+  { value: "500+", key: "stat2" },
+  { value: "15+", key: "stat3" },
+  { value: "95%", key: "stat4" },
 ];
 
-const BENEFITS = [
-  {
-    icon: Megaphone,
-    title: "Campagne pubblicitarie dedicate",
-    desc: "Investiamo in advertising mirato nella tua area per generare lead qualificati e portarti clienti pronti all'acquisto.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Margini competitivi",
-    desc: "Listini riservati con sconti dedicati e margini interessanti su ogni vendita e installazione.",
-  },
-  {
-    icon: Globe,
-    title: "Esclusiva territoriale",
-    desc: "Proteggiamo la tua zona: nessun altro partner nella stessa area geografica.",
-  },
-  {
-    icon: Wrench,
-    title: "Formazione tecnica completa",
-    desc: "Training approfondito su installazione, manutenzione e vendita con supporto continuo.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Materiale marketing incluso",
-    desc: "Video, foto professionali, schede tecniche e materiale promozionale pronti all'uso.",
-  },
-  {
-    icon: Users,
-    title: "Dashboard partner dedicata",
-    desc: "Accesso riservato a listini, documenti tecnici, video formativi e storico ordini.",
-  },
-];
+const BENEFIT_ICONS = [Megaphone, TrendingUp, Globe, Wrench, ShieldCheck, Users];
 
-const PARTNER_TYPES = [
-  {
-    value: "installatore",
-    label: "Installatore",
-    color: "#59d153",
-    desc: "Installi e manutieni sistemi di aspirazione, ventilazione o trattamento aria? Diventa il riferimento ZAPPER® nella tua zona.",
-  },
-  {
-    value: "rivenditore",
-    label: "Rivenditore",
-    color: "#3b82f6",
-    desc: "Vendi forni, attrezzature per ristorazione o edilizia? Aggiungi ZAPPER® al tuo catalogo per differenziarti.",
-  },
-  {
-    value: "importatore",
-    label: "Importatore",
-    color: "#f59e0b",
-    desc: "Operi in un mercato estero? Diventa importatore esclusivo ZAPPER® nel tuo paese.",
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    text: "Da quando siamo partner ZAPPER®, il fatturato nella divisione trattamento fumi è cresciuto del 40%. Le campagne pubblicitarie dedicate ci portano clienti già informati.",
-    author: "Marco R.",
-    role: "Installatore - Lombardia",
-  },
-  {
-    text: "La qualità del prodotto parla da sola. I clienti sono soddisfatti e il supporto tecnico è sempre disponibile. Un vero win-win.",
-    author: "Pierre D.",
-    role: "Importatore - Francia",
-  },
+const PARTNER_TYPES_CONFIG = [
+  { value: "installatore", key: "installer", color: "#59d153" },
+  { value: "rivenditore", key: "reseller", color: "#3b82f6" },
+  { value: "importatore", key: "importer", color: "#f59e0b" },
 ];
 
 export default function LandingPartners() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", company: "", city: "", country: "",
     partnerType: "", message: "",
@@ -124,11 +67,19 @@ export default function LandingPartners() {
     document.getElementById("partner-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const advPoints = [
+    t("landingPartners.advPoint1"),
+    t("landingPartners.advPoint2"),
+    t("landingPartners.advPoint3"),
+    t("landingPartners.advPoint4"),
+    t("landingPartners.advPoint5"),
+  ];
+
   return (
     <>
       <SEO
-        title="Diventa Partner ZAPPER® | Opportunità di business"
-        description="Entra nella rete ZAPPER®: campagne pubblicitarie dedicate, margini competitivi e supporto completo. Candidati come installatore, rivenditore o importatore."
+        title={t("landingPartners.seoTitle")}
+        description={t("landingPartners.seoDescription")}
         noindex
       />
 
@@ -137,7 +88,7 @@ export default function LandingPartners() {
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <img src={logoWhite} alt="ZAPPER®" className="h-7" />
           <Button variant="accent" size="sm" onClick={scrollToForm}>
-            Candidati ora <ArrowRight className="w-4 h-4 ml-1" />
+            {t("landingPartners.ctaApply")} <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
       </header>
@@ -152,19 +103,19 @@ export default function LandingPartners() {
           <div className="relative container mx-auto px-4 py-20 md:py-32">
             <div className="max-w-3xl">
               <span className="inline-block bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-6">
-                Programma Partner ZAPPER®
+                {t("landingPartners.seoBadge")}
               </span>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Fai crescere il tuo business con
-                <span className="text-primary block mt-2">la tecnologia n°1 in Italia</span>
+                {t("landingPartners.heroTitle1")}
+                <span className="text-primary block mt-2">{t("landingPartners.heroTitle2")}</span>
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl leading-relaxed">
-                Diventa partner ZAPPER® e accedi a campagne pubblicitarie dedicate per attrarre clienti nella tua area.
-                Un modello <strong className="text-primary-foreground">win-win</strong> che genera risultati concreti per entrambi.
-              </p>
+              <p
+                className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: t("landingPartners.heroDesc") }}
+              />
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="hero" onClick={scrollToForm}>
-                  Diventa Partner
+                  {t("landingPartners.heroBtn")}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 <a href="tel:+3908119968436" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-semibold text-lg">
@@ -180,10 +131,10 @@ export default function LandingPartners() {
         <section className="border-y border-primary/10 bg-foreground">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4">
-              {STATS.map((s, i) => (
+              {STATS_KEYS.map((s, i) => (
                 <div key={i} className={`py-8 md:py-10 text-center ${i > 0 ? 'border-l border-primary/10' : ''}`}>
                   <p className="text-3xl md:text-4xl font-bold text-primary mb-1">{s.value}</p>
-                  <p className="text-sm text-muted-foreground">{s.label}</p>
+                  <p className="text-sm text-muted-foreground">{t(`landingPartners.${s.key}`)}</p>
                 </div>
               ))}
             </div>
@@ -195,23 +146,25 @@ export default function LandingPartners() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12 md:mb-16">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-                Perché diventare Partner <span className="text-primary">ZAPPER®</span>
+                {t("landingPartners.whyTitle").replace("<1>", "").replace("</1>", "").split("ZAPPER®").map((part, i, arr) =>
+                  i < arr.length - 1 ? <span key={i}>{part}<span className="text-primary">ZAPPER®</span></span> : <span key={i}>{part}</span>
+                )}
               </h2>
               <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-                Non sei solo un rivenditore: sei un partner strategico. Investiamo attivamente nel tuo successo.
+                {t("landingPartners.whySubtitle")}
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {BENEFITS.map((b, i) => (
+              {BENEFIT_ICONS.map((Icon, i) => (
                 <div
                   key={i}
                   className="bg-card/5 border border-primary/10 rounded-2xl p-6 hover:border-primary/30 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <b.icon className="w-6 h-6 text-primary" />
+                    <Icon className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-bold mb-2">{b.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
+                  <h3 className="text-lg font-bold mb-2">{t(`landingPartners.benefit${i + 1}Title`)}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{t(`landingPartners.benefit${i + 1}Desc`)}</p>
                 </div>
               ))}
             </div>
@@ -224,23 +177,16 @@ export default function LandingPartners() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <span className="inline-block bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
-                  Il nostro vantaggio competitivo
+                  {t("landingPartners.advBadge")}
                 </span>
                 <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-                  Campagne pubblicitarie <span className="text-primary">dedicate</span> per ogni partner
+                  {t("landingPartners.advTitle")}
                 </h2>
                 <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-                  Investiamo in campagne Google Ads e Meta Ads geo-localizzate nella tua area operativa.
-                  I lead generati vengono indirizzati direttamente a te, creando un flusso costante di clienti qualificati.
+                  {t("landingPartners.advDesc")}
                 </p>
                 <div className="space-y-4">
-                  {[
-                    "Campagne Google Ads localizzate nella tua zona",
-                    "Lead qualificati inviati direttamente a te",
-                    "Materiale creativo professionale incluso",
-                    "Report mensile sulle performance",
-                    "ROI misurabile e trasparente",
-                  ].map((item, i) => (
+                  {advPoints.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-sm">{item}</span>
@@ -249,39 +195,27 @@ export default function LandingPartners() {
                 </div>
               </div>
               <div className="bg-foreground border border-primary/20 rounded-2xl p-8">
-                <h3 className="text-xl font-bold mb-6 text-center">Il modello Win-Win</h3>
+                <h3 className="text-xl font-bold mb-6 text-center">{t("landingPartners.winWinTitle")}</h3>
                 <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 text-primary font-bold">1</div>
-                    <div>
-                      <p className="font-semibold mb-1">ZAPPER® investe in pubblicità</p>
-                      <p className="text-sm text-muted-foreground">Campagne dedicate nella tua area geografica</p>
+                  {[1, 2, 3].map((step) => (
+                    <div key={step}>
+                      <div className="flex gap-4">
+                        <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 text-primary font-bold">{step}</div>
+                        <div>
+                          <p className="font-semibold mb-1">{t(`landingPartners.winStep${step}Title`)}</p>
+                          <p className="text-sm text-muted-foreground">{t(`landingPartners.winStep${step}Desc`)}</p>
+                        </div>
+                      </div>
+                      <div className="w-px h-6 bg-primary/20 ml-5" />
                     </div>
-                  </div>
-                  <div className="w-px h-6 bg-primary/20 ml-5" />
-                  <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 text-primary font-bold">2</div>
-                    <div>
-                      <p className="font-semibold mb-1">I clienti ti contattano</p>
-                      <p className="text-sm text-muted-foreground">Lead qualificati pronti all'acquisto</p>
-                    </div>
-                  </div>
-                  <div className="w-px h-6 bg-primary/20 ml-5" />
-                  <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 text-primary font-bold">3</div>
-                    <div>
-                      <p className="font-semibold mb-1">Tu vendi e installi</p>
-                      <p className="text-sm text-muted-foreground">Con il nostro supporto tecnico completo</p>
-                    </div>
-                  </div>
-                  <div className="w-px h-6 bg-primary/20 ml-5" />
+                  ))}
                   <div className="flex gap-4">
                     <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
                       <TrendingUp className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="font-semibold mb-1 text-primary">Entrambi cresciamo</p>
-                      <p className="text-sm text-muted-foreground">Margini garantiti e clienti fidelizzati</p>
+                      <p className="font-semibold mb-1 text-primary">{t("landingPartners.winStep4Title")}</p>
+                      <p className="text-sm text-muted-foreground">{t("landingPartners.winStep4Desc")}</p>
                     </div>
                   </div>
                 </div>
@@ -295,49 +229,52 @@ export default function LandingPartners() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-                Scegli il tuo ruolo
+                {t("landingPartners.rolesTitle")}
               </h2>
               <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-                Tre modi per entrare nella rete ZAPPER® e far crescere il tuo business.
+                {t("landingPartners.rolesSubtitle")}
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
-              {PARTNER_TYPES.map((pt) => (
-                <div
-                  key={pt.value}
-                  className="bg-card/5 border rounded-2xl p-8 text-center hover:border-opacity-60 transition-all hover:-translate-y-1 cursor-pointer"
-                  style={{ borderColor: pt.color + '30' }}
-                  onClick={() => {
-                    setFormData(f => ({ ...f, partnerType: pt.value }));
-                    scrollToForm();
-                  }}
-                >
+              {PARTNER_TYPES_CONFIG.map((pt) => {
+                const label = t(`landingPartners.${pt.key}`);
+                return (
                   <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
-                    style={{ backgroundColor: pt.color + '15' }}
-                  >
-                    <Wrench className="w-8 h-8" style={{ color: pt.color }} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: pt.color }}>
-                    {pt.label}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                    {pt.desc}
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-primary/30 hover:bg-primary/10"
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    key={pt.value}
+                    className="bg-card/5 border rounded-2xl p-8 text-center hover:border-opacity-60 transition-all hover:-translate-y-1 cursor-pointer"
+                    style={{ borderColor: pt.color + '30' }}
+                    onClick={() => {
                       setFormData(f => ({ ...f, partnerType: pt.value }));
                       scrollToForm();
                     }}
                   >
-                    Candidati come {pt.label.toLowerCase()}
-                  </Button>
-                </div>
-              ))}
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                      style={{ backgroundColor: pt.color + '15' }}
+                    >
+                      <Wrench className="w-8 h-8" style={{ color: pt.color }} />
+                    </div>
+                    <h3 className="text-xl font-bold mb-3" style={{ color: pt.color }}>
+                      {label}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                      {t(`landingPartners.${pt.key}Desc`)}
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-primary/30 hover:bg-primary/10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setFormData(f => ({ ...f, partnerType: pt.value }));
+                        scrollToForm();
+                      }}
+                    >
+                      {t("landingPartners.applyAs", { role: label.toLowerCase() })}
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -347,11 +284,11 @@ export default function LandingPartners() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-                I nostri partner dicono
+                {t("landingPartners.testimonialsTitle")}
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {TESTIMONIALS.map((t, i) => (
+              {[1, 2].map((i) => (
                 <div key={i} className="bg-foreground border border-primary/10 rounded-2xl p-6">
                   <div className="flex gap-1 mb-4">
                     {[...Array(5)].map((_, j) => (
@@ -359,11 +296,11 @@ export default function LandingPartners() {
                     ))}
                   </div>
                   <p className="text-sm text-primary-foreground/80 italic mb-4 leading-relaxed">
-                    "{t.text}"
+                    "{t(`landingPartners.testimonial${i}Text`)}"
                   </p>
                   <div>
-                    <p className="font-semibold text-sm">{t.author}</p>
-                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                    <p className="font-semibold text-sm">{t(`landingPartners.testimonial${i}Author`)}</p>
+                    <p className="text-xs text-muted-foreground">{t(`landingPartners.testimonial${i}Role`)}</p>
                   </div>
                 </div>
               ))}
@@ -377,20 +314,19 @@ export default function LandingPartners() {
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-10">
                 <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-                  Candidati come Partner
+                  {t("landingPartners.formTitle")}
                 </h2>
                 <p className="text-muted-foreground">
-                  Compila il modulo e ti ricontatteremo entro 24 ore per discutere le opportunità nella tua area.
+                  {t("landingPartners.formSubtitle")}
                 </p>
               </div>
 
               {isSuccess ? (
                 <div className="bg-primary/10 border border-primary/30 rounded-2xl p-8 text-center">
                   <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-2">Candidatura inviata!</h3>
+                  <h3 className="text-2xl font-bold mb-2">{t("landingPartners.successTitle")}</h3>
                   <p className="text-muted-foreground mb-6">
-                    Grazie per il tuo interesse. Il nostro team commerciale ti contatterà entro 24 ore
-                    per discutere le opportunità di partnership nella tua area.
+                    {t("landingPartners.successDesc")}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <a href="tel:+3908119968436" className="inline-flex items-center gap-2 text-primary font-semibold">
@@ -405,9 +341,9 @@ export default function LandingPartners() {
                 <form onSubmit={handleSubmit} className="bg-card/5 border border-primary/20 rounded-2xl p-6 md:p-8 space-y-4">
                   {/* Partner Type */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">Tipo di partnership *</label>
+                    <label className="block text-sm font-medium mb-2">{t("landingPartners.formType")}</label>
                     <div className="grid grid-cols-3 gap-3">
-                      {PARTNER_TYPES.map((pt) => (
+                      {PARTNER_TYPES_CONFIG.map((pt) => (
                         <button
                           key={pt.value}
                           type="button"
@@ -417,12 +353,9 @@ export default function LandingPartners() {
                               ? 'border-transparent text-primary-foreground'
                               : 'border-primary/20 text-muted-foreground hover:border-primary/40'
                           }`}
-                          style={formData.partnerType === pt.value
-                            ? { backgroundColor: pt.color }
-                            : {}
-                          }
+                          style={formData.partnerType === pt.value ? { backgroundColor: pt.color } : {}}
                         >
-                          {pt.label}
+                          {t(`landingPartners.${pt.key}`)}
                         </button>
                       ))}
                     </div>
@@ -430,99 +363,58 @@ export default function LandingPartners() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1.5">Nome e Cognome *</label>
-                      <Input
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }))}
-                        placeholder="Mario Rossi"
-                        className="bg-background text-base"
-                      />
+                      <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formName")}</label>
+                      <Input required value={formData.name} onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }))} placeholder="Mario Rossi" className="bg-background text-base" />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1.5">Azienda</label>
-                      <Input
-                        value={formData.company}
-                        onChange={(e) => setFormData(f => ({ ...f, company: e.target.value }))}
-                        placeholder="Nome azienda"
-                        className="bg-background text-base"
-                      />
+                      <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formCompany")}</label>
+                      <Input value={formData.company} onChange={(e) => setFormData(f => ({ ...f, company: e.target.value }))} className="bg-background text-base" />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1.5">Email *</label>
-                      <Input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData(f => ({ ...f, email: e.target.value }))}
-                        placeholder="mario@azienda.it"
-                        className="bg-background text-base"
-                      />
+                      <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formEmail")}</label>
+                      <Input type="email" required value={formData.email} onChange={(e) => setFormData(f => ({ ...f, email: e.target.value }))} className="bg-background text-base" />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1.5">Telefono *</label>
-                      <Input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData(f => ({ ...f, phone: e.target.value }))}
-                        placeholder="+39 333 123 4567"
-                        className="bg-background text-base"
-                      />
+                      <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formPhone")}</label>
+                      <Input type="tel" required value={formData.phone} onChange={(e) => setFormData(f => ({ ...f, phone: e.target.value }))} className="bg-background text-base" />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1.5">Città</label>
-                      <Input
-                        value={formData.city}
-                        onChange={(e) => setFormData(f => ({ ...f, city: e.target.value }))}
-                        placeholder="Milano"
-                        className="bg-background text-base"
-                      />
+                      <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formCity")}</label>
+                      <Input value={formData.city} onChange={(e) => setFormData(f => ({ ...f, city: e.target.value }))} className="bg-background text-base" />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1.5">Paese</label>
-                      <Input
-                        value={formData.country}
-                        onChange={(e) => setFormData(f => ({ ...f, country: e.target.value }))}
-                        placeholder="Italia"
-                        className="bg-background text-base"
-                      />
+                      <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formCountry")}</label>
+                      <Input value={formData.country} onChange={(e) => setFormData(f => ({ ...f, country: e.target.value }))} className="bg-background text-base" />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1.5">Messaggio</label>
+                    <label className="block text-sm font-medium mb-1.5">{t("landingPartners.formMessage")}</label>
                     <Textarea
                       value={formData.message}
                       onChange={(e) => setFormData(f => ({ ...f, message: e.target.value }))}
-                      placeholder="Raccontaci della tua attività e della zona che vorresti coprire..."
+                      placeholder={t("landingPartners.formPlaceholderMsg")}
                       rows={3}
                       className="bg-background text-base"
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    variant="accent"
-                    size="lg"
-                    className="w-full"
-                    disabled={isSubmitting || !formData.partnerType}
-                  >
+                  <Button type="submit" variant="accent" size="lg" className="w-full" disabled={isSubmitting || !formData.partnerType}>
                     {isSubmitting ? (
-                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Invio in corso...</>
+                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("landingPartners.formSubmitting")}</>
                     ) : (
-                      <>Invia la tua candidatura <ArrowRight className="w-4 h-4 ml-2" /></>
+                      <>{t("landingPartners.formSubmit")} <ArrowRight className="w-4 h-4 ml-2" /></>
                     )}
                   </Button>
 
                   <p className="text-xs text-muted-foreground text-center">
-                    Inviando questo modulo acconsenti al trattamento dei dati personali ai sensi del GDPR.
+                    {t("landingPartners.formPrivacy")}
                   </p>
                 </form>
               )}
@@ -534,23 +426,23 @@ export default function LandingPartners() {
         <section className="py-12 md:py-16 bg-primary/10 border-t border-primary/20">
           <div className="container mx-auto px-4 text-center">
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-4">
-              Hai domande? Parliamone.
+              {t("landingPartners.finalTitle")}
             </h2>
             <p className="text-muted-foreground mb-6">
-              Contattaci direttamente per discutere le opportunità di partnership.
+              {t("landingPartners.finalSubtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+3908119968436"
                 className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
               >
-                <Phone className="w-5 h-5" /> Chiama ora
+                <Phone className="w-5 h-5" /> {t("landingPartners.callNow")}
               </a>
               <a
                 href="mailto:info@smokezapper.it"
                 className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors"
               >
-                <Mail className="w-5 h-5" /> Scrivici
+                <Mail className="w-5 h-5" /> {t("landingPartners.writeUs")}
               </a>
             </div>
           </div>
@@ -559,7 +451,7 @@ export default function LandingPartners() {
         {/* Footer minimal */}
         <footer className="py-6 border-t border-primary/10 text-center">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} ZAPPER® — Tutti i diritti riservati
+            {t("landingPartners.footerCopy", { year: new Date().getFullYear() })}
           </p>
         </footer>
       </main>
