@@ -7,66 +7,63 @@ import settoreIndustrialeHero from "@/assets/settore-industriale-hero.webp";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
+import { useTranslation } from "react-i18next";
 
 const Settori = () => {
+  const { t } = useTranslation();
+
   const sectors = [
     {
       id: "professionale",
-      title: "Settore Professionale",
-      description: "Ristoranti, pizzerie, panifici, bracerie e cucine professionali con problemi di fumi, polveri, odori e segnalazioni.",
+      title: t("settoriPage.professionalTitle"),
+      description: t("settoriPage.professionalDescription"),
       icon: ChefHat,
       href: "/settori/professionale",
-      ambiti: ["Pizzerie", "Panifici", "Bracerie", "Cucine professionali"],
+      ambiti: t("settoriPage.professionalAmbiti", { returnObjects: true }) as string[],
       priority: true,
+      ctaKey: "professionalCta",
     },
     {
       id: "domestico",
-      title: "Settore Domestico",
-      description: "Abitazioni con caldaie a biomassa, camini e stufe a legna dove il fumo crea problemi di tiraggio, odori o disturbo al vicinato.",
+      title: t("settoriPage.domesticTitle"),
+      description: t("settoriPage.domesticDescription"),
       icon: Home,
       href: "/settori/domestico",
-      ambiti: ["Caldaie a biomassa", "Camini a legna", "Stufe"],
+      ambiti: t("settoriPage.domesticAmbiti", { returnObjects: true }) as string[],
       priority: false,
+      ctaKey: "domesticCta",
     },
     {
       id: "industriale",
-      title: "Settore Industriale",
-      description: "Impianti industriali con alte portate e emissioni complesse, dove è necessario intervenire in modo mirato su fumi e polveri.",
+      title: t("settoriPage.industrialTitle"),
+      description: t("settoriPage.industrialDescription"),
       icon: Factory,
       href: "/settori/industriale",
-      ambiti: ["Torrefazioni", "Caseifici", "Affumicatori", "Forni industriali"],
+      ambiti: t("settoriPage.industrialAmbiti", { returnObjects: true }) as string[],
       priority: false,
+      ctaKey: "industrialCta",
     },
   ];
 
-  const ctaLabels = {
-    professionale: "Vai alle soluzioni per attività professionali",
-    domestico: "Vai alle soluzioni per uso domestico",
-    industriale: "Vai alle soluzioni industriali",
-  };
-
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Settori di Utilizzo" description="Scopri i settori in cui i sistemi ZAPPER® risolvono problemi di fumi, odori e polveri: professionale, domestico e industriale." />
+      <SEO title={t("settoriPage.seoTitle")} description={t("settoriPage.seoDescription")} />
       <Header />
       
       <main className="pt-20">
-        {/* Hero Section */}
         <section className="py-12 md:py-16 bg-muted/30">
           <div className="container">
             <div className="max-w-3xl">
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-                Soluzioni ZAPPER® per ogni settore
+                {t("settoriPage.heroTitle")}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground">
-                ZAPPER® interviene su impianti a combustione in ambito professionale, domestico e industriale, 
-                adattando ogni soluzione al contesto reale di utilizzo.
+                {t("settoriPage.heroDescription")}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Sectors Cards */}
         <section className="py-12 md:py-20">
           <div className="container">
             <div className="grid gap-6 md:gap-8 max-w-4xl mx-auto">
@@ -78,7 +75,6 @@ const Settori = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className={`relative bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${sector.priority ? 'ring-2 ring-primary/50' : ''}`}>
-                    {/* Card Header */}
                     <div
                       className="relative bg-zapper-black p-6 md:p-8 bg-cover bg-center"
                       style={
@@ -95,7 +91,7 @@ const Settori = () => {
                         </div>
                         {sector.priority && (
                           <span className="px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full">
-                            Più richiesto
+                            {t("settoriPage.mostRequested")}
                           </span>
                         )}
                       </div>
@@ -104,15 +100,13 @@ const Settori = () => {
                       </h2>
                     </div>
 
-                    {/* Card Content */}
                     <div className="p-6 md:p-8">
                       <p className="text-muted-foreground mb-6 text-lg">
                         {sector.description}
                       </p>
 
-                      {/* Ambiti */}
                       <div className="mb-6">
-                        <p className="text-sm font-medium text-foreground mb-3">Esempi di ambiti:</p>
+                        <p className="text-sm font-medium text-foreground mb-3">{t("settoriPage.exampleAreas")}</p>
                         <div className="flex flex-wrap gap-2">
                           {sector.ambiti.map((ambito) => (
                             <span
@@ -126,10 +120,9 @@ const Settori = () => {
                         </div>
                       </div>
 
-                      {/* CTA */}
                       <div className="flex items-center justify-between">
                         <span className="text-primary font-medium group-hover:text-accent transition-colors">
-                          {ctaLabels[sector.id as keyof typeof ctaLabels]}
+                          {t(`settoriPage.${sector.ctaKey}`)}
                         </span>
                         <ArrowRight className="w-5 h-5 text-primary group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
                       </div>
@@ -141,36 +134,34 @@ const Settori = () => {
           </div>
         </section>
 
-        {/* Micro Trust */}
         <section className="py-8 border-t border-border">
           <div className="container">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
               <p className="text-muted-foreground">
-                Interventi reali su impianti professionali, domestici e industriali in tutta Italia
+                {t("settoriPage.trustText")}
               </p>
               <Link 
                 to="/interventi" 
                 className="text-accent hover:text-accent/80 font-medium inline-flex items-center gap-1 transition-colors"
               >
-                Vedi gli interventi
+                {t("settoriPage.seeInterventions")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Final CTA */}
         <section className="py-16 md:py-24 bg-zapper-black">
           <div className="container text-center">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4">
-              Non sei sicuro di quale settore rientra il tuo impianto?
+              {t("settoriPage.unsureTitle")}
             </h2>
             <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Analizziamo il tuo impianto da remoto e definiamo la soluzione ZAPPER® più adatta.
+              {t("settoriPage.unsureDescription")}
             </p>
             <Button variant="accent" size="lg" asChild>
               <Link to="/contatti">
-                Richiedi una valutazione tecnica
+                {t("settoriPage.requestAssessment")}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
