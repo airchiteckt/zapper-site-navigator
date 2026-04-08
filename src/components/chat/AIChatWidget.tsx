@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { sendContactEmails } from "@/lib/emailService";
+import { useTranslation } from "react-i18next";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/zapper-chat`;
 
@@ -99,6 +100,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
 }
 
 export default function AIChatWidget() {
+  const { t } = useTranslation();
   const visitorId = useRef(getVisitorId());
   const visitCount = useRef(0);
   const sessionIdRef = useRef<string | null>(null);
@@ -115,6 +117,7 @@ export default function AIChatWidget() {
   const [showWhatsAppCta, setShowWhatsAppCta] = useState(false);
   const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
   const [userMessageCount, setUserMessageCount] = useState(0);
+  const [showMobileTooltip, setShowMobileTooltip] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -192,25 +195,32 @@ export default function AIChatWidget() {
     }
   }, [messages.length]);
 
-  // Auto-open after 20 seconds
+  // Auto-open after 20 seconds (desktop only); show tooltip on mobile
   useEffect(() => {
     if (hasAutoOpened) return;
+    const isMobile = window.innerWidth < 768;
     const timer = setTimeout(() => {
-      try {
-        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.frequency.value = 800;
-        osc.type = "sine";
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-        osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.4);
-      } catch {}
-      setOpen(true);
-      setHasAutoOpened(true);
+      if (isMobile) {
+        // On mobile, just show a tooltip bubble
+        setShowMobileTooltip(true);
+        setHasAutoOpened(true);
+      } else {
+        try {
+          const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.frequency.value = 800;
+          osc.type = "sine";
+          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+          osc.start(audioCtx.currentTime);
+          osc.stop(audioCtx.currentTime + 0.4);
+        } catch {}
+        setOpen(true);
+        setHasAutoOpened(true);
+      }
     }, 20000);
     return () => clearTimeout(timer);
   }, [hasAutoOpened]);
@@ -409,14 +419,24 @@ export default function AIChatWidget() {
         {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
       </button>
 
-      {/* Mobile AI icon */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-20 right-4 z-50 w-12 h-12 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center md:hidden"
-        aria-label="Apri assistente AI"
-      >
-        {open ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
-      </button>
+      {/* Mobile AI icon + tooltip */}
+      <div className="fixed bottom-20 right-4 z-50 md:hidden flex items-center gap-2">
+        {showMobileTooltip && !open && (
+          <button
+            onClick={() => { setShowMobileTooltip(false); setOpen(true); }}
+            className="bg-accent text-accent-foreground text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg animate-bounce whitespace-nowrap"
+          >
+            {t("chat.askMe")}
+          </button>
+        )}
+        <button
+          onClick={() => { setShowMobileTooltip(false); setOpen((o) => !o); }}
+          className="w-12 h-12 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center"
+          aria-label="Apri assistente AI"
+        >
+          {open ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
+        </button>
+      </div>
 
       {/* Chat panel */}
       {open && (

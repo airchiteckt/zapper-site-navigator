@@ -408,7 +408,8 @@
     "phonePlaceholder": "Tu teléfono",
     "submit": "Iniciar consulta",
     "inputPlaceholder": "Escribe tu mensaje...",
-    "send": "Enviar"
+    "send": "Enviar",
+    "askMe": "¡Pregúntame todo! 💬"
   },
   "blog": {
     "sectionTitle": "Desde nuestro Blog",
