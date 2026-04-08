@@ -784,13 +784,3 @@
   .ws-steps { gap: 8px; }
   .ws-step-card { width: 140px; padding: 10px 12px; }
 }
-  .ws-scene {
-    transform: scale(0.5);
-    transform-origin: top left;
-    height: 280px;
-    width: 430px;
-    margin: 0 auto;
-  }
-  .ws-steps { gap: 8px; }
-  .ws-step-card { width: 140px; padding: 10px 12px; }
-}
