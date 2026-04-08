@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Header from '@/components/layout/Header';
@@ -6,6 +7,8 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/SEO';
 import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Handshake } from 'lucide-react';
 
 import logoArtistica from '@/assets/partners/artistica-salernitana.png';
 import logoFazzone from '@/assets/partners/pasquale-fazzone.png';
