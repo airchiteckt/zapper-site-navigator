@@ -55,7 +55,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
         placeholder="Nome e Cognome"
         value={form.name}
         onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-        className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
+        className="w-full text-base rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
         maxLength={100}
       />
       <input
@@ -63,7 +63,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
         placeholder="Email"
         value={form.email}
         onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-        className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
+        className="w-full text-base rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
         required
         maxLength={255}
       />
@@ -72,7 +72,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
         placeholder="Telefono"
         value={form.phone}
         onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-        className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
+        className="w-full text-base rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-1 focus:ring-accent"
         required
         maxLength={20}
       />
@@ -377,7 +377,7 @@ export default function AIChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Scrivi il tuo messaggio..."
-              className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/60"
+              className="flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground/60"
               disabled={isLoading}
             />
             <Button
