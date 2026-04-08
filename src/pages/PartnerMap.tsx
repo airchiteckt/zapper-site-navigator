@@ -59,6 +59,7 @@ export default function PartnerMap() {
   const [mapToken, setMapToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [mapReady, setMapReady] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<PartnerType | 'all'>('all');
 
   useEffect(() => {
     const fetchToken = async () => {
