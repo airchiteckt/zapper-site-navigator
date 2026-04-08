@@ -176,15 +176,49 @@ export default function PartnerMap() {
       <Header />
       <main className="min-h-screen bg-foreground">
         {/* Hero */}
-        <section className="pt-28 pb-8 text-center">
+        <section className="pt-28 pb-4 text-center">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4 font-display">
               La nostra rete nel mondo
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Trova il rivenditore o partner ZAPPER® autorizzato più vicino a te.
               Una rete globale al tuo servizio.
             </p>
+            {/* Category Filter */}
+            <div className="flex flex-wrap justify-center gap-3">
+              <button
+                onClick={() => setActiveFilter('all')}
+                className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                  activeFilter === 'all'
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'bg-card/5 text-muted-foreground border-primary/20 hover:border-primary/40'
+                }`}
+              >
+                Tutti ({locations.length})
+              </button>
+              {(['installatore', 'rivenditore', 'importatore'] as PartnerType[]).map((type) => {
+                const cfg = TYPE_CONFIG[type];
+                const count = locations.filter(l => l.partner_type === type).length;
+                return (
+                  <button
+                    key={type}
+                    onClick={() => setActiveFilter(type)}
+                    className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                      activeFilter === type
+                        ? 'border-transparent text-primary-foreground'
+                        : 'bg-card/5 border-primary/20 hover:border-primary/40'
+                    }`}
+                    style={activeFilter === type
+                      ? { backgroundColor: cfg.color, color: '#fff' }
+                      : { color: cfg.color }
+                    }
+                  >
+                    {cfg.label} ({count})
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </section>
 
