@@ -100,6 +100,7 @@ function ContactForm({ onSubmitted, onNavigate }: { onSubmitted: (name: string) 
 }
 
 export default function AIChatWidget() {
+  const { t } = useTranslation();
   const visitorId = useRef(getVisitorId());
   const visitCount = useRef(0);
   const sessionIdRef = useRef<string | null>(null);
