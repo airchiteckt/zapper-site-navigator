@@ -115,17 +115,20 @@ export default function PartnerMap() {
     map.current.on('load', () => setMapReady(true));
   }, [mapToken]);
 
-  // Show installatori + importatori on the map
+  // Show partners on the map based on filter
   useEffect(() => {
     if (!map.current) return;
 
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    const mapPartners = locations.filter(loc =>
-      (loc.partner_type === 'installatore' || loc.partner_type === 'importatore') &&
-      loc.latitude !== 0 && loc.longitude !== 0
-    );
+    const mapPartners = locations.filter(loc => {
+      if (loc.latitude === 0 && loc.longitude === 0) return false;
+      if (activeFilter === 'all') {
+        return loc.partner_type === 'installatore' || loc.partner_type === 'importatore';
+      }
+      return loc.partner_type === activeFilter;
+    });
 
     mapPartners.forEach((loc) => {
       const cfg = TYPE_CONFIG[loc.partner_type as PartnerType];
@@ -165,7 +168,7 @@ export default function PartnerMap() {
       marker.addTo(map.current!);
       markersRef.current.push(marker);
     });
-  }, [locations, mapReady]);
+  }, [locations, mapReady, activeFilter]);
 
   return (
     <>
