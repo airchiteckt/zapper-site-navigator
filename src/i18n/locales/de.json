@@ -228,7 +228,9 @@
     "errorMessage": "Formular konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
     "errorGeneric": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "privacyConsent": "Mit dem Absenden dieses Formulars stimmen Sie unserer",
-    "privacyPolicy": "Datenschutzrichtlinie"
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "compassTitle": "Unternehmensfinanzierung",
+    "compassDescription": "Wir sind Partner von Compass - Mediobanca Gruppe für maßgeschneiderte Finanzierungslösungen."
   },
   "footer": {
     "description": "Rauch- und Staubabscheidungssysteme für den professionellen, häuslichen und industriellen Bereich. Italienische Technologie für sauberere Luft.",
@@ -250,7 +252,8 @@
     "copyright": "© {{year}} ZAPPER®. Alle Rechte vorbehalten.",
     "privacyPolicy": "Datenschutzrichtlinie",
     "cookiePolicy": "Cookie-Richtlinie",
-    "termsOfService": "Nutzungsbedingungen"
+    "termsOfService": "Nutzungsbedingungen",
+    "compassAffiliate": "Partner von Compass - Mediobanca Gruppe für Unternehmensfinanzierung"
   },
   "common": {
     "learnMore": "Mehr erfahren",

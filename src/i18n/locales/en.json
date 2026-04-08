@@ -228,7 +228,9 @@
     "errorMessage": "Unable to send the form. Please try again.",
     "errorGeneric": "An error occurred. Please try again.",
     "privacyConsent": "By submitting this form you agree to our",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "compassTitle": "Business financing",
+    "compassDescription": "We are affiliated with Compass - Mediobanca Group for dedicated financing solutions."
   },
   "footer": {
     "description": "Smoke and dust abatement systems for the professional, domestic and industrial sectors. Italian technology for cleaner air.",
@@ -250,7 +252,8 @@
     "copyright": "© {{year}} ZAPPER®. All rights reserved.",
     "privacyPolicy": "Privacy Policy",
     "cookiePolicy": "Cookie Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "compassAffiliate": "Affiliated with Compass - Mediobanca Group for business financing"
   },
   "common": {
     "learnMore": "Learn more",
