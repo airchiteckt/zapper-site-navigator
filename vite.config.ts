@@ -12,6 +12,14 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
+  optimizeDeps: {
+    include: [
+      "i18next",
+      "react-i18next",
+      "i18next-browser-languagedetector",
+      "@radix-ui/react-tooltip",
+    ],
+  },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
