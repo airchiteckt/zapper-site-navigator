@@ -4,18 +4,19 @@ import { ArrowRight, Flame, Home, Factory, Pizza, Croissant, Beef, Drumstick, Ch
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
+import { useTranslation } from "react-i18next";
 
 interface ModelloCard {
   id: string;
   name: string;
   diameter: string;
   description: string;
-  label?: string; // Micro-label per MAX/ULTRA
+  label?: string;
 }
 
 interface SubCategory {
   icon: React.ReactNode;
-  title: string;
+  titleKey: string;
   models: ModelloCard[];
   applicationLink?: { text: string; href: string };
   interventionLink?: { text: string; href: string };
@@ -23,7 +24,7 @@ interface SubCategory {
 
 interface SectorSection {
   id: string;
-  title: string;
+  titleKey: string;
   icon: React.ReactNode;
   color: string;
   subcategories: SubCategory[];
@@ -54,18 +55,17 @@ const ModelCard = ({ model }: { model: ModelloCard }) => (
   </Link>
 );
 
-const sectors: SectorSection[] = [
+const getSectors = (t: (key: string) => string): SectorSection[] => [
   {
     id: "professionale",
-    title: "Settore Professionale",
+    titleKey: "modelliPage.professionalSector",
     icon: <Flame className="w-6 h-6" />,
     color: "bg-accent",
     subcategories: [
       {
         icon: <Pizza className="w-5 h-5" />,
-        title: "Pizzerie – Forni a legna",
-        applicationLink: { text: "Scopri applicazione forni a legna", href: "/applicazioni/forni-a-legna" },
-        interventionLink: { text: "Vedi interventi reali su forni a legna", href: "/interventi" },
+        titleKey: "modelliPage.pizzerieWood",
+        applicationLink: { text: t("modelliPage.pizzerieWood"), href: "/applicazioni/forni-a-legna" },
         models: [
           { id: "zpz", name: "ZPZ", diameter: "Ø 200–250 mm", description: "Per forni a legna di media portata in ambito professionale." },
           { id: "zpz-max", name: "ZPZ MAX", diameter: "Ø 300–350 mm", description: "Per forni a legna ad alta portata e utilizzo intensivo.", label: "Alta portata" },
@@ -73,16 +73,16 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Pizza className="w-5 h-5" />,
-        title: "Pizzerie – Forni a gas",
-        applicationLink: { text: "Scopri applicazione forni a legna", href: "/applicazioni/forni-a-legna" },
+        titleKey: "modelliPage.pizzerieGas",
+        applicationLink: { text: t("modelliPage.pizzerieGas"), href: "/applicazioni/forni-a-legna" },
         models: [
           { id: "zpz-nuvola-l", name: "ZPZ NUVOLA L", diameter: "Ø 200–250 mm", description: "Soluzione dedicata per forni a gas professionali." },
         ],
       },
       {
         icon: <Pizza className="w-5 h-5" />,
-        title: "Pizzerie – Forni elettrici",
-        applicationLink: { text: "Scopri applicazione forni a legna", href: "/applicazioni/forni-a-legna" },
+        titleKey: "modelliPage.pizzerieElectric",
+        applicationLink: { text: t("modelliPage.pizzerieElectric"), href: "/applicazioni/forni-a-legna" },
         models: [
           { id: "zpz-nuvola", name: "ZPZ NUVOLA", diameter: "Ø 80–120 mm", description: "Per forni elettrici compatti.", label: "Compatto" },
           { id: "zpz-nuvola-l-elettrico", name: "ZPZ NUVOLA L", diameter: "Ø 200–250 mm", description: "Per forni elettrici professionali." },
@@ -90,9 +90,8 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Croissant className="w-5 h-5" />,
-        title: "Panifici",
-        applicationLink: { text: "Scopri applicazione forni a legna", href: "/applicazioni/forni-a-legna" },
-        interventionLink: { text: "Vedi interventi reali su panifici", href: "/interventi" },
+        titleKey: "modelliPage.bakeries",
+        applicationLink: { text: t("modelliPage.bakeries"), href: "/applicazioni/forni-a-legna" },
         models: [
           { id: "zpf", name: "ZPF", diameter: "Ø 200–250 mm", description: "Per forni da panificazione di media capacità." },
           { id: "zpf-max", name: "ZPF MAX", diameter: "Ø 300–350 mm", description: "Per panifici con elevata produzione.", label: "Alta produzione" },
@@ -100,9 +99,8 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Beef className="w-5 h-5" />,
-        title: "Bracerie",
-        applicationLink: { text: "Scopri applicazione braci e carbone", href: "/applicazioni/braci-carbone" },
-        interventionLink: { text: "Vedi interventi reali su bracerie", href: "/interventi" },
+        titleKey: "modelliPage.grillHouses",
+        applicationLink: { text: t("modelliPage.grillHouses"), href: "/applicazioni/braci-carbone" },
         models: [
           { id: "zbr-s", name: "ZBR S", diameter: "Ø 200–250 mm", description: "Per impianti a braci e carbone di media portata." },
           { id: "zbr-max", name: "ZBR MAX", diameter: "Ø 300–350 mm", description: "Per bracerie ad alta intensità.", label: "Alta intensità" },
@@ -110,8 +108,8 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Drumstick className="w-5 h-5" />,
-        title: "Girarrosti",
-        applicationLink: { text: "Scopri applicazione braci e carbone", href: "/applicazioni/braci-carbone" },
+        titleKey: "modelliPage.rotisseries",
+        applicationLink: { text: t("modelliPage.rotisseries"), href: "/applicazioni/braci-carbone" },
         models: [
           { id: "zgr", name: "ZGR", diameter: "Ø 200–250 mm", description: "Per girarrosti professionali standard." },
           { id: "zgr-max", name: "ZGR MAX", diameter: "Ø 300–350 mm", description: "Per impianti di grandi dimensioni.", label: "Grandi dimensioni" },
@@ -119,9 +117,8 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <ChefHat className="w-5 h-5" />,
-        title: "Cucine professionali (odori e grassi)",
-        applicationLink: { text: "Scopri applicazione cappe", href: "/applicazioni/cappe" },
-        interventionLink: { text: "Vedi interventi reali su cucine", href: "/interventi" },
+        titleKey: "modelliPage.professionalKitchens",
+        applicationLink: { text: t("modelliPage.professionalKitchens"), href: "/applicazioni/cappe" },
         models: [
           { id: "destink", name: "DESTINK", diameter: "Ø 250–300 mm", description: "Trattamento fumi, odori e grassi da cucina." },
           { id: "destink-max", name: "DESTINK MAX", diameter: "Ø 300–350 mm", description: "Per cucine ad alto volume.", label: "Alto volume" },
@@ -133,15 +130,14 @@ const sectors: SectorSection[] = [
   },
   {
     id: "residenziale",
-    title: "Settore Residenziale",
+    titleKey: "modelliPage.residentialSector",
     icon: <Home className="w-6 h-6" />,
     color: "bg-primary",
     subcategories: [
       {
         icon: <Heater className="w-5 h-5" />,
-        title: "Caldaie",
-        applicationLink: { text: "Scopri applicazione caldaie biomassa", href: "/applicazioni/caldaie-biomassa" },
-        interventionLink: { text: "Vedi interventi reali su caldaie", href: "/interventi" },
+        titleKey: "modelliPage.boilers",
+        applicationLink: { text: t("modelliPage.boilers"), href: "/applicazioni/caldaie-biomassa" },
         models: [
           { id: "zcl", name: "ZCL", diameter: "Ø 200–250 mm", description: "Per caldaie domestiche standard." },
           { id: "zcl-max-res", name: "ZCL MAX", diameter: "Ø 250–300 mm", description: "Per caldaie domestiche ad alta portata.", label: "Alta portata" },
@@ -149,8 +145,8 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <TreeDeciduous className="w-5 h-5" />,
-        title: "Stufe a legna e camini",
-        applicationLink: { text: "Scopri applicazione camini", href: "/applicazioni/camini" },
+        titleKey: "modelliPage.stovesFireplaces",
+        applicationLink: { text: t("modelliPage.stovesFireplaces"), href: "/applicazioni/camini" },
         models: [
           { id: "zcm", name: "ZCM", diameter: "Ø 200–250 mm", description: "Per stufe a legna e camini residenziali." },
         ],
@@ -159,15 +155,14 @@ const sectors: SectorSection[] = [
   },
   {
     id: "industriale",
-    title: "Settore Industriale",
+    titleKey: "modelliPage.industrialSector",
     icon: <Factory className="w-6 h-6" />,
     color: "bg-zapper-gray",
     subcategories: [
       {
         icon: <Heater className="w-5 h-5" />,
-        title: "Caldaie industriali",
-        applicationLink: { text: "Scopri applicazione caldaie biomassa", href: "/applicazioni/caldaie-biomassa" },
-        interventionLink: { text: "Vedi interventi reali su caldaie industriali", href: "/interventi" },
+        titleKey: "modelliPage.industrialBoilers",
+        applicationLink: { text: t("modelliPage.industrialBoilers"), href: "/applicazioni/caldaie-biomassa" },
         models: [
           { id: "zcl-ind", name: "ZCL", diameter: "Ø 250–300 mm", description: "Per caldaie industriali standard." },
           { id: "zcl-max-ind", name: "ZCL MAX", diameter: "Ø 300–350 mm", description: "Per caldaie industriali ad alta portata.", label: "Alta portata" },
@@ -176,8 +171,7 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Coffee className="w-5 h-5" />,
-        title: "Torrefazioni caffè",
-        interventionLink: { text: "Vedi interventi reali su torrefazioni", href: "/interventi" },
+        titleKey: "modelliPage.coffeeRoasters",
         models: [
           { id: "ztrf", name: "ZTRF", diameter: "Ø 200–250 mm", description: "Per torrefazioni standard." },
           { id: "ztrf-max", name: "ZTRF MAX", diameter: "Ø 300–350 mm", description: "Per torrefazioni ad alta capacità.", label: "Alta capacità" },
@@ -186,8 +180,7 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Smoke className="w-5 h-5" />,
-        title: "Affumicatori",
-        interventionLink: { text: "Vedi interventi reali su affumicatori", href: "/interventi" },
+        titleKey: "modelliPage.smokehouses",
         models: [
           { id: "zaf", name: "ZAF", diameter: "Ø 250–300 mm", description: "Per affumicatori standard." },
           { id: "zaf-max", name: "ZAF MAX", diameter: "Ø 300–350 mm", description: "Per affumicatori industriali.", label: "Industriale" },
@@ -195,7 +188,7 @@ const sectors: SectorSection[] = [
       },
       {
         icon: <Zap className="w-5 h-5" />,
-        title: "Macchine taglio laser",
+        titleKey: "modelliPage.laserCutting",
         models: [
           { id: "ztgl", name: "ZTGL", diameter: "Ø 200–250 mm", description: "Per macchine taglio laser standard." },
           { id: "ztgl-max", name: "ZTGL MAX", diameter: "Ø 300–350 mm", description: "Per macchine laser ad alta potenza.", label: "Alta potenza" },
@@ -207,51 +200,50 @@ const sectors: SectorSection[] = [
 ];
 
 const Modelli = () => {
+  const { t } = useTranslation();
+  const sectors = getSectors(t);
+
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Modelli e Sistemi" description="Scopri tutti i modelli ZAPPER®: sistemi di abbattimento fumi per pizzerie, panifici, bracerie, caldaie, forni industriali e altro." />
+      <SEO title={t("modelliPage.seoTitle")} description={t("modelliPage.seoDescription")} />
       <Header />
       
       <main className="pt-20">
-        {/* Hero */}
         <section className="py-12 md:py-16 bg-muted/30">
           <div className="container">
             <div className="max-w-3xl">
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-                I modelli ZAPPER®
+                {t("modelliPage.heroTitle")}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground">
-                Ogni impianto a combustione ha esigenze diverse. I modelli ZAPPER® sono progettati per adattarsi a differenti portate, diametri e contesti di utilizzo.
+                {t("modelliPage.heroDescription")}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Modelli per settore */}
         {sectors.map((sector, sectorIndex) => (
           <section 
             key={sector.id} 
             className={`py-12 md:py-16 ${sectorIndex % 2 === 0 ? 'bg-background' : 'bg-muted/20'}`}
           >
             <div className="container">
-              {/* Sector Header */}
               <div className="flex items-center gap-4 mb-10">
                 <div className={`w-12 h-12 ${sector.color} rounded-xl flex items-center justify-center text-white`}>
                   {sector.icon}
                 </div>
                 <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                  {sector.title}
+                  {t(sector.titleKey)}
                 </h2>
               </div>
 
-              {/* Subcategories */}
               <div className="space-y-10">
                 {sector.subcategories.map((subcat, subIndex) => (
                   <div key={subIndex}>
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-accent">{subcat.icon}</span>
                       <h3 className="font-display text-lg font-semibold text-foreground">
-                        {subcat.title}
+                        {t(subcat.titleKey)}
                       </h3>
                     </div>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -259,7 +251,6 @@ const Modelli = () => {
                         <ModelCard key={model.id} model={model} />
                       ))}
                     </div>
-                    {/* Link incrociati */}
                     {(subcat.applicationLink || subcat.interventionLink) && (
                       <div className="flex flex-wrap gap-4 mt-4 text-sm">
                         {subcat.applicationLink && (
@@ -287,33 +278,27 @@ const Modelli = () => {
           </section>
         ))}
 
-        {/* CTA Finale */}
         <section className="py-16 md:py-24 bg-zapper-black">
           <div className="container text-center">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4">
-              Non sei sicuro di quale modello è adatto al tuo impianto?
+              {t("modelliPage.unsureTitle")}
             </h2>
             <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Il nostro team tecnico analizza il tuo impianto e conferma la soluzione ZAPPER® più adatta.
+              {t("modelliPage.unsureDescription")}
             </p>
-            <Button 
-              variant="accent" 
-              size="lg" 
-              asChild
-            >
+            <Button variant="accent" size="lg" asChild>
               <Link to="/contatti">
-                Richiedi sopralluogo gratuito
+                {t("modelliPage.requestSurvey")}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
           </div>
         </section>
 
-        {/* Micro-copy tecnico */}
         <section className="py-6 bg-muted/50 border-t border-border">
           <div className="container">
             <p className="text-sm text-muted-foreground text-center">
-              I diametri indicati si riferiscono alla canna fumaria. La compatibilità finale viene sempre verificata tramite sopralluogo tecnico.
+              {t("modelliPage.disclaimer")}
             </p>
           </div>
         </section>
