@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import logoBianco from "@/assets/logo-zapper-bianco.svg";
+import logoCompass from "@/assets/logo-compass.jpg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -38,12 +39,16 @@ const Footer = () => {
             <p className="text-white/70 text-sm sm:text-base mb-4 sm:mb-6 max-w-sm">
               {t("footer.description")}
             </p>
-            <div className="flex gap-3 sm:gap-4">
+            <div className="flex gap-3 sm:gap-4 mb-4 sm:mb-6">
               {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
                 <a key={i} href="#" className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-primary transition-colors duration-200">
                   <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </a>
               ))}
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-white/10 rounded-lg">
+              <img src={logoCompass} alt="Compass - Gruppo Mediobanca" className="h-8 sm:h-10 w-auto rounded bg-white p-1" />
+              <span className="text-white/70 text-xs sm:text-sm">{t("footer.compassAffiliate")}</span>
             </div>
           </div>
 
