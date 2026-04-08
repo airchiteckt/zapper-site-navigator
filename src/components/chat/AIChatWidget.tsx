@@ -113,6 +113,8 @@ export default function AIChatWidget() {
   const [contactFormShown, setContactFormShown] = useState(false);
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [showWhatsAppCta, setShowWhatsAppCta] = useState(false);
+  const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
+  const [userMessageCount, setUserMessageCount] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -233,11 +235,9 @@ export default function AIChatWidget() {
   const handleContactSubmitted = async (name: string) => {
     setContactSubmitted(true);
     setContactFormShown(false);
-    setMessages((prev) => [
-      ...prev,
-      { role: "assistant", content: `Grazie ${name}! 🎉 Un nostro tecnico ti contatterà al più presto.` },
-    ]);
-    setShowWhatsAppCta(true);
+
+    const thankYouMsg = `Grazie ${name}! 😊 Ora rispondo alla tua domanda...`;
+    setMessages((prev) => [...prev, { role: "assistant", content: thankYouMsg }]);
 
     // Update session with contact info
     if (sessionIdRef.current) {
@@ -248,21 +248,30 @@ export default function AIChatWidget() {
           .eq("id", sessionIdRef.current);
       } catch {}
     }
+
+    // Now send the pending question to AI
+    if (pendingQuestion) {
+      const questionToSend = pendingQuestion;
+      setPendingQuestion(null);
+      setTimeout(() => {
+        sendToAI(questionToSend);
+      }, 500);
+    }
   };
 
-  const send = useCallback(
-    async (text: string) => {
-      if (!text.trim() || isLoading) return;
-      playSound(600, 0.1);
-      const userMsg: Msg = { role: "user", content: text.trim() };
-      const allMessages = [...messages, userMsg];
-      setMessages(allMessages);
-      setInput("");
+  const sendToAI = useCallback(
+    async (questionText: string) => {
       setIsLoading(true);
 
-      // Persist user message
+      // Get current messages including user's question (already in state)
+      const currentMessages: Msg[] = [];
+      setMessages((prev) => {
+        currentMessages.push(...prev);
+        return prev;
+      });
+
       const sid = await ensureSession();
-      saveMessage(sid, "user", text.trim());
+      saveMessage(sid, "user", questionText);
 
       let assistantSoFar = "";
       let playedReceiveSound = false;
@@ -275,23 +284,33 @@ export default function AIChatWidget() {
         assistantSoFar += chunk;
         setMessages((prev) => {
           const last = prev[prev.length - 1];
-          if (last?.role === "assistant" && prev.length > allMessages.length) {
+          if (last?.role === "assistant" && last.content !== assistantSoFar) {
             return prev.map((m, i) =>
               i === prev.length - 1 ? { ...m, content: assistantSoFar } : m
             );
           }
-          return [...prev.slice(0, allMessages.length), { role: "assistant", content: assistantSoFar }];
+          if (last?.role !== "assistant" || !assistantSoFar.startsWith(last.content.slice(0, 10))) {
+            return [...prev, { role: "assistant" as const, content: assistantSoFar }];
+          }
+          return prev.map((m, i) =>
+            i === prev.length - 1 ? { ...m, content: assistantSoFar } : m
+          );
         });
       };
 
       try {
+        // Filter to only user/assistant messages for the AI
+        const chatHistory = currentMessages.filter(
+          (m) => m.role === "user" || m.role === "assistant"
+        );
+
         const resp = await fetch(CHAT_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
-          body: JSON.stringify({ messages: allMessages }),
+          body: JSON.stringify({ messages: chatHistory }),
         });
 
         if (!resp.ok || !resp.body) throw new Error("Stream failed");
@@ -325,7 +344,6 @@ export default function AIChatWidget() {
           }
         }
 
-        // Save the complete assistant response
         if (assistantSoFar) {
           saveMessage(sid, "assistant", assistantSoFar);
         }
@@ -337,7 +355,35 @@ export default function AIChatWidget() {
         setIsLoading(false);
       }
     },
-    [messages, isLoading, ensureSession, saveMessage, playSound]
+    [ensureSession, saveMessage, playSound]
+  );
+
+  const send = useCallback(
+    async (text: string) => {
+      if (!text.trim() || isLoading) return;
+      playSound(600, 0.1);
+      const userMsg: Msg = { role: "user", content: text.trim() };
+      setMessages((prev) => [...prev, userMsg]);
+      setInput("");
+      setUserMessageCount((c) => c + 1);
+
+      // If first message and contact not yet submitted, ask for info first
+      if (userMessageCount === 0 && !contactSubmitted) {
+        setPendingQuestion(text.trim());
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Prima di risponderti, avrei bisogno cortesemente di alcune informazioni. Presentiamoci! 😊",
+          },
+        ]);
+        setContactFormShown(true);
+        return;
+      }
+
+      sendToAI(text.trim());
+    },
+    [isLoading, userMessageCount, contactSubmitted, sendToAI, playSound]
   );
 
   const renderMessageContent = (msg: Msg) => {
