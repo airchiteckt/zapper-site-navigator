@@ -419,14 +419,24 @@ export default function AIChatWidget() {
         {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
       </button>
 
-      {/* Mobile AI icon */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-20 right-4 z-50 w-12 h-12 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center md:hidden"
-        aria-label="Apri assistente AI"
-      >
-        {open ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
-      </button>
+      {/* Mobile AI icon + tooltip */}
+      <div className="fixed bottom-20 right-4 z-50 md:hidden flex items-center gap-2">
+        {showMobileTooltip && !open && (
+          <button
+            onClick={() => { setShowMobileTooltip(false); setOpen(true); }}
+            className="bg-accent text-accent-foreground text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg animate-bounce whitespace-nowrap"
+          >
+            {t("chat.askMe")}
+          </button>
+        )}
+        <button
+          onClick={() => { setShowMobileTooltip(false); setOpen((o) => !o); }}
+          className="w-12 h-12 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center"
+          aria-label="Apri assistente AI"
+        >
+          {open ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
+        </button>
+      </div>
 
       {/* Chat panel */}
       {open && (
