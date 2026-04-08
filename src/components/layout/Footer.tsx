@@ -21,9 +21,9 @@ const Footer = () => {
       { name: t("footer.fireplaces"), href: "/applicazioni/camini" },
     ],
     risorse: [
-      { name: t("footer.guides"), href: "/guide" },
-      { name: t("footer.caseStudy"), href: "/clienti" },
-      { name: t("footer.partner"), href: "/partner" },
+      { name: "Shop", href: "/shop" },
+      { name: t("nav.partners"), href: "/partners" },
+      { name: t("nav.blog"), href: "/blog" },
       { name: t("footer.contacts"), href: "/contatti" },
     ],
   };
