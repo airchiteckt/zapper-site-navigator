@@ -304,6 +304,33 @@ export default function PartnerMap() {
                   </div>
                 );
               })()}
+
+              {/* Aziende Partner */}
+              <div className="mb-12">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-3 h-3 rounded-full bg-primary" />
+                  <h2 className="text-2xl font-bold text-primary-foreground font-display">
+                    Aziende Partner
+                  </h2>
+                  <Badge variant="outline" className="text-xs border-primary/30 text-primary">
+                    {COLLABORATING_COMPANIES.length}
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {COLLABORATING_COMPANIES.map((company) => (
+                    <div
+                      key={company.name}
+                      className="bg-card/5 border border-primary/10 rounded-xl p-6 flex items-center justify-center hover:border-primary/30 transition-colors"
+                    >
+                      <img
+                        src={company.logo}
+                        alt={company.name}
+                        className="max-h-20 w-auto object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
         )}
