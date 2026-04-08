@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Header from '@/components/layout/Header';
@@ -6,6 +7,8 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/SEO';
 import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Handshake } from 'lucide-react';
 
 import logoArtistica from '@/assets/partners/artistica-salernitana.png';
 import logoFazzone from '@/assets/partners/pasquale-fazzone.png';
@@ -56,6 +59,7 @@ export default function PartnerMap() {
   const [mapToken, setMapToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [mapReady, setMapReady] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<PartnerType | 'all'>('all');
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -111,17 +115,20 @@ export default function PartnerMap() {
     map.current.on('load', () => setMapReady(true));
   }, [mapToken]);
 
-  // Show installatori + importatori on the map
+  // Show partners on the map based on filter
   useEffect(() => {
     if (!map.current) return;
 
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    const mapPartners = locations.filter(loc =>
-      (loc.partner_type === 'installatore' || loc.partner_type === 'importatore') &&
-      loc.latitude !== 0 && loc.longitude !== 0
-    );
+    const mapPartners = locations.filter(loc => {
+      if (loc.latitude === 0 && loc.longitude === 0) return false;
+      if (activeFilter === 'all') {
+        return loc.partner_type === 'installatore' || loc.partner_type === 'importatore';
+      }
+      return loc.partner_type === activeFilter;
+    });
 
     mapPartners.forEach((loc) => {
       const cfg = TYPE_CONFIG[loc.partner_type as PartnerType];
@@ -161,7 +168,7 @@ export default function PartnerMap() {
       marker.addTo(map.current!);
       markersRef.current.push(marker);
     });
-  }, [locations, mapReady]);
+  }, [locations, mapReady, activeFilter]);
 
   return (
     <>
@@ -172,15 +179,49 @@ export default function PartnerMap() {
       <Header />
       <main className="min-h-screen bg-foreground">
         {/* Hero */}
-        <section className="pt-28 pb-8 text-center">
+        <section className="pt-28 pb-4 text-center">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4 font-display">
               La nostra rete nel mondo
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Trova il rivenditore o partner ZAPPER® autorizzato più vicino a te.
               Una rete globale al tuo servizio.
             </p>
+            {/* Category Filter */}
+            <div className="flex flex-wrap justify-center gap-3">
+              <button
+                onClick={() => setActiveFilter('all')}
+                className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                  activeFilter === 'all'
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'bg-card/5 text-muted-foreground border-primary/20 hover:border-primary/40'
+                }`}
+              >
+                Tutti ({locations.length})
+              </button>
+              {(['installatore', 'rivenditore', 'importatore'] as PartnerType[]).map((type) => {
+                const cfg = TYPE_CONFIG[type];
+                const count = locations.filter(l => l.partner_type === type).length;
+                return (
+                  <button
+                    key={type}
+                    onClick={() => setActiveFilter(type)}
+                    className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                      activeFilter === type
+                        ? 'border-transparent text-primary-foreground'
+                        : 'bg-card/5 border-primary/20 hover:border-primary/40'
+                    }`}
+                    style={activeFilter === type
+                      ? { backgroundColor: cfg.color, color: '#fff' }
+                      : { color: cfg.color }
+                    }
+                  >
+                    {cfg.label} ({count})
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </section>
 
@@ -197,76 +238,32 @@ export default function PartnerMap() {
               )}
             </div>
 
-            {/* Stats */}
-            {locations.length > 0 && (
-              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-card/5 border border-primary/10 rounded-xl p-6 text-center">
-                  <p className="text-3xl font-bold text-primary">{locations.length}</p>
-                  <p className="text-sm text-muted-foreground mt-1">Partner attivi</p>
-                </div>
-                <div className="bg-card/5 border border-primary/10 rounded-xl p-6 text-center">
-                  <p className="text-3xl font-bold" style={{ color: TYPE_CONFIG.installatore.color }}>
-                    {locations.filter(l => l.partner_type === 'installatore').length}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">Installatori</p>
-                </div>
-                <div className="bg-card/5 border border-primary/10 rounded-xl p-6 text-center">
-                  <p className="text-3xl font-bold" style={{ color: TYPE_CONFIG.rivenditore.color }}>
-                    {locations.filter(l => l.partner_type === 'rivenditore').length}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">Rivenditori</p>
-                </div>
-                <div className="bg-card/5 border border-primary/10 rounded-xl p-6 text-center">
-                  <p className="text-3xl font-bold" style={{ color: TYPE_CONFIG.importatore.color }}>
-                    {locations.filter(l => l.partner_type === 'importatore').length}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">Importatori</p>
-                </div>
-              </div>
-            )}
           </div>
         </section>
 
         {/* Partner List by Type */}
         {locations.length > 0 && (
-          <section className="pb-20">
+          <section className="pb-12">
             <div className="container mx-auto px-4">
-              {/* Installatori & Rivenditori: solo conteggio */}
-              {(['installatore', 'rivenditore'] as PartnerType[]).map((type) => {
+              {/* Filtered partner cards */}
+              {(['installatore', 'rivenditore', 'importatore'] as PartnerType[]).map((type) => {
+                if (activeFilter !== 'all' && activeFilter !== type) return null;
                 const cfg = TYPE_CONFIG[type];
-                const count = locations.filter(l => l.partner_type === type).length;
-                if (count === 0) return null;
+                const filtered = locations.filter(l => l.partner_type === type);
+                if (filtered.length === 0) return null;
                 return (
-                  <div key={type} className="mb-8 flex items-center gap-3">
-                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: cfg.color }} />
-                    <h2 className="text-2xl font-bold text-primary-foreground font-display">
-                      {cfg.label}
-                    </h2>
-                    <Badge variant="outline" className="text-xs" style={{ borderColor: cfg.color + '44', color: cfg.color }}>
-                      {count}
-                    </Badge>
-                  </div>
-                );
-              })}
-
-              {/* Importatori: dettaglio completo */}
-              {(() => {
-                const cfg = TYPE_CONFIG.importatore;
-                const importatori = locations.filter(l => l.partner_type === 'importatore');
-                if (importatori.length === 0) return null;
-                return (
-                  <div className="mb-12">
+                  <div key={type} className="mb-12">
                     <div className="flex items-center gap-3 mb-6">
                       <span className="w-3 h-3 rounded-full" style={{ backgroundColor: cfg.color }} />
                       <h2 className="text-2xl font-bold text-primary-foreground font-display">
                         {cfg.label}
                       </h2>
                       <Badge variant="outline" className="text-xs" style={{ borderColor: cfg.color + '44', color: cfg.color }}>
-                        {importatori.length}
+                        {filtered.length}
                       </Badge>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {importatori.map((loc) => (
+                      {filtered.map((loc) => (
                         <div
                           key={loc.id}
                           className="bg-card/5 border rounded-xl p-5 hover:border-opacity-50 transition-colors"
@@ -303,37 +300,60 @@ export default function PartnerMap() {
                     </div>
                   </div>
                 );
-              })()}
+              })}
 
-              {/* Aziende Partner */}
-              <div className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="w-3 h-3 rounded-full bg-primary" />
-                  <h2 className="text-2xl font-bold text-primary-foreground font-display">
-                    Aziende Partner
-                  </h2>
-                  <Badge variant="outline" className="text-xs border-primary/30 text-primary">
-                    {COLLABORATING_COMPANIES.length}
-                  </Badge>
+              {/* Aziende Partner - always visible */}
+              {(activeFilter === 'all') && (
+                <div className="mb-12">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="w-3 h-3 rounded-full bg-primary" />
+                    <h2 className="text-2xl font-bold text-primary-foreground font-display">
+                      Aziende Partner
+                    </h2>
+                    <Badge variant="outline" className="text-xs border-primary/30 text-primary">
+                      {COLLABORATING_COMPANIES.length}
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {COLLABORATING_COMPANIES.map((company) => (
+                      <div
+                        key={company.name}
+                        className="bg-card/5 border border-primary/10 rounded-xl p-6 flex items-center justify-center hover:border-primary/30 transition-colors"
+                      >
+                        <img
+                          src={company.logo}
+                          alt={company.name}
+                          className="max-h-20 w-auto object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  {COLLABORATING_COMPANIES.map((company) => (
-                    <div
-                      key={company.name}
-                      className="bg-card/5 border border-primary/10 rounded-xl p-6 flex items-center justify-center hover:border-primary/30 transition-colors"
-                    >
-                      <img
-                        src={company.logo}
-                        alt={company.name}
-                        className="max-h-20 w-auto object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              )}
             </div>
           </section>
         )}
+
+        {/* CTA Diventa Partner */}
+        <section className="pb-20">
+          <div className="container mx-auto px-4">
+            <div className="bg-card/5 border border-primary/20 rounded-2xl p-8 md:p-12 text-center">
+              <Handshake className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4 font-display">
+                Diventa Partner ZAPPER®
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-base md:text-lg">
+                Entra a far parte della nostra rete di installatori, rivenditori e importatori.
+                Offri ai tuoi clienti la tecnologia leader nell'abbattimento fumi e odori.
+              </p>
+              <Button variant="accent" size="lg" asChild>
+                <Link to="/contatti">
+                  Contattaci per diventare partner
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
