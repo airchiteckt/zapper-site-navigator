@@ -11,6 +11,15 @@ import daMichele from "@/assets/clients/da-michele.webp";
 import hakunaMatata from "@/assets/clients/hakuna-matata.webp";
 import francuccio from "@/assets/clients/francuccio.webp";
 
+export interface ApprofondimentoSection {
+  title: string;
+  paragraphs: string[];
+  bullets?: string[];
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: "left" | "right";
+}
+
 export interface ServizioData {
   slug: string;
   title: string;
@@ -26,6 +35,7 @@ export interface ServizioData {
     intro?: string;
     punti: string[];
   };
+  approfondimenti?: ApprofondimentoSection[];
   benefici: string[];
   offerta: string[];
   crossSell?: {
