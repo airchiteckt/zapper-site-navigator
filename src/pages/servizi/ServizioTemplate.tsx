@@ -164,7 +164,9 @@ export default function ServizioTemplate({ data }: { data: ServizioData }) {
               ))}
             </div>
           </section>
-        )
+        )}
+
+        {/* BENEFICI */}
         <section className="py-16 md:py-20 bg-zapper-black text-white">
           <div className="container px-4 sm:px-6 max-w-4xl">
             <div className="flex items-center gap-3 mb-8">
