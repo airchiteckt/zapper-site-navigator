@@ -49,7 +49,7 @@ export default function SEO({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {noindex && <meta name="robots" content="noindex,nofollow" />}
-      <link rel="canonical" href={absoluteCanonical} />}
+      <link rel="canonical" href={absoluteCanonical} />
       {SUPPORTED_LANGS.map((language) => (
         <link
           key={language}
