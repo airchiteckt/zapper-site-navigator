@@ -117,6 +117,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <ClarityPageView />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/contatti" element={<Contatti />} />
