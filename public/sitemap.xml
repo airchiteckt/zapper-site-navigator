@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url><loc>https://www.smokezapper.it/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+
+  <!-- Contatti -->
+  <url><loc>https://www.smokezapper.it/contatti</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Interventi -->
+  <url><loc>https://www.smokezapper.it/interventi</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Settori -->
+  <url><loc>https://www.smokezapper.it/settori</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smokezapper.it/settori/professionale</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/settori/domestico</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/settori/industriale</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Applicazioni -->
+  <url><loc>https://www.smokezapper.it/applicazioni</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/forni-a-legna</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/braci-carbone</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/caldaie-biomassa</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/camini</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/cappe</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/forni-industriali</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/torrefazioni</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/affumicatori</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/taglio-laser</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/applicazioni/forni-elettrici</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Modelli -->
+  <url><loc>https://www.smokezapper.it/modelli</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zpz</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zpz-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zpz-nuvola</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zpz-nuvola-l</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zpf</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zpf-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zbr-s</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zbr-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zgr</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zgr-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/destink</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/destink-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/destink-ultra</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/destink-ultra-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zcl</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zcl-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zcm</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/z-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/ztrf</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/ztrf-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/ztrf-max-desk</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zaf</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/zaf-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/ztgl</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/ztgl-max</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/modelli/ztgl-max-ultra</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Ambiti Professionale -->
+  <url><loc>https://www.smokezapper.it/professionale/pizzerie</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/professionale/panifici</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/professionale/bracerie</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/professionale/cucine-professionali</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Ambiti Domestico -->
+  <url><loc>https://www.smokezapper.it/domestico/caldaie-biomassa</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/domestico/camini</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/domestico/stufe</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Ambiti Industriale -->
+  <url><loc>https://www.smokezapper.it/industriale/torrefazioni</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/industriale/caseifici</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/industriale/affumicatori</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/industriale/forni-industriali</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Calcolatore -->
+  <url><loc>https://www.smokezapper.it/calcolatore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Servizi -->
+  <url><loc>https://www.smokezapper.it/servizi</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smokezapper.it/pulizia-cucine-professionali</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/disinfestazione-cucine</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/manutenzione-cucine-industriali</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/impianti-aspirazione-fumi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/interventi-elettrici-cucine</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/manutenzione-impianti</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Agevolazioni -->
+  <url><loc>https://www.smokezapper.it/agevolazioni</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smokezapper.it/agevolazioni/industria-40</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/agevolazioni/bando-inail-isi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Blog -->
+  <url><loc>https://www.smokezapper.it/blog</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+
+  <!-- Partners -->
+  <url><loc>https://www.smokezapper.it/partners</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.smokezapper.it/landing-partners</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+
+  <!-- Grazie -->
+  <url><loc>https://www.smokezapper.it/grazie</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
