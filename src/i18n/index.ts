@@ -28,11 +28,11 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ["path", "navigator", "localStorage", "querystring"],
+      order: ["path", "navigator", "querystring"],
       lookupFromPathIndex: 0,
       lookupQuerystring: "lang",
       lookupLocalStorage: "i18nextLng",
-      caches: ["localStorage"],
+      caches: [],
     },
   });
 
