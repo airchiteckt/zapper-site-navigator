@@ -1,4 +1,7 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { DEFAULT_LANG, SUPPORTED_LANGS, getLocalizedPath, normalizeLanguage, stripLanguageFromPath } from "@/lib/i18n-routing";
 
 interface SEOProps {
   title: string;
@@ -19,18 +22,43 @@ export default function SEO({
   ogImage = DEFAULT_OG_IMAGE,
   noindex = false,
 }: SEOProps) {
+  const location = useLocation();
+  const { i18n } = useTranslation();
+  const currentLanguage = normalizeLanguage(i18n.resolvedLanguage || i18n.language);
   const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
-  const absoluteCanonical = canonical
-    ? canonical.startsWith("http") ? canonical : `${BASE_URL}${canonical}`
-    : undefined;
+  const relativeCanonical = (() => {
+    if (!canonical) return stripLanguageFromPath(location.pathname);
+
+    if (canonical.startsWith("http")) {
+      try {
+        const url = new URL(canonical);
+        return `${url.pathname}${url.search}${url.hash}`;
+      } catch {
+        return stripLanguageFromPath(location.pathname);
+      }
+    }
+
+    return canonical;
+  })();
+  const absoluteCanonical = `${BASE_URL}${getLocalizedPath(relativeCanonical, currentLanguage)}`;
   const absoluteOgImage = ogImage.startsWith("http") ? ogImage : `${BASE_URL}${ogImage}`;
 
   return (
     <Helmet>
+      <html lang={currentLanguage} />
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {noindex && <meta name="robots" content="noindex,nofollow" />}
-      {absoluteCanonical && <link rel="canonical" href={absoluteCanonical} />}
+      <link rel="canonical" href={absoluteCanonical} />
+      {SUPPORTED_LANGS.map((language) => (
+        <link
+          key={language}
+          rel="alternate"
+          hrefLang={language}
+          href={`${BASE_URL}${getLocalizedPath(relativeCanonical, language)}`}
+        />
+      ))}
+      <link rel="alternate" hrefLang="x-default" href={`${BASE_URL}${getLocalizedPath(relativeCanonical, DEFAULT_LANG)}`} />
 
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
