@@ -15,6 +15,7 @@ import IndustrialSection from "@/components/home/IndustrialSection";
 import ProfessionalSection from "@/components/home/ProfessionalSection";
 import UTASection from "@/components/home/UTASection";
 import SEO from "@/components/SEO";
+import { OrganizationSchema, LocalBusinessSchema } from "@/components/StructuredData";
 
 const Index = () => {
   return (
@@ -24,6 +25,8 @@ const Index = () => {
         description="ZAPPER® progetta e produce sistemi di abbattimento fumi, odori e polveri per pizzerie, bracerie, forni a legna, camini e industria. Tecnologia italiana certificata."
         canonical="/"
       />
+      <OrganizationSchema />
+      <LocalBusinessSchema />
       <Header />
       <main>
         <HeroSection />
