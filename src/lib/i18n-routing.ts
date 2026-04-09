@@ -4,6 +4,11 @@ export type SupportedLang = (typeof SUPPORTED_LANGS)[number];
 
 export const DEFAULT_LANG: SupportedLang = "it";
 
+export const getPathLanguage = (pathname: string): SupportedLang | null => {
+  const firstSegment = pathname.split("/").filter(Boolean)[0];
+  return isSupportedLanguage(firstSegment) ? normalizeLanguage(firstSegment) : null;
+};
+
 export const isSupportedLanguage = (lang?: string | null): lang is SupportedLang => {
   if (!lang) return false;
 
@@ -15,6 +20,32 @@ export const normalizeLanguage = (lang?: string | null): SupportedLang => {
 
   const normalized = lang.toLowerCase().split("-")[0];
   return isSupportedLanguage(normalized) ? normalized : DEFAULT_LANG;
+};
+
+export const getPreferredLanguage = ({
+  pathname = "/",
+  search = "",
+  navigatorLanguages = [],
+  navigatorLanguage,
+  fallbackLanguage,
+}: {
+  pathname?: string;
+  search?: string;
+  navigatorLanguages?: readonly string[];
+  navigatorLanguage?: string | null;
+  fallbackLanguage?: string | null;
+} = {}): SupportedLang => {
+  const pathLanguage = getPathLanguage(pathname);
+  if (pathLanguage) return pathLanguage;
+
+  const searchLanguage = new URLSearchParams(search).get("lang");
+  if (isSupportedLanguage(searchLanguage)) return normalizeLanguage(searchLanguage);
+
+  for (const language of [...navigatorLanguages, navigatorLanguage]) {
+    if (isSupportedLanguage(language)) return normalizeLanguage(language);
+  }
+
+  return normalizeLanguage(fallbackLanguage);
 };
 
 export const stripLanguageFromPath = (pathname: string) => {
