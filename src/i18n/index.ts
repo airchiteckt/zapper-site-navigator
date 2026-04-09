@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import { DEFAULT_LANG, SUPPORTED_LANGS, getPathLanguage } from "@/lib/i18n-routing";
+import { DEFAULT_LANG, SUPPORTED_LANGS, getPreferredLanguage } from "@/lib/i18n-routing";
 
 import it from "./locales/it.json";
 import en from "./locales/en.json";
@@ -11,7 +11,13 @@ import es from "./locales/es.json";
 const initialLanguage =
   typeof window === "undefined"
     ? DEFAULT_LANG
-    : getPathLanguage(window.location.pathname) || DEFAULT_LANG;
+    : getPreferredLanguage({
+        pathname: window.location.pathname,
+        search: window.location.search,
+        navigatorLanguages: window.navigator.languages,
+        navigatorLanguage: window.navigator.language,
+        fallbackLanguage: DEFAULT_LANG,
+      });
 
 i18n
   .use(initReactI18next)

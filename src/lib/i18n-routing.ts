@@ -27,16 +27,12 @@ export const getPreferredLanguage = ({
   search = "",
   navigatorLanguages = [],
   navigatorLanguage,
-  documentLanguage,
-  locale,
   fallbackLanguage,
 }: {
   pathname?: string;
   search?: string;
   navigatorLanguages?: readonly string[];
   navigatorLanguage?: string | null;
-  documentLanguage?: string | null;
-  locale?: string | null;
   fallbackLanguage?: string | null;
 } = {}): SupportedLang => {
   const pathLanguage = getPathLanguage(pathname);
@@ -45,7 +41,19 @@ export const getPreferredLanguage = ({
   const searchLanguage = new URLSearchParams(search).get("lang");
   if (isSupportedLanguage(searchLanguage)) return normalizeLanguage(searchLanguage);
 
-  for (const language of [navigatorLanguage, locale, documentLanguage, ...navigatorLanguages]) {
+  for (const language of navigatorLanguages) {
+    if (isSupportedLanguage(language)) return normalizeLanguage(language);
+  }
+
+  if (isSupportedLanguage(navigatorLanguage)) {
+    return normalizeLanguage(navigatorLanguage);
+  }
+
+  if (isSupportedLanguage(fallbackLanguage)) {
+    return normalizeLanguage(fallbackLanguage);
+  }
+
+  for (const language of [fallbackLanguage]) {
     if (isSupportedLanguage(language)) return normalizeLanguage(language);
   }
 
