@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { DEFAULT_LANG, SUPPORTED_LANGS } from "@/lib/i18n-routing";
 
 import it from "./locales/it.json";
 import en from "./locales/en.json";
@@ -19,14 +20,16 @@ i18n
       de: { translation: de },
       es: { translation: es },
     },
-    supportedLngs: ["it", "en", "fr", "de", "es"],
+    supportedLngs: [...SUPPORTED_LANGS],
     nonExplicitSupportedLngs: true,
-    fallbackLng: "it",
+    load: "languageOnly",
+    fallbackLng: DEFAULT_LANG,
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ["querystring", "localStorage", "navigator"],
+      order: ["path", "navigator", "localStorage", "querystring"],
+      lookupFromPathIndex: 0,
       lookupQuerystring: "lang",
       lookupLocalStorage: "i18nextLng",
       caches: ["localStorage"],
