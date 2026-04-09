@@ -11,6 +11,15 @@ import daMichele from "@/assets/clients/da-michele.webp";
 import hakunaMatata from "@/assets/clients/hakuna-matata.webp";
 import francuccio from "@/assets/clients/francuccio.webp";
 
+export interface ApprofondimentoSection {
+  title: string;
+  paragraphs: string[];
+  bullets?: string[];
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: "left" | "right";
+}
+
 export interface ServizioData {
   slug: string;
   title: string;
@@ -26,6 +35,7 @@ export interface ServizioData {
     intro?: string;
     punti: string[];
   };
+  approfondimenti?: ApprofondimentoSection[];
   benefici: string[];
   offerta: string[];
   crossSell?: {
@@ -113,6 +123,48 @@ export default function ServizioTemplate({ data }: { data: ServizioData }) {
             </div>
           </div>
         </section>
+
+        {/* APPROFONDIMENTI */}
+        {data.approfondimenti && data.approfondimenti.length > 0 && (
+          <section className="py-16 md:py-20">
+            <div className="container px-4 sm:px-6 max-w-4xl space-y-16">
+              {data.approfondimenti.map((section, i) => (
+                <div key={i} className={`flex flex-col ${section.image ? (section.imagePosition === "left" ? "md:flex-row-reverse" : "md:flex-row") : ""} gap-8 items-center`}>
+                  <div className={section.image ? "md:w-1/2" : "w-full"}>
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">{section.title}</h3>
+                    <div className="space-y-3">
+                      {section.paragraphs.map((p, j) => (
+                        <p key={j} className="text-muted-foreground leading-relaxed">{p}</p>
+                      ))}
+                    </div>
+                    {section.bullets && section.bullets.length > 0 && (
+                      <ul className="mt-4 space-y-2">
+                        {section.bullets.map((b, j) => (
+                          <li key={j} className="flex items-start gap-2 text-muted-foreground">
+                            <CheckCircle2 className="w-4 h-4 text-primary mt-1 shrink-0" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  {section.image && (
+                    <div className="md:w-1/2">
+                      <img
+                        src={section.image}
+                        alt={section.imageAlt || section.title}
+                        className="w-full h-auto rounded-xl shadow-lg"
+                        loading="lazy"
+                        width={800}
+                        height={536}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* BENEFICI */}
         <section className="py-16 md:py-20 bg-zapper-black text-white">
