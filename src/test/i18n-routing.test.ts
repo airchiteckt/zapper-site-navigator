@@ -30,17 +30,17 @@ describe("getPreferredLanguage", () => {
         navigatorLanguages: ["it-IT", "en-US"],
         navigatorLanguage: "en-US",
       }),
-    ).toBe("en");
+    ).toBe("it");
   });
 
-  it("prioritizes navigator.language over the broader languages list", () => {
+  it("prioritizes navigator.languages over navigator.language when they differ", () => {
     expect(
       getPreferredLanguage({
         pathname: "/",
         navigatorLanguages: ["en-US", "it-IT"],
         navigatorLanguage: "it-IT",
       }),
-    ).toBe("it");
+    ).toBe("en");
   });
 
   it("falls back to italian when the browser language is unsupported", () => {

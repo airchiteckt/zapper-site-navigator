@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { DEFAULT_LANG, getLocalizedPath, isSupportedLanguage, normalizeLanguage } from "@/lib/i18n-routing";
+import { getLocalizedPath, getPreferredLanguage, isSupportedLanguage, normalizeLanguage } from "@/lib/i18n-routing";
 
 const LanguageRouteSync = () => {
   const location = useLocation();
@@ -23,8 +23,19 @@ const LanguageRouteSync = () => {
       return;
     }
 
-    const activeLanguage = DEFAULT_LANG;
-    void i18n.changeLanguage(activeLanguage);
+    const activeLanguage = getPreferredLanguage({
+      pathname: location.pathname,
+      search: location.search,
+      navigatorLanguages: typeof window !== "undefined" ? window.navigator.languages : [],
+      navigatorLanguage:
+        typeof window !== "undefined" ? window.navigator.language : i18n.resolvedLanguage || i18n.language,
+      fallbackLanguage: i18n.resolvedLanguage || i18n.language,
+    });
+
+    if (i18n.resolvedLanguage !== activeLanguage) {
+      void i18n.changeLanguage(activeLanguage);
+    }
+
     document.documentElement.lang = activeLanguage;
 
     const localizedPath = getLocalizedPath(
