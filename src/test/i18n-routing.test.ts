@@ -30,6 +30,16 @@ describe("getPreferredLanguage", () => {
         navigatorLanguages: ["it-IT", "en-US"],
         navigatorLanguage: "en-US",
       }),
+    ).toBe("en");
+  });
+
+  it("prioritizes navigator.language over the broader languages list", () => {
+    expect(
+      getPreferredLanguage({
+        pathname: "/",
+        navigatorLanguages: ["en-US", "it-IT"],
+        navigatorLanguage: "it-IT",
+      }),
     ).toBe("it");
   });
 

@@ -29,6 +29,8 @@ const LanguageRouteSync = () => {
       navigatorLanguages: typeof window !== "undefined" ? window.navigator.languages : [],
       navigatorLanguage:
         typeof window !== "undefined" ? window.navigator.language : i18n.resolvedLanguage || i18n.language,
+      documentLanguage: typeof document !== "undefined" ? document.documentElement.lang : i18n.resolvedLanguage || i18n.language,
+      locale: typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().locale : i18n.resolvedLanguage || i18n.language,
       fallbackLanguage: i18n.resolvedLanguage || i18n.language,
     });
 
