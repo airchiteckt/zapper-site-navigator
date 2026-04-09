@@ -17,6 +17,8 @@ const initialLanguage =
         search: window.location.search,
         navigatorLanguages: window.navigator.languages,
         navigatorLanguage: window.navigator.language,
+        documentLanguage: document.documentElement.lang,
+        locale: Intl.DateTimeFormat().resolvedOptions().locale,
       });
 
 i18n
