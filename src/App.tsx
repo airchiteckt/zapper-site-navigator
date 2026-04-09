@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
+import ClarityPageView from "@/components/ClarityPageView";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { useCartSync } from "@/hooks/useCartSync";
@@ -116,6 +117,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <ClarityPageView />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/contatti" element={<Contatti />} />
