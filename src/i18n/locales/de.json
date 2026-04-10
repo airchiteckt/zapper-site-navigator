@@ -26,28 +26,46 @@
     "founder": "Gründer und Cheftechniker"
   },
   "sectors": {
-    "label": "Wo ZAPPER eingesetzt wird",
-    "title": "Eine Lösung für jeden Bedarf",
-    "description": "Ob Sie eine Pizzeria betreiben, einen Kamin zu Hause haben oder in der Lebensmittelindustrie arbeiten – ZAPPER® hat die richtige Lösung für Sie.",
+    "label": "Ihr Problem, unsere Lösung",
+    "title": "Rauch, Gerüche und Ruß? Wir beseitigen sie.",
+    "description": "Jeden Tag kämpfen Restaurants, Häuser und Fabriken gegen schwarzen Rauch, unangenehme Gerüche und Rußablagerungen. ZAPPER® löst das Problem an der Quelle.",
     "professional": {
       "title": "Professionell",
       "subtitle": "Restaurants, Pizzerien, Grillhäuser",
-      "description": "Systeme für professionelle Küchen, die Vorschriften einhalten und ein gesundes Arbeitsumfeld gewährleisten müssen.",
-      "features": ["Pizzerien", "Bäckereien", "Grillhäuser", "Profiküchen"]
+      "description": "Beseitigen Sie sichtbaren Rauch und Gerüche aus der Küche. Keine Beschwerden mehr, Inspektionen beim ersten Mal bestanden.",
+      "features": [
+        "Pizzerien",
+        "Bäckereien",
+        "Grillhäuser",
+        "Profiküchen"
+      ],
+      "pain": "🔥 Rauch im Gastraum, Gerüche bei Nachbarn, Bußgeldrisiko"
     },
     "domestic": {
       "title": "Häuslich",
       "subtitle": "Häuser, Wohnungen, Villen",
-      "description": "Lösungen für Kamine, Öfen und häusliche Grills. Schluss mit Nachbarbeschwerden.",
-      "features": ["Kamine", "Pelletöfen", "Grills", "Gartenöfen"]
+      "description": "Kamin oder Ofen ohne schwarzen Rauch und Gerüche. Ihre Nachbarn merken nicht einmal, dass Sie ihn angezündet haben.",
+      "features": [
+        "Kamine",
+        "Pelletöfen",
+        "Grills",
+        "Gartenöfen"
+      ],
+      "pain": "💨 Ruß an Wänden, Brandgeruch, verärgerte Nachbarn"
     },
     "industrial": {
       "title": "Industriell",
       "subtitle": "Fabriken und Produktionsstätten",
-      "description": "Hochleistungssysteme für Lebensmittelindustrie, Röstereien und Produktionsprozesse.",
-      "features": ["Kaffeeröstereien", "Käsereien", "Räuchereien", "Industrieöfen"]
+      "description": "Bis zu 95% Reduzierung von Feinstaub und Gerüchen. Garantierte Vorschriftenkonformität, null Produktionsausfälle.",
+      "features": [
+        "Kaffeeröstereien",
+        "Käsereien",
+        "Räuchereien",
+        "Industrieöfen"
+      ],
+      "pain": "🏭 Emissionen außerhalb der Norm, Staub, hartnäckige Gerüche"
     },
-    "discoverSolutions": "Lösungen entdecken"
+    "discoverSolutions": "Problem lösen"
   },
   "clients": {
     "label": "Vertraut von über 1500+ Unternehmen in Italien und weltweit"
@@ -281,9 +299,23 @@
     "professionalCta": "Zu den professionellen Lösungen",
     "domesticCta": "Zu den häuslichen Lösungen",
     "industrialCta": "Zu den industriellen Lösungen",
-    "professionalAmbiti": ["Pizzerien", "Bäckereien", "Grillhäuser", "Profiküchen"],
-    "domesticAmbiti": ["Biomassekessel", "Holzkamine", "Öfen"],
-    "industrialAmbiti": ["Kaffeeröstereien", "Käsereien", "Räuchereien", "Industrieöfen"],
+    "professionalAmbiti": [
+      "Pizzerien",
+      "Bäckereien",
+      "Grillhäuser",
+      "Profiküchen"
+    ],
+    "domesticAmbiti": [
+      "Biomassekessel",
+      "Holzkamine",
+      "Öfen"
+    ],
+    "industrialAmbiti": [
+      "Kaffeeröstereien",
+      "Käsereien",
+      "Räuchereien",
+      "Industrieöfen"
+    ],
     "trustText": "Echte Einsätze an professionellen, häuslichen und industriellen Anlagen in ganz Italien",
     "seeInterventions": "Einsätze ansehen",
     "unsureTitle": "Nicht sicher, in welchen Bereich Ihre Anlage fällt?",
