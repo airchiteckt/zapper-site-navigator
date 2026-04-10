@@ -39,7 +39,7 @@
         "Bracerie",
         "Cucine professionali"
       ],
-      "pain": "🔥 Fumo in sala, odori nei vicini, rischio sanzioni"
+      "pain": "🔥 Fuliggine sui muri e balconi, odori di cottura molesti, vicini arrabbiati"
     },
     "domestic": {
       "title": "Domestico",
@@ -51,7 +51,7 @@
         "Barbecue",
         "Forni da giardino"
       ],
-      "pain": "💨 Fuliggine sui muri, odore di bruciato, vicini arrabbiati"
+      "pain": "💨 Fumo nero dal camino, odore di bruciato in casa, lamentele dei vicini"
     },
     "industrial": {
       "title": "Industriale",

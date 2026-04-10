@@ -39,7 +39,7 @@
         "Grillhäuser",
         "Profiküchen"
       ],
-      "pain": "🔥 Rauch im Gastraum, Gerüche bei Nachbarn, Bußgeldrisiko"
+      "pain": "🔥 Ruß an Wänden und Balkonen, störende Kochgerüche, verärgerte Nachbarn"
     },
     "domestic": {
       "title": "Häuslich",
@@ -51,7 +51,7 @@
         "Grills",
         "Gartenöfen"
       ],
-      "pain": "💨 Ruß an Wänden, Brandgeruch, verärgerte Nachbarn"
+      "pain": "💨 Schwarzer Rauch aus dem Kamin, Brandgeruch im Haus, Nachbarbeschwerden"
     },
     "industrial": {
       "title": "Industriell",

@@ -39,7 +39,7 @@
         "Grill houses",
         "Professional kitchens"
       ],
-      "pain": "🔥 Smoke in the dining area, odours reaching neighbours, risk of fines"
+      "pain": "🔥 Soot on walls and balconies, cooking odours disturbing neighbours, complaints"
     },
     "domestic": {
       "title": "Domestic",
@@ -51,7 +51,7 @@
         "Barbecues",
         "Garden ovens"
       ],
-      "pain": "💨 Soot on walls, burning smell, angry neighbours"
+      "pain": "💨 Black smoke from the chimney, burning smell indoors, neighbour complaints"
     },
     "industrial": {
       "title": "Industrial",
