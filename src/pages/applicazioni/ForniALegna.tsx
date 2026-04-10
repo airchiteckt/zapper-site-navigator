@@ -9,7 +9,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/applicazione-forni.webp";
-import soluzioneImage from "@/assets/forni-legna-soluzione.webp";
+import soluzioneImage from "@/assets/zapper-prodotto-forni.jpg";
 import installazioneImage from "@/assets/forni-legna-installazione.webp";
 import primaDopoImage from "@/assets/forni-legna-prima-dopo.webp";
 
