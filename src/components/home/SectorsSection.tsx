@@ -84,6 +84,7 @@ const SectorsSection = () => {
               </div>
 
               <div className="p-5 sm:p-6 md:p-8">
+                <p className="text-destructive/80 text-xs sm:text-sm font-medium mb-2">{sector.pain}</p>
                 <p className="text-muted-foreground text-sm sm:text-base mb-4 sm:mb-6">{sector.description}</p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                   {sector.features.map((feature) => (
