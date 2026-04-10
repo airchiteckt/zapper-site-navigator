@@ -12,43 +12,37 @@ describe("getPreferredLanguage", () => {
     ).toBe("en");
   });
 
-  it("uses the querystring language before the browser language on unprefixed paths", () => {
+  it("uses the querystring language on unprefixed paths", () => {
     expect(
       getPreferredLanguage({
         pathname: "/",
         search: "?lang=fr",
-        navigatorLanguages: ["it-IT"],
-        navigatorLanguage: "it-IT",
       }),
     ).toBe("fr");
   });
 
-  it("uses the browser language on unprefixed paths", () => {
+  it("falls back to italian on unprefixed paths without querystring", () => {
     expect(
       getPreferredLanguage({
         pathname: "/",
-        navigatorLanguages: ["it-IT", "en-US"],
-        navigatorLanguage: "en-US",
       }),
     ).toBe("it");
   });
 
-  it("prioritizes navigator.languages over navigator.language when they differ", () => {
+  it("uses the provided fallback language when supported", () => {
     expect(
       getPreferredLanguage({
         pathname: "/",
-        navigatorLanguages: ["en-US", "it-IT"],
-        navigatorLanguage: "it-IT",
+        fallbackLanguage: "en",
       }),
     ).toBe("en");
   });
 
-  it("falls back to italian when the browser language is unsupported", () => {
+  it("falls back to italian when the provided fallback language is unsupported", () => {
     expect(
       getPreferredLanguage({
         pathname: "/",
-        navigatorLanguages: ["pt-BR"],
-        navigatorLanguage: "pt-BR",
+        fallbackLanguage: "pt-BR",
       }),
     ).toBe("it");
   });
