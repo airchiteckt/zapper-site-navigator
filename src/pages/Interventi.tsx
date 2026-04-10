@@ -45,6 +45,7 @@ const Interventi = () => {
       const { data, error } = await supabase
         .from('interventions')
         .select('*')
+        .not('thumbnail_url', 'is', null)
         .order('created_at', { ascending: false });
 
       if (!error && data) {
