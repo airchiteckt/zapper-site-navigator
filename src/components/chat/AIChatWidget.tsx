@@ -351,34 +351,50 @@ export default function AIChatWidget() {
 
   return (
     <>
-      {/* ─── Floating "Vorresti che ti chiamassimo?" popup ─── */}
+      {/* ─── Floating callback card near FAB ─── */}
       {showPopup && !open && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/30" onClick={dismissPopup} />
-          {/* Card */}
-          <div className="relative bg-card rounded-2xl shadow-2xl p-6 max-w-sm w-full animate-in fade-in zoom-in-95 duration-300">
-            <button onClick={dismissPopup} className="absolute top-3 right-3 w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
-              <X className="w-4 h-4 text-muted-foreground" />
-            </button>
-            <p className="text-xl font-semibold text-foreground pr-8 mb-4">
-              {POPUP_TITLE[lang] || POPUP_TITLE.it}
-            </p>
-            <hr className="border-border mb-4" />
-            <button
-              onClick={acceptCallback}
-              className="block w-full text-left text-accent font-semibold text-lg py-2 hover:opacity-80 transition-opacity"
-            >
-              {POPUP_YES[lang] || POPUP_YES.it}
-            </button>
-            <button
-              onClick={dismissPopup}
-              className="block w-full text-left text-accent font-semibold text-lg py-2 hover:opacity-80 transition-opacity"
-            >
-              {POPUP_NO[lang] || POPUP_NO.it}
-            </button>
+        <>
+          {/* Desktop: anchored above FAB */}
+          <div className="fixed bottom-24 right-6 z-[60] hidden md:block animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="bg-card rounded-2xl shadow-2xl p-5 w-72 border border-border">
+              <div className="flex items-start justify-between mb-3">
+                <p className="text-base font-semibold text-foreground pr-2">
+                  {POPUP_TITLE[lang] || POPUP_TITLE.it}
+                </p>
+                <button onClick={dismissPopup} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors flex-shrink-0">
+                  <X className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+              </div>
+              <hr className="border-border mb-3" />
+              <button onClick={acceptCallback} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
+                {POPUP_YES[lang] || POPUP_YES.it}
+              </button>
+              <button onClick={dismissPopup} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
+                {POPUP_NO[lang] || POPUP_NO.it}
+              </button>
+            </div>
           </div>
-        </div>
+          {/* Mobile: anchored above FAB */}
+          <div className="fixed bottom-20 right-4 z-[60] md:hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="bg-card rounded-2xl shadow-2xl p-5 w-72 border border-border">
+              <div className="flex items-start justify-between mb-3">
+                <p className="text-base font-semibold text-foreground pr-2">
+                  {POPUP_TITLE[lang] || POPUP_TITLE.it}
+                </p>
+                <button onClick={dismissPopup} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors flex-shrink-0">
+                  <X className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+              </div>
+              <hr className="border-border mb-3" />
+              <button onClick={acceptCallback} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
+                {POPUP_YES[lang] || POPUP_YES.it}
+              </button>
+              <button onClick={dismissPopup} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
+                {POPUP_NO[lang] || POPUP_NO.it}
+              </button>
+            </div>
+          </div>
+        </>
       )}
 
       {/* Desktop FAB */}
