@@ -39,7 +39,7 @@
         "Asadores",
         "Cocinas profesionales"
       ],
-      "pain": "🔥 Humo en el comedor, olores en los vecinos, riesgo de multas"
+      "pain": "🔥 Hollín en muros y balcones, olores de cocina molestos, vecinos enfadados"
     },
     "domestic": {
       "title": "Doméstico",
@@ -51,7 +51,7 @@
         "Barbacoas",
         "Hornos de jardín"
       ],
-      "pain": "💨 Hollín en las paredes, olor a quemado, vecinos enfadados"
+      "pain": "💨 Humo negro de la chimenea, olor a quemado en casa, quejas de los vecinos"
     },
     "industrial": {
       "title": "Industrial",

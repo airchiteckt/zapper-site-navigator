@@ -39,7 +39,7 @@
         "Grillades",
         "Cuisines professionnelles"
       ],
-      "pain": "🔥 Fumée en salle, odeurs chez les voisins, risque d'amendes"
+      "pain": "🔥 Suie sur les murs et balcons, odeurs de cuisson gênantes, voisins en colère"
     },
     "domestic": {
       "title": "Domestique",
@@ -51,7 +51,7 @@
         "Barbecues",
         "Fours de jardin"
       ],
-      "pain": "💨 Suie sur les murs, odeur de brûlé, voisins en colère"
+      "pain": "💨 Fumée noire de la cheminée, odeur de brûlé à l'intérieur, plaintes des voisins"
     },
     "industrial": {
       "title": "Industriel",
