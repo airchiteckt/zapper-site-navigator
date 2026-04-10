@@ -26,28 +26,46 @@
     "founder": "Founder and Chief Technician"
   },
   "sectors": {
-    "label": "Where ZAPPER is used",
-    "title": "A solution for every need",
-    "description": "Whether you run a pizzeria, have a fireplace at home or work in the food industry, ZAPPER® has the right solution for you.",
+    "label": "Your problem, our solution",
+    "title": "Smoke, odours and soot? We eliminate them.",
+    "description": "Every day restaurants, homes and factories fight against black smoke, bad odours and soot deposits. ZAPPER® solves the problem at the source.",
     "professional": {
       "title": "Professional",
       "subtitle": "Restaurants, pizzerias, grill houses",
-      "description": "Systems for professional kitchens that need to comply with regulations and ensure a healthy work environment.",
-      "features": ["Pizzerias", "Bakeries", "Grill houses", "Professional kitchens"]
+      "description": "Eliminate visible smoke and odours from the kitchen. No more complaints, inspections passed first time.",
+      "features": [
+        "Pizzerias",
+        "Bakeries",
+        "Grill houses",
+        "Professional kitchens"
+      ],
+      "pain": "🔥 Smoke in the dining area, odours reaching neighbours, risk of fines"
     },
     "domestic": {
       "title": "Domestic",
       "subtitle": "Houses, apartments, villas",
-      "description": "Solutions for fireplaces, stoves and domestic barbecues. Say goodbye to neighbour complaints.",
-      "features": ["Fireplaces", "Pellet stoves", "Barbecues", "Garden ovens"]
+      "description": "Fireplace or stove without black smoke or odours. Your neighbours won't even notice you lit it.",
+      "features": [
+        "Fireplaces",
+        "Pellet stoves",
+        "Barbecues",
+        "Garden ovens"
+      ],
+      "pain": "💨 Soot on walls, burning smell, angry neighbours"
     },
     "industrial": {
       "title": "Industrial",
       "subtitle": "Factories and production plants",
-      "description": "High-capacity systems for food industries, roasters and production processes.",
-      "features": ["Coffee roasters", "Dairies", "Smokehouses", "Industrial furnaces"]
+      "description": "Up to 95% reduction of particulate and odours. Guaranteed regulatory compliance, zero production downtime.",
+      "features": [
+        "Coffee roasters",
+        "Dairies",
+        "Smokehouses",
+        "Industrial furnaces"
+      ],
+      "pain": "🏭 Out-of-spec emissions, dust, persistent odours"
     },
-    "discoverSolutions": "Discover solutions"
+    "discoverSolutions": "Solve the problem"
   },
   "clients": {
     "label": "Trusted by over 1500+ businesses in Italy and worldwide"
@@ -281,9 +299,23 @@
     "professionalCta": "Go to professional solutions",
     "domesticCta": "Go to domestic solutions",
     "industrialCta": "Go to industrial solutions",
-    "professionalAmbiti": ["Pizzerias", "Bakeries", "Grill houses", "Professional kitchens"],
-    "domesticAmbiti": ["Biomass boilers", "Wood fireplaces", "Stoves"],
-    "industrialAmbiti": ["Coffee roasters", "Dairies", "Smokehouses", "Industrial furnaces"],
+    "professionalAmbiti": [
+      "Pizzerias",
+      "Bakeries",
+      "Grill houses",
+      "Professional kitchens"
+    ],
+    "domesticAmbiti": [
+      "Biomass boilers",
+      "Wood fireplaces",
+      "Stoves"
+    ],
+    "industrialAmbiti": [
+      "Coffee roasters",
+      "Dairies",
+      "Smokehouses",
+      "Industrial furnaces"
+    ],
     "trustText": "Real interventions on professional, domestic and industrial systems throughout Italy",
     "seeInterventions": "See interventions",
     "unsureTitle": "Not sure which sector your system falls under?",

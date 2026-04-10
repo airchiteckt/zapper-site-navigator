@@ -14,6 +14,7 @@ const SectorsSection = () => {
       id: "professionale",
       title: t("sectors.professional.title"),
       subtitle: t("sectors.professional.subtitle"),
+      pain: t("sectors.professional.pain"),
       description: t("sectors.professional.description"),
       icon: ChefHat,
       href: "/settori/professionale",
@@ -24,6 +25,7 @@ const SectorsSection = () => {
       id: "domestico",
       title: t("sectors.domestic.title"),
       subtitle: t("sectors.domestic.subtitle"),
+      pain: t("sectors.domestic.pain"),
       description: t("sectors.domestic.description"),
       icon: Home,
       href: "/settori/domestico",
@@ -34,6 +36,7 @@ const SectorsSection = () => {
       id: "industriale",
       title: t("sectors.industrial.title"),
       subtitle: t("sectors.industrial.subtitle"),
+      pain: t("sectors.industrial.pain"),
       description: t("sectors.industrial.description"),
       icon: Factory,
       href: "/settori/industriale",
@@ -81,6 +84,7 @@ const SectorsSection = () => {
               </div>
 
               <div className="p-5 sm:p-6 md:p-8">
+                <p className="text-destructive/80 text-xs sm:text-sm font-medium mb-2">{sector.pain}</p>
                 <p className="text-muted-foreground text-sm sm:text-base mb-4 sm:mb-6">{sector.description}</p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                   {sector.features.map((feature) => (

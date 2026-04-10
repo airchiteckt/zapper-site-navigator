@@ -26,28 +26,46 @@
     "founder": "Fondatore e Capo tecnico"
   },
   "sectors": {
-    "label": "Dove si usa uno ZAPPER",
-    "title": "Una soluzione per ogni esigenza",
-    "description": "Che tu gestisca una pizzeria, abbia un camino in casa o lavori nell'industria alimentare, ZAPPER® ha la soluzione giusta per te.",
+    "label": "Il tuo problema, la nostra soluzione",
+    "title": "Fumo, odori e fuliggine? Li eliminiamo noi.",
+    "description": "Ogni giorno ristoranti, case e stabilimenti combattono contro fumi neri, odori sgradevoli e depositi di fuliggine. ZAPPER® risolve il problema alla fonte.",
     "professional": {
       "title": "Professionale",
       "subtitle": "Ristoranti, pizzerie, bracerie",
-      "description": "Sistemi per cucine professionali che devono rispettare le normative e garantire un ambiente di lavoro sano.",
-      "features": ["Pizzerie", "Panifici", "Bracerie", "Cucine professionali"]
+      "description": "Elimina fumi visibili e odori dalla cucina. Niente più lamentele, ispezioni superate al primo colpo.",
+      "features": [
+        "Pizzerie",
+        "Panifici",
+        "Bracerie",
+        "Cucine professionali"
+      ],
+      "pain": "🔥 Fumo in sala, odori nei vicini, rischio sanzioni"
     },
     "domestic": {
       "title": "Domestico",
       "subtitle": "Case, appartamenti, ville",
-      "description": "Soluzioni per camini, stufe e barbecue domestici. Addio lamentele dei vicini.",
-      "features": ["Camini", "Stufe a pellet", "Barbecue", "Forni da giardino"]
+      "description": "Camino o stufa senza fumo nero e senza odori. I tuoi vicini non noteranno nemmeno che l'hai acceso.",
+      "features": [
+        "Camini",
+        "Stufe a pellet",
+        "Barbecue",
+        "Forni da giardino"
+      ],
+      "pain": "💨 Fuliggine sui muri, odore di bruciato, vicini arrabbiati"
     },
     "industrial": {
       "title": "Industriale",
       "subtitle": "Stabilimenti e produzioni",
-      "description": "Impianti ad alta capacità per industrie alimentari, torrefazioni e processi produttivi.",
-      "features": ["Torrefazioni", "Caseifici", "Affumicatori", "Forni industriali"]
+      "description": "Abbattimento fino al 95% di particolato e odori. Conformità normativa garantita, zero fermi produttivi.",
+      "features": [
+        "Torrefazioni",
+        "Caseifici",
+        "Affumicatori",
+        "Forni industriali"
+      ],
+      "pain": "🏭 Emissioni fuori norma, polveri, odori persistenti"
     },
-    "discoverSolutions": "Scopri le soluzioni"
+    "discoverSolutions": "Risolvi il problema"
   },
   "clients": {
     "label": "Scelto da oltre 1500+ attività in Italia e nel mondo"
@@ -281,9 +299,23 @@
     "professionalCta": "Vai alle soluzioni per attività professionali",
     "domesticCta": "Vai alle soluzioni per uso domestico",
     "industrialCta": "Vai alle soluzioni industriali",
-    "professionalAmbiti": ["Pizzerie", "Panifici", "Bracerie", "Cucine professionali"],
-    "domesticAmbiti": ["Caldaie a biomassa", "Camini a legna", "Stufe"],
-    "industrialAmbiti": ["Torrefazioni", "Caseifici", "Affumicatori", "Forni industriali"],
+    "professionalAmbiti": [
+      "Pizzerie",
+      "Panifici",
+      "Bracerie",
+      "Cucine professionali"
+    ],
+    "domesticAmbiti": [
+      "Caldaie a biomassa",
+      "Camini a legna",
+      "Stufe"
+    ],
+    "industrialAmbiti": [
+      "Torrefazioni",
+      "Caseifici",
+      "Affumicatori",
+      "Forni industriali"
+    ],
     "trustText": "Interventi reali su impianti professionali, domestici e industriali in tutta Italia",
     "seeInterventions": "Vedi gli interventi",
     "unsureTitle": "Non sei sicuro di quale settore rientra il tuo impianto?",

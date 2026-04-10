@@ -26,28 +26,46 @@
     "founder": "Fundador y Jefe técnico"
   },
   "sectors": {
-    "label": "Dónde se usa un ZAPPER",
-    "title": "Una solución para cada necesidad",
-    "description": "Ya sea que gestiones una pizzería, tengas una chimenea en casa o trabajes en la industria alimentaria, ZAPPER® tiene la solución adecuada para ti.",
+    "label": "Tu problema, nuestra solución",
+    "title": "¿Humo, olores y hollín? Los eliminamos.",
+    "description": "Cada día restaurantes, hogares y fábricas luchan contra el humo negro, los malos olores y los depósitos de hollín. ZAPPER® resuelve el problema en su origen.",
     "professional": {
       "title": "Profesional",
       "subtitle": "Restaurantes, pizzerías, asadores",
-      "description": "Sistemas para cocinas profesionales que deben cumplir con las normativas y garantizar un ambiente de trabajo saludable.",
-      "features": ["Pizzerías", "Panaderías", "Asadores", "Cocinas profesionales"]
+      "description": "Elimina humos visibles y olores de la cocina. Sin más quejas, inspecciones superadas a la primera.",
+      "features": [
+        "Pizzerías",
+        "Panaderías",
+        "Asadores",
+        "Cocinas profesionales"
+      ],
+      "pain": "🔥 Humo en el comedor, olores en los vecinos, riesgo de multas"
     },
     "domestic": {
       "title": "Doméstico",
       "subtitle": "Casas, apartamentos, villas",
-      "description": "Soluciones para chimeneas, estufas y barbacoas domésticas. Adiós a las quejas de los vecinos.",
-      "features": ["Chimeneas", "Estufas de pellets", "Barbacoas", "Hornos de jardín"]
+      "description": "Chimenea o estufa sin humo negro ni olores. Tus vecinos ni notarán que la has encendido.",
+      "features": [
+        "Chimeneas",
+        "Estufas de pellets",
+        "Barbacoas",
+        "Hornos de jardín"
+      ],
+      "pain": "💨 Hollín en las paredes, olor a quemado, vecinos enfadados"
     },
     "industrial": {
       "title": "Industrial",
       "subtitle": "Fábricas y producciones",
-      "description": "Sistemas de alta capacidad para industrias alimentarias, tostaderos y procesos productivos.",
-      "features": ["Tostaderos", "Queserías", "Ahumaderos", "Hornos industriales"]
+      "description": "Reducción de hasta el 95% de partículas y olores. Conformidad normativa garantizada, cero paradas productivas.",
+      "features": [
+        "Tostaderos",
+        "Queserías",
+        "Ahumaderos",
+        "Hornos industriales"
+      ],
+      "pain": "🏭 Emisiones fuera de norma, polvo, olores persistentes"
     },
-    "discoverSolutions": "Descubre las soluciones"
+    "discoverSolutions": "Resolver el problema"
   },
   "clients": {
     "label": "Elegido por más de 1500+ negocios en Italia y en el mundo"
@@ -281,9 +299,23 @@
     "professionalCta": "Ir a las soluciones profesionales",
     "domesticCta": "Ir a las soluciones domésticas",
     "industrialCta": "Ir a las soluciones industriales",
-    "professionalAmbiti": ["Pizzerías", "Panaderías", "Parrillas", "Cocinas profesionales"],
-    "domesticAmbiti": ["Calderas de biomasa", "Chimeneas de leña", "Estufas"],
-    "industrialAmbiti": ["Tostadoras de café", "Queserías", "Ahumaderos", "Hornos industriales"],
+    "professionalAmbiti": [
+      "Pizzerías",
+      "Panaderías",
+      "Parrillas",
+      "Cocinas profesionales"
+    ],
+    "domesticAmbiti": [
+      "Calderas de biomasa",
+      "Chimeneas de leña",
+      "Estufas"
+    ],
+    "industrialAmbiti": [
+      "Tostadoras de café",
+      "Queserías",
+      "Ahumaderos",
+      "Hornos industriales"
+    ],
     "trustText": "Intervenciones reales en instalaciones profesionales, domésticas e industriales en toda Italia",
     "seeInterventions": "Ver las intervenciones",
     "unsureTitle": "¿No estás seguro de en qué sector entra tu instalación?",

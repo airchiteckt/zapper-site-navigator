@@ -26,28 +26,46 @@
     "founder": "Fondateur et Chef technicien"
   },
   "sectors": {
-    "label": "Où utiliser un ZAPPER",
-    "title": "Une solution pour chaque besoin",
-    "description": "Que vous gériez une pizzeria, ayez une cheminée chez vous ou travailliez dans l'industrie alimentaire, ZAPPER® a la solution qu'il vous faut.",
+    "label": "Votre problème, notre solution",
+    "title": "Fumée, odeurs et suie ? Nous les éliminons.",
+    "description": "Chaque jour, restaurants, maisons et usines luttent contre la fumée noire, les mauvaises odeurs et les dépôts de suie. ZAPPER® résout le problème à la source.",
     "professional": {
       "title": "Professionnel",
       "subtitle": "Restaurants, pizzerias, grillades",
-      "description": "Systèmes pour cuisines professionnelles devant respecter les normes et garantir un environnement de travail sain.",
-      "features": ["Pizzerias", "Boulangeries", "Grillades", "Cuisines professionnelles"]
+      "description": "Éliminez fumées visibles et odeurs de la cuisine. Plus de plaintes, inspections réussies du premier coup.",
+      "features": [
+        "Pizzerias",
+        "Boulangeries",
+        "Grillades",
+        "Cuisines professionnelles"
+      ],
+      "pain": "🔥 Fumée en salle, odeurs chez les voisins, risque d'amendes"
     },
     "domestic": {
       "title": "Domestique",
       "subtitle": "Maisons, appartements, villas",
-      "description": "Solutions pour cheminées, poêles et barbecues domestiques. Adieu les plaintes des voisins.",
-      "features": ["Cheminées", "Poêles à pellets", "Barbecues", "Fours de jardin"]
+      "description": "Cheminée ou poêle sans fumée noire ni odeurs. Vos voisins ne remarqueront même pas que vous l'avez allumé.",
+      "features": [
+        "Cheminées",
+        "Poêles à pellets",
+        "Barbecues",
+        "Fours de jardin"
+      ],
+      "pain": "💨 Suie sur les murs, odeur de brûlé, voisins en colère"
     },
     "industrial": {
       "title": "Industriel",
       "subtitle": "Usines et productions",
-      "description": "Systèmes haute capacité pour industries alimentaires, torréfacteurs et processus de production.",
-      "features": ["Torréfacteurs", "Fromageries", "Fumoirs", "Fours industriels"]
+      "description": "Réduction jusqu'à 95% des particules et odeurs. Conformité réglementaire garantie, zéro arrêt de production.",
+      "features": [
+        "Torréfacteurs",
+        "Fromageries",
+        "Fumoirs",
+        "Fours industriels"
+      ],
+      "pain": "🏭 Émissions hors norme, poussières, odeurs persistantes"
     },
-    "discoverSolutions": "Découvrir les solutions"
+    "discoverSolutions": "Résoudre le problème"
   },
   "clients": {
     "label": "Choisi par plus de 1500 entreprises en Italie et dans le monde"
@@ -281,9 +299,23 @@
     "professionalCta": "Voir les solutions professionnelles",
     "domesticCta": "Voir les solutions domestiques",
     "industrialCta": "Voir les solutions industrielles",
-    "professionalAmbiti": ["Pizzerias", "Boulangeries", "Grillades", "Cuisines professionnelles"],
-    "domesticAmbiti": ["Chaudières à biomasse", "Cheminées à bois", "Poêles"],
-    "industrialAmbiti": ["Torréfactions", "Fromageries", "Fumoirs", "Fours industriels"],
+    "professionalAmbiti": [
+      "Pizzerias",
+      "Boulangeries",
+      "Grillades",
+      "Cuisines professionnelles"
+    ],
+    "domesticAmbiti": [
+      "Chaudières à biomasse",
+      "Cheminées à bois",
+      "Poêles"
+    ],
+    "industrialAmbiti": [
+      "Torréfactions",
+      "Fromageries",
+      "Fumoirs",
+      "Fours industriels"
+    ],
     "trustText": "Interventions réelles sur des installations professionnelles, domestiques et industrielles dans toute l'Italie",
     "seeInterventions": "Voir les interventions",
     "unsureTitle": "Pas sûr du secteur de votre installation ?",
