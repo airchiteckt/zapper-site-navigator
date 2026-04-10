@@ -253,8 +253,14 @@ export default function AIChatWidget() {
     setCallbackMode(true);
     setOpen(true);
     setShowMobileBubble(false);
+    const popupQ = POPUP_TITLE[lang] || POPUP_TITLE.it;
+    const yesText = POPUP_YES[lang] || POPUP_YES.it;
     const askPhone = CALLBACK_ASK_PHONE[lang] || CALLBACK_ASK_PHONE.it;
-    setMessages((prev) => [...prev, { role: "assistant", content: askPhone }]);
+    setMessages([
+      { role: "assistant", content: popupQ },
+      { role: "user", content: yesText },
+      { role: "assistant", content: askPhone },
+    ]);
   }, [lang, dismissPopup]);
 
   /* ─── AI call ─── */
