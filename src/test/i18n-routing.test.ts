@@ -6,8 +6,6 @@ describe("getPreferredLanguage", () => {
     expect(
       getPreferredLanguage({
         pathname: "/en/contatti",
-        navigatorLanguages: ["it-IT"],
-        navigatorLanguage: "it-IT",
       }),
     ).toBe("en");
   });
