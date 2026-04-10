@@ -191,9 +191,12 @@ export default function ForniALegna() {
             <div className="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
               <div className="order-2 lg:order-1">
                 <span className="text-accent font-semibold text-sm uppercase tracking-wider">Installazione</span>
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3 mb-6">
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
                   Installato in giornata, senza fermare l'attività
                 </h2>
+                <p className="text-muted-foreground text-lg mb-6">
+                  Grazie alla nostra rete di partner certificati in tutta Italia, garantiamo installazione rapida e assistenza tecnica ovunque ti trovi.
+                </p>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
