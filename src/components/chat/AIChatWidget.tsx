@@ -379,7 +379,7 @@ export default function AIChatWidget() {
       return updated;
     });
     ensureSession().then((sid) => { if (sid) saveMessage(sid, "user", text.trim()); });
-  }, [isLoading, callbackMode, lang, callAI, ensureSession, saveMessage]);
+  }, [isLoading, callbackMode, lang, callAI, ensureSession, saveMessage, playSendSound]);
 
   const placeholder = PLACEHOLDER[lang] || PLACEHOLDER.it;
 
