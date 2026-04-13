@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight, CheckCircle, AlertTriangle, MapPin,
   Droplets, Shield, Wrench, ClipboardCheck, ThumbsUp,
-  Ban, Volume2, Building2, Star, Thermometer, Wind
+  Ban, Volume2, Building2, Star, Thermometer, Wind,
+  MessageCircle
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -13,6 +14,10 @@ import soluzioneImage from "@/assets/zapper-prodotto-forni.jpg";
 import installazioneImage from "@/assets/forni-legna-installazione.webp";
 import utaMachine from "@/assets/uta-carbone-attivo.webp";
 import { ChefHat, Coffee, Factory, Zap } from "lucide-react";
+
+const WHATSAPP_NUMBER = "393248996189";
+const WHATSAPP_MESSAGE = "Ciao, sono interessato a una valutazione per la mia cucina professionale";
+const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const problemi = [
   { icon: Wind, testo: "Fumi e vapori da cotture multiple e simultanee che saturano l'aria" },
@@ -95,6 +100,14 @@ export default function CucineProfessionali() {
                     Richiedi una valutazione tecnica gratuita
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
+                </Button>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <Button variant="outline" size="lg" className="border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white" asChild>
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Contatta su WhatsApp
+                  </a>
                 </Button>
               </div>
               <div className="flex items-center gap-6 mt-8 text-primary-foreground/60 text-sm">
@@ -196,6 +209,14 @@ export default function CucineProfessionali() {
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Link>
                   </Button>
+                  <div className="mt-3">
+                    <Button variant="outline" size="lg" className="w-full border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white" asChild>
+                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="w-5 h-5 mr-2" />
+                        Scrivici su WhatsApp
+                      </a>
+                    </Button>
+                  </div>
                 </div>
                 <div className="flex justify-center">
                   <div className="relative w-full max-w-md">
@@ -354,6 +375,14 @@ export default function CucineProfessionali() {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
+              <div className="mt-4">
+                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white hover:text-zapper-black" asChild>
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Contattaci su WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
