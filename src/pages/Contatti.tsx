@@ -375,6 +375,15 @@ const Contatti = () => {
                   <span>WhatsApp</span>
                 </a>
               </div>
+
+              <div className="mt-6">
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/partners">
+                    <Handshake className="w-5 h-5 mr-2" />
+                    Diventa Partner ZAPPER®
+                  </Link>
+                </Button>
+              </div>
               
               <p className="text-xs text-muted-foreground mt-4">
                 {t("contattiPage.technicalAdvice")}
