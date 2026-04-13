@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Phone, Mail, MessageCircle, ArrowRight, ArrowLeft, ChevronDown, Loader2, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -18,10 +18,10 @@ import { useTranslation } from "react-i18next";
 type FormStep = "prefiltro" | "form";
 
 const Contatti = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<FormStep>("prefiltro");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
   
   const [prefiltroData, setPrefiltroData] = useState({
@@ -245,8 +245,8 @@ const Contatti = () => {
                       },
                     });
                     if (result.success) {
-                      setIsSuccess(true);
-                      setFormData({ nome: "", email: "", telefono: "", azienda: "", citta: "", note: "" });
+                      const lang = i18n.language || "it";
+                      navigate(`/${lang}/grazie`);
                     } else {
                       toast({ title: t("contattiPage.errorTitle"), description: t("contattiPage.errorSend"), variant: "destructive" });
                     }
