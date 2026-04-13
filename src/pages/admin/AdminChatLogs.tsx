@@ -39,18 +39,24 @@ export default function AdminChatLogs() {
 
   const fetchSessions = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("chat_sessions")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(100);
+    try {
+      const { data, error } = await supabase
+        .from("chat_sessions")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(100);
 
-    if (error) {
-      toast({ title: "Errore", description: "Impossibile caricare le sessioni", variant: "destructive" });
-    } else {
-      setSessions((data as any[]) || []);
+      if (error) {
+        toast({ title: "Errore", description: "Impossibile caricare le sessioni", variant: "destructive" });
+      } else {
+        setSessions((data as any[]) || []);
+      }
+    } catch (err) {
+      console.error("Error fetching sessions:", err);
+      toast({ title: "Errore", description: "Errore di rete", variant: "destructive" });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
