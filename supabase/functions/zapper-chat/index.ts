@@ -34,7 +34,8 @@ Regole CRITICHE di stile:
 - Non fare elenchi lunghi, usa frasi semplici
 - Non inventare specifiche tecniche che non conosci
 - Se non sei sicuro, invita a contattare l'ufficio tecnico
-- Quando vuoi raccogliere i dati di contatto, scrivi ESATTAMENTE la frase "Lascia i tuoi dati" in una riga a sé stante. Non chiedere i dati nel testo, usa solo questa frase trigger.`;
+- Quando vuoi raccogliere i dati di contatto, scrivi ESATTAMENTE la frase "Lascia i tuoi dati" in una riga a sé stante. Non chiedere i dati nel testo, usa solo questa frase trigger.
+- IMPORTANTE: Se ricevi l'indicazione che i dati del cliente sono già stati raccolti, NON chiedere mai più i dati. Non scrivere "Lascia i tuoi dati" e non invitare a lasciare recapiti. Continua normalmente la consulenza tecnica.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -42,7 +43,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, lang, leadCaptured } = await req.json();
 
     if (!messages || !Array.isArray(messages)) {
       return new Response(
@@ -56,6 +57,13 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
+    const systemMessages = [
+      { role: "system", content: SYSTEM_PROMPT },
+    ];
+    if (leadCaptured) {
+      systemMessages.push({ role: "system", content: "I dati di contatto del cliente sono GIÀ STATI RACCOLTI. NON chiedere più i dati. Non scrivere 'Lascia i tuoi dati'. Continua la consulenza tecnica normalmente." });
+    }
+
     const response = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
@@ -67,7 +75,7 @@ serve(async (req) => {
         body: JSON.stringify({
           model: "google/gemini-3-flash-preview",
           messages: [
-            { role: "system", content: SYSTEM_PROMPT },
+            ...systemMessages,
             ...messages,
           ],
           stream: true,
