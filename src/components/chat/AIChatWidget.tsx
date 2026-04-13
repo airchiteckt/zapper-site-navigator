@@ -223,8 +223,18 @@ export default function AIChatWidget() {
   /* ─── Popup after 20s ─── */
   useEffect(() => {
     if (popupAlreadyDismissed || hasSubmittedBefore) return;
-    const timer = setTimeout(() => setShowPopup(true), 20000);
-    return () => clearTimeout(timer);
+    let shown = false;
+    const show = () => { if (!shown) { shown = true; setShowPopup(true); } };
+
+    const timer = setTimeout(show, 35000);
+
+    const onScroll = () => {
+      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrollPct >= 0.6) show();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, [popupAlreadyDismissed, hasSubmittedBefore]);
 
   /* ─── Mobile bubble after 15s ─── */
