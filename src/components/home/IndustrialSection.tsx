@@ -6,6 +6,7 @@ import industrialMachine from "@/assets/industrial-machine.webp";
 import barilla from "@/assets/clients/barilla.webp";
 import leonardo from "@/assets/clients/leonardo.webp";
 import modelleriaReggiana from "@/assets/clients/modelleria-reggiana.webp";
+import anticheCascine from "@/assets/clients/antiche-cascine.webp";
 
 const IndustrialSection = () => {
   const { t } = useTranslation();
