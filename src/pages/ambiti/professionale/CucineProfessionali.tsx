@@ -3,17 +3,15 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight, CheckCircle, AlertTriangle, MapPin,
   Droplets, Shield, Wrench, ClipboardCheck, ThumbsUp,
-  Ban, Volume2, Building2, Star, Thermometer, Wind,
-  ChefHat, Coffee, Factory, Zap
+  Ban, Volume2, Building2, Star, Thermometer, Wind
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/ambiti/cucine-professionali-hero.jpg";
-import soluzioneImage from "@/assets/ambiti/cucine-soluzione.jpg";
+import soluzioneImage from "@/assets/zapper-prodotto-forni.jpg";
 import installazioneImage from "@/assets/forni-legna-installazione.webp";
-import primaDopoImage from "@/assets/ambiti/cucine-prima-dopo.jpg";
-import utaMachine from "@/assets/uta-carbone-attivo.webp";
+import primaDopoImage from "@/assets/forni-legna-prima-dopo.webp";
 
 const problemi = [
   { icon: Wind, testo: "Fumi e vapori da cotture multiple e simultanee che saturano l'aria" },
