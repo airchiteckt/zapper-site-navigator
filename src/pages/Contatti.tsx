@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Link, useNavigate } from "react-router-dom";
-import { Phone, Mail, MessageCircle, ArrowRight, ArrowLeft, ChevronDown, Loader2, CheckCircle } from "lucide-react";
+import { Phone, Mail, MessageCircle, ArrowRight, ArrowLeft, ChevronDown, Loader2, CheckCircle, Handshake } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import SEO from "@/components/SEO";
