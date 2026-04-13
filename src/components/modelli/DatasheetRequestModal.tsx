@@ -40,8 +40,9 @@ export default function DatasheetRequestModal({
   modelName,
   datasheetUrls,
 }: DatasheetRequestModalProps) {
+  const navigate = useNavigate();
+  const { i18n } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<DatasheetLanguage | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -118,8 +119,6 @@ export default function DatasheetRequestModal({
         },
       });
 
-      setIsSuccess(true);
-
       // Trigger download
       const datasheetUrl = datasheetUrls[effectiveLanguage];
       if (datasheetUrl) {
@@ -131,6 +130,11 @@ export default function DatasheetRequestModal({
         link.click();
         document.body.removeChild(link);
       }
+
+      // Navigate to thank you page
+      onClose();
+      const lang = i18n.language || 'it';
+      navigate(`/${lang}/grazie`);
 
     } catch (error) {
       console.error('Error submitting request:', error);
