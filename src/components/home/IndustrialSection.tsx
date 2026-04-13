@@ -76,6 +76,7 @@ const IndustrialSection = () => {
               { name: "Barilla", logo: barilla },
               { name: "Leonardo", logo: leonardo },
               { name: "Modelleria Reggiana", logo: modelleriaReggiana },
+              { name: "Antiche Cascine", logo: anticheCascine },
             ].map((client) => (
               <div key={client.name} className="flex items-center justify-center w-24 h-16 sm:w-32 sm:h-20 opacity-50 hover:opacity-90 transition-opacity duration-300">
                 <img src={client.logo} alt={client.name} className="max-w-full max-h-full object-contain" loading="lazy" />
