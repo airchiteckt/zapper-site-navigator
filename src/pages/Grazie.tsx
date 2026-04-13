@@ -53,7 +53,7 @@ const Grazie = () => {
               {t("grazie.whatsappPrompt")}
             </p>
             <a
-              href="https://wa.me/393248996189?text=Ciao%2C%20ho%20appena%20compilato%20il%20form%20sul%20vostro%20sito%20e%20vorrei%20maggiori%20info."
+              href="https://wa.me/3908119968436?text=Ciao%2C%20ho%20appena%20compilato%20il%20form%20sul%20vostro%20sito%20e%20vorrei%20maggiori%20info."
               target="_blank"
               rel="noopener noreferrer"
             >

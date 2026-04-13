@@ -370,7 +370,7 @@ const Contatti = () => {
                   <Mail className="w-5 h-5" />
                   <span>info@smokezapper.it</span>
                 </a>
-                <a href="https://wa.me/393248996189" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://wa.me/3908119968436" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                   <MessageCircle className="w-5 h-5" />
                   <span>WhatsApp</span>
                 </a>

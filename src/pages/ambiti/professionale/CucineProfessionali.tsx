@@ -15,7 +15,7 @@ import installazioneImage from "@/assets/forni-legna-installazione.webp";
 import utaMachine from "@/assets/uta-carbone-attivo.webp";
 import { ChefHat, Coffee, Factory, Zap } from "lucide-react";
 
-const WHATSAPP_NUMBER = "393248996189";
+const WHATSAPP_NUMBER = "3908119968436";
 const WHATSAPP_MESSAGE = "Ciao, sono interessato a una valutazione per la mia cucina professionale";
 const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 

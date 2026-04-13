@@ -102,7 +102,7 @@ const Footer = () => {
             </div>
           </div>
           <a
-            href="https://wa.me/393248996189?text=Ciao%2C%20vorrei%20informazioni%20sui%20sistemi%20ZAPPER%C2%AE"
+            href="https://wa.me/3908119968436?text=Ciao%2C%20vorrei%20informazioni%20sui%20sistemi%20ZAPPER%C2%AE"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold py-3 rounded-full md:hidden"
