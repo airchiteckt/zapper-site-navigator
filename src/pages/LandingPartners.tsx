@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -52,8 +53,8 @@ export default function LandingPartners() {
         source: "Landing Partner",
       });
       if (result.success) {
-        setIsSuccess(true);
-        setFormData({ name: "", email: "", phone: "", company: "", city: "", country: "", partnerType: "", message: "" });
+        const lang = i18n.language || "it";
+        navigate(`/${lang}/grazie`);
       } else {
         toast({ title: "Errore", description: "Si è verificato un errore. Riprova.", variant: "destructive" });
       }
