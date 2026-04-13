@@ -29,9 +29,10 @@ const vantaggiSoluzione = [
 ];
 
 const modelliCompatibili = [
-  { name: "ZCM", desc: "Per cucine di ristoranti standard (Ø 250–300 mm)", href: "/modelli/zcm" },
-  { name: "ZCL", desc: "Per grandi cucine di hotel e catering (Ø 300–400 mm)", href: "/modelli/zcl" },
-  { name: "ZCL MAX", desc: "Per cucine industriali ad altissimo volume (Ø 400–500 mm)", href: "/modelli/zcl-max" },
+  { name: "DESTINK", desc: "Abbattimento odori da cucina (Ø 250–300 mm)", href: "/modelli/destink" },
+  { name: "DESTINK MAX", desc: "Per cucine ad alto volume con odori persistenti (Ø 300–400 mm)", href: "/modelli/destink-max" },
+  { name: "DESTINK ULTRA", desc: "Doppia filtrazione per fritture e grigliate intense (Ø 250–300 mm)", href: "/modelli/destink-ultra" },
+  { name: "DESTINK ULTRA MAX", desc: "Massima potenza per cucine industriali (Ø 300–400 mm)", href: "/modelli/destink-ultra-max" },
 ];
 
 const casiClienti = [
