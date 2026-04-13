@@ -31,13 +31,13 @@ const PARTNER_TYPES_CONFIG = [
 ];
 
 export default function LandingPartners() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", company: "", city: "", country: "",
     partnerType: "", message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
