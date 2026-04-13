@@ -405,7 +405,6 @@ export default function LandingPartners() {
                     {t("landingPartners.formPrivacy")}
                   </p>
                 </form>
-              )}
             </div>
           </div>
         </section>
