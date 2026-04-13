@@ -594,5 +594,15 @@
     "step4Desc": "Das verschmutzte Wasser mit allen Schadstoffen setzt sich im Sammelbecken am Boden des Systems ab.",
     "step5Title": "Auslass oben-rechts",
     "step5Desc": "Gereinigte Luft, frei von Schadstoffen, tritt als sauberer Dampf aus dem Auslass oben rechts aus."
+  },
+  "grazie": {
+    "seoTitle": "Vielen Dank für Ihre Kontaktaufnahme — ZAPPER®",
+    "seoDescription": "Wir haben Ihre Anfrage erhalten. Unser Team wird sich innerhalb von 24–48 Stunden bei Ihnen melden.",
+    "title": "Vielen Dank für Ihre Kontaktaufnahme!",
+    "subtitle": "Wir haben Ihre Daten erhalten und unser technisches Team analysiert sie bereits.",
+    "responseTime": "Wir melden uns innerhalb von <strong>24–48 Geschäftsstunden</strong> mit einem personalisierten Angebot.",
+    "whatsappPrompt": "Möchten Sie eine schnellere Antwort?",
+    "whatsappButton": "Schreiben Sie uns auf WhatsApp",
+    "backHome": "Zurück zur Startseite"
   }
 }

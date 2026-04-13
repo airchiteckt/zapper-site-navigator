@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
+import { useTranslation } from "react-i18next";
 
 const Grazie = () => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "it";
+
   useEffect(() => {
-    // Fire conversion event for tracking pixels (Google Ads, Meta, etc.)
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "conversion", {
         send_to: "AW-CONVERSION_ID/CONVERSION_LABEL",
@@ -22,8 +25,8 @@ const Grazie = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEO
-        title="Grazie per averci contattato — ZAPPER®"
-        description="Abbiamo ricevuto la tua richiesta. Il nostro team ti contatterà entro 24-48 ore."
+        title={t("grazie.seoTitle")}
+        description={t("grazie.seoDescription")}
       />
       <Header />
 
@@ -34,19 +37,20 @@ const Grazie = () => {
           </div>
 
           <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Grazie per averci contattato!
+            {t("grazie.title")}
           </h1>
 
           <p className="text-muted-foreground text-lg mb-2">
-            Abbiamo ricevuto i tuoi dati e il nostro team tecnico li sta già analizzando.
+            {t("grazie.subtitle")}
           </p>
-          <p className="text-muted-foreground mb-8">
-            Ti ricontatteremo entro <strong className="text-foreground">24-48 ore lavorative</strong> con una proposta personalizzata.
-          </p>
+          <p
+            className="text-muted-foreground mb-8"
+            dangerouslySetInnerHTML={{ __html: t("grazie.responseTime") }}
+          />
 
           <div className="bg-card border border-border rounded-xl p-6 mb-8">
             <p className="text-sm text-muted-foreground mb-3">
-              Vuoi una risposta ancora più rapida?
+              {t("grazie.whatsappPrompt")}
             </p>
             <a
               href="https://wa.me/393248996189?text=Ciao%2C%20ho%20appena%20compilato%20il%20form%20sul%20vostro%20sito%20e%20vorrei%20maggiori%20info."
@@ -55,14 +59,14 @@ const Grazie = () => {
             >
               <Button variant="accent" size="lg" className="w-full">
                 <Phone className="w-5 h-5 mr-2" />
-                Scrivici su WhatsApp
+                {t("grazie.whatsappButton")}
               </Button>
             </a>
           </div>
 
-          <Link to="/">
+          <Link to={`/${lang}`}>
             <Button variant="outline">
-              Torna alla Homepage
+              {t("grazie.backHome")}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>

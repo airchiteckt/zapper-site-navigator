@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   DialogContent,
@@ -38,8 +40,9 @@ export default function DatasheetRequestModal({
   modelName,
   datasheetUrls,
 }: DatasheetRequestModalProps) {
+  const navigate = useNavigate();
+  const { i18n } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<DatasheetLanguage | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -116,8 +119,6 @@ export default function DatasheetRequestModal({
         },
       });
 
-      setIsSuccess(true);
-
       // Trigger download
       const datasheetUrl = datasheetUrls[effectiveLanguage];
       if (datasheetUrl) {
@@ -129,6 +130,11 @@ export default function DatasheetRequestModal({
         link.click();
         document.body.removeChild(link);
       }
+
+      // Navigate to thank you page
+      onClose();
+      const lang = i18n.language || 'it';
+      navigate(`/${lang}/grazie`);
 
     } catch (error) {
       console.error('Error submitting request:', error);
@@ -143,7 +149,6 @@ export default function DatasheetRequestModal({
   };
 
   const handleClose = () => {
-    setIsSuccess(false);
     setSelectedLanguage(null);
     setFormData({ firstName: '', lastName: '', email: '', phone: '' });
     onClose();
@@ -162,33 +167,10 @@ export default function DatasheetRequestModal({
             Scarica scheda tecnica
           </DialogTitle>
           <DialogDescription>
-            {isSuccess 
-              ? 'Grazie! Il download è iniziato.'
-              : `Inserisci i tuoi dati per scaricare la scheda tecnica di ${modelName}.`
-            }
+            {`Inserisci i tuoi dati per scaricare la scheda tecnica di ${modelName}.`}
           </DialogDescription>
         </DialogHeader>
 
-        {isSuccess ? (
-          <div className="py-8 text-center">
-            <CheckCircle className="h-16 w-16 text-primary mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Download avviato!</h3>
-            <p className="text-muted-foreground text-sm mb-6">
-              Se il download non parte automaticamente,{' '}
-              <a 
-                href={effectiveLanguage ? datasheetUrls[effectiveLanguage] : '#'} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                clicca qui
-              </a>.
-            </p>
-            <Button onClick={handleClose} className="w-full">
-              Chiudi
-            </Button>
-          </div>
-        ) : (
           <form onSubmit={handleSubmit} className="space-y-4 py-4">
             {/* Language selection - only show if multiple languages */}
             {availableLanguages.length > 1 && (
@@ -297,7 +279,6 @@ export default function DatasheetRequestModal({
               </Button>
             </div>
           </form>
-        )}
       </DialogContent>
     </Dialog>
   );

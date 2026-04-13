@@ -594,5 +594,15 @@
     "step4Desc": "Dirty water with all contaminants settles in the collection basin at the bottom of the system.",
     "step5Title": "Top-right outlet",
     "step5Desc": "Purified air, free of pollutants, exits as clean vapor from the top-right outlet."
+  },
+  "grazie": {
+    "seoTitle": "Thank you for contacting us — ZAPPER®",
+    "seoDescription": "We have received your request. Our team will contact you within 24-48 hours.",
+    "title": "Thank you for contacting us!",
+    "subtitle": "We have received your details and our technical team is already reviewing them.",
+    "responseTime": "We will get back to you within <strong>24-48 business hours</strong> with a personalised proposal.",
+    "whatsappPrompt": "Want a faster response?",
+    "whatsappButton": "Message us on WhatsApp",
+    "backHome": "Back to Homepage"
   }
 }

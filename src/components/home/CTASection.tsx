@@ -1,18 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, ArrowRight, CheckCircle, Shield, Clock, Truck, Loader2 } from "lucide-react";
+import { Phone, Mail, ArrowRight, Shield, Clock, Truck, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { sendContactEmails } from "@/lib/emailService";
 import logoCompass from "@/assets/logo-compass.jpg";
 import { useToast } from "@/hooks/use-toast";
 
 const CTASection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", sector: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,8 +22,8 @@ const CTASection = () => {
     try {
       const result = await sendContactEmails({ name: formData.name, email: formData.email, phone: formData.phone, sector: formData.sector, message: formData.message, source: "Form CTA Homepage" });
       if (result.success) {
-        setIsSuccess(true);
-        setFormData({ name: "", email: "", phone: "", sector: "", message: "" });
+        const lang = i18n.language || "it";
+        navigate(`/${lang}/grazie`);
       } else {
         toast({ title: t("cta.errorTitle"), description: t("cta.errorMessage"), variant: "destructive" });
       }
@@ -119,11 +120,6 @@ const CTASection = () => {
               <Button type="submit" variant="accent" size="default" className="w-full h-10 sm:h-11 text-sm sm:text-base" disabled={isSubmitting}>
                 {isSubmitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />{t("cta.submitting")}</> : <>{t("cta.submitButton")}<ArrowRight className="w-4 h-4 ml-2" /></>}
               </Button>
-              {isSuccess && (
-                <div className="flex items-center gap-2 justify-center text-primary text-sm mt-2">
-                  <CheckCircle className="w-4 h-4" /> {t("cta.successMessage")}
-                </div>
-              )}
               <p className="text-[10px] sm:text-xs text-muted-foreground text-center">
                 {t("cta.privacyConsent")}{" "}
                 <a href="/privacy" className="underline hover:text-foreground">{t("cta.privacyPolicy")}</a>

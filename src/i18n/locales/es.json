@@ -594,5 +594,15 @@
     "step4Desc": "El agua sucia con todos los contaminantes se deposita en la cubeta de recogida en el fondo del sistema.",
     "step5Title": "Salida arriba-dcha",
     "step5Desc": "El aire purificado, libre de contaminantes, sale como vapor limpio por la salida superior derecha."
+  },
+  "grazie": {
+    "seoTitle": "Gracias por contactarnos — ZAPPER®",
+    "seoDescription": "Hemos recibido su solicitud. Nuestro equipo se pondrá en contacto en 24-48 horas.",
+    "title": "¡Gracias por contactarnos!",
+    "subtitle": "Hemos recibido tus datos y nuestro equipo técnico ya los está analizando.",
+    "responseTime": "Te contactaremos en <strong>24-48 horas laborables</strong> con una propuesta personalizada.",
+    "whatsappPrompt": "¿Quieres una respuesta más rápida?",
+    "whatsappButton": "Escríbenos por WhatsApp",
+    "backHome": "Volver al inicio"
   }
 }

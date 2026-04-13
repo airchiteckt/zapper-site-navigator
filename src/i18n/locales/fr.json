@@ -594,5 +594,15 @@
     "step4Desc": "L'eau sale avec tous les contaminants se dépose dans le bassin de collecte au fond du système.",
     "step5Title": "Sortie haut-droite",
     "step5Desc": "L'air purifié, exempt de polluants, sort sous forme de vapeur propre par la sortie en haut à droite."
+  },
+  "grazie": {
+    "seoTitle": "Merci de nous avoir contactés — ZAPPER®",
+    "seoDescription": "Nous avons reçu votre demande. Notre équipe vous contactera dans les 24 à 48 heures.",
+    "title": "Merci de nous avoir contactés !",
+    "subtitle": "Nous avons reçu vos coordonnées et notre équipe technique les analyse déjà.",
+    "responseTime": "Nous vous recontacterons dans <strong>24 à 48 heures ouvrables</strong> avec une proposition personnalisée.",
+    "whatsappPrompt": "Vous souhaitez une réponse plus rapide ?",
+    "whatsappButton": "Écrivez-nous sur WhatsApp",
+    "backHome": "Retour à l'accueil"
   }
 }

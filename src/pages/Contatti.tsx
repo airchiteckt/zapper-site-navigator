@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Phone, Mail, MessageCircle, ArrowRight, ArrowLeft, ChevronDown, Loader2, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -18,10 +18,10 @@ import { useTranslation } from "react-i18next";
 type FormStep = "prefiltro" | "form";
 
 const Contatti = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<FormStep>("prefiltro");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
   
   const [prefiltroData, setPrefiltroData] = useState({
@@ -245,8 +245,8 @@ const Contatti = () => {
                       },
                     });
                     if (result.success) {
-                      setIsSuccess(true);
-                      setFormData({ nome: "", email: "", telefono: "", azienda: "", citta: "", note: "" });
+                      const lang = i18n.language || "it";
+                      navigate(`/${lang}/grazie`);
                     } else {
                       toast({ title: t("contattiPage.errorTitle"), description: t("contattiPage.errorSend"), variant: "destructive" });
                     }
@@ -319,11 +319,6 @@ const Contatti = () => {
                             <Button type="submit" size="lg" className="w-full text-base py-6" disabled={isSubmitting}>
                               {isSubmitting ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />{t("contattiPage.submitting")}</> : <>{t("contattiPage.submitButton")}<ArrowRight className="w-5 h-5 ml-2" /></>}
                             </Button>
-                            {isSuccess && (
-                              <div className="flex items-center gap-2 justify-center text-primary text-sm mt-3">
-                                <CheckCircle className="w-4 h-4" /> {t("contattiPage.successMessage")}
-                              </div>
-                            )}
                             <p className="text-xs text-muted-foreground text-center mt-3">
                               {t("contattiPage.responseTime")}
                             </p>
