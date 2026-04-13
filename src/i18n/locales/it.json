@@ -594,5 +594,15 @@
     "step4Desc": "L'acqua sporca con tutti i contaminanti si deposita nella vasca di raccolta sul fondo del sistema.",
     "step5Title": "Uscita alto-dx",
     "step5Desc": "L'aria depurata, priva di inquinanti, fuoriesce come vapore pulito dall'uscita in alto a destra."
+  },
+  "grazie": {
+    "seoTitle": "Grazie per averci contattato — ZAPPER®",
+    "seoDescription": "Abbiamo ricevuto la tua richiesta. Il nostro team ti contatterà entro 24-48 ore.",
+    "title": "Grazie per averci contattato!",
+    "subtitle": "Abbiamo ricevuto i tuoi dati e il nostro team tecnico li sta già analizzando.",
+    "responseTime": "Ti ricontatteremo entro <strong>24-48 ore lavorative</strong> con una proposta personalizzata.",
+    "whatsappPrompt": "Vuoi una risposta ancora più rapida?",
+    "whatsappButton": "Scrivici su WhatsApp",
+    "backHome": "Torna alla Homepage"
   }
 }
