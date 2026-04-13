@@ -368,6 +368,11 @@ export default function ServizioTemplate({ data }: { data: ServizioData }) {
             </div>
           </section>
         )}
+
+        {/* CONTACT FORM */}
+        {data.showContactForm && (
+          <ContactFormSection source={data.title} />
+        )}
       </main>
       <Footer />
     </>
