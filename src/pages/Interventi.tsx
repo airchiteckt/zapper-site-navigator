@@ -42,16 +42,21 @@ const Interventi = () => {
 
   useEffect(() => {
     const fetchInterventi = async () => {
-      const { data, error } = await supabase
-        .from('interventions')
-        .select('*')
-        .not('thumbnail_url', 'is', null)
-        .order('created_at', { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from('interventions')
+          .select('*')
+          .not('thumbnail_url', 'is', null)
+          .order('created_at', { ascending: false });
 
-      if (!error && data) {
-        setInterventi(data);
+        if (!error && data) {
+          setInterventi(data);
+        }
+      } catch (err) {
+        console.error('Error fetching interventions:', err);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     fetchInterventi();
   }, []);

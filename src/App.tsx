@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import ClarityPageView from "@/components/ClarityPageView";
 import LanguageRouteSync from "@/components/LanguageRouteSync";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { useCartSync } from "@/hooks/useCartSync";
@@ -21,38 +22,40 @@ const CartSyncWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <CartProvider>
-        <CartSyncWrapper>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <ClarityPageView />
-          <LanguageRouteSync />
-          <Routes>
-            {appRoutes.map((route) => (
-              <Route key={route.path} path={route.path} element={route.element} />
-            ))}
-            {appRoutes.map((route) => (
-              <Route
-                key={`localized-${route.path}`}
-                path={getLocalizedRoutePath(route.path)}
-                element={route.element}
-              />
-            ))}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-        <AIChatWidget />
-        
-        </CartSyncWrapper>
-        </CartProvider>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <CartProvider>
+          <CartSyncWrapper>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <ClarityPageView />
+            <LanguageRouteSync />
+            <Routes>
+              {appRoutes.map((route) => (
+                <Route key={route.path} path={route.path} element={route.element} />
+              ))}
+              {appRoutes.map((route) => (
+                <Route
+                  key={`localized-${route.path}`}
+                  path={getLocalizedRoutePath(route.path)}
+                  element={route.element}
+                />
+              ))}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+          <AIChatWidget />
+          
+          </CartSyncWrapper>
+          </CartProvider>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;

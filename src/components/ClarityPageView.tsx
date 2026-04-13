@@ -17,6 +17,7 @@ export default function ClarityPageView() {
   useEffect(() => {
     if (window.clarity) {
       window.clarity("set", "page", location.pathname);
+      window.clarity("upgrade", "SPA");
     }
   }, [location.pathname]);
 
