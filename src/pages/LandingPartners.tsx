@@ -326,24 +326,7 @@ export default function LandingPartners() {
                 </p>
               </div>
 
-              {isSuccess ? (
-                <div className="bg-primary/10 border border-primary/30 rounded-2xl p-8 text-center">
-                  <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-2">{t("landingPartners.successTitle")}</h3>
-                  <p className="text-muted-foreground mb-6">
-                    {t("landingPartners.successDesc")}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <a href="tel:+3908119968436" className="inline-flex items-center gap-2 text-primary font-semibold">
-                      <Phone className="w-4 h-4" /> +39 081 199 68 436
-                    </a>
-                    <a href="mailto:info@smokezapper.it" className="inline-flex items-center gap-2 text-primary font-semibold">
-                      <Mail className="w-4 h-4" /> info@smokezapper.it
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="bg-card/5 border border-primary/20 rounded-2xl p-6 md:p-8 space-y-4">
+              <form onSubmit={handleSubmit} className="bg-card/5 border border-primary/20 rounded-2xl p-6 md:p-8 space-y-4">
                   {/* Partner Type */}
                   <div>
                     <label className="block text-sm font-medium mb-2">{t("landingPartners.formType")}</label>
