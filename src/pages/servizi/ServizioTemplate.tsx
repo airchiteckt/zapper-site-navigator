@@ -51,6 +51,119 @@ export interface ServizioData {
     linkLabel: string;
   };
   bonus?: string;
+  showContactForm?: boolean;
+}
+
+function ContactFormSection({ source }: { source: string }) {
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const { i18n } = useTranslation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.email || !formData.phone) return;
+    setIsSubmitting(true);
+    try {
+      const result = await sendContactEmails({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        source,
+      });
+      if (result.success) {
+        const lang = i18n.language || "it";
+        navigate(`/${lang}/grazie`);
+      } else {
+        toast({ title: "Errore", description: "Invio non riuscito, riprova.", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Errore", description: "Invio non riuscito, riprova.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const whatsappMessage = encodeURIComponent(`Ciao, vorrei informazioni su: ${source}`);
+
+  return (
+    <section className="py-16 md:py-20 bg-muted" id="contatti">
+      <div className="container px-4 sm:px-6 max-w-4xl">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Richiedi un preventivo gratuito
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            Compila il modulo oppure contattaci direttamente
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Form */}
+          <Card className="border-primary/20">
+            <CardContent className="p-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="cf-name">Nome</Label>
+                  <Input id="cf-name" placeholder="Il tuo nome" value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} />
+                </div>
+                <div>
+                  <Label htmlFor="cf-email">Email *</Label>
+                  <Input id="cf-email" type="email" required placeholder="email@esempio.it" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} />
+                </div>
+                <div>
+                  <Label htmlFor="cf-phone">Telefono *</Label>
+                  <Input id="cf-phone" type="tel" required placeholder="+39 ..." value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} />
+                </div>
+                <div>
+                  <Label htmlFor="cf-message">Messaggio</Label>
+                  <Textarea id="cf-message" placeholder="Descrivi la tua esigenza..." rows={3} value={formData.message} onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))} />
+                </div>
+                <Button type="submit" variant="cta" size="lg" className="w-full" disabled={isSubmitting}>
+                  <Send className="w-4 h-4 mr-2" />
+                  {isSubmitting ? "Invio..." : "Invia richiesta"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Direct contact */}
+          <div className="flex flex-col justify-center gap-6">
+            <Card className="border-primary/20 bg-primary/5">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <Phone className="w-6 h-6 text-primary" />
+                  <h3 className="text-lg font-bold text-foreground">Chiamaci subito</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">Parla direttamente con un nostro tecnico</p>
+                <div className="space-y-2">
+                  <a href="tel:+3908119968436" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+                    📞 +39 081 199 68 436
+                  </a>
+                  <a href="tel:+393248996189" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+                    📱 +39 324 899 6189
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Button variant="hero" size="xl" className="bg-[#25D366] hover:bg-[#20BD5A] text-white" asChild>
+              <a href={`https://wa.me/393248996189?text=${whatsappMessage}`} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Scrivici su WhatsApp
+              </a>
+            </Button>
+
+            <p className="text-sm text-muted-foreground text-center">
+              ✉️ <a href="mailto:info@smokezapper.it" className="text-primary hover:underline">info@smokezapper.it</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function ServizioTemplate({ data }: { data: ServizioData }) {
