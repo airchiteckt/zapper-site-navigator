@@ -74,6 +74,21 @@ const MOBILE_BUBBLE: Record<string, string> = {
 const PLACEHOLDER: Record<string, string> = {
   it: "Scrivi il tuo messaggio...", en: "Type your message...", fr: "Écrivez votre message...", de: "Schreiben Sie Ihre Nachricht...", es: "Escribe tu mensaje...",
 };
+const LEAD_GATE_TITLE: Record<string, string> = {
+  it: "Prima di continuare, lasciaci i tuoi dati 📋", en: "Before we continue, leave us your details 📋", fr: "Avant de continuer, laissez-nous vos coordonnées 📋", de: "Bevor wir fortfahren, hinterlassen Sie uns Ihre Daten 📋", es: "Antes de continuar, déjanos tus datos 📋",
+};
+const LEAD_GATE_NAME: Record<string, string> = {
+  it: "Nome e cognome", en: "Full name", fr: "Nom complet", de: "Vollständiger Name", es: "Nombre completo",
+};
+const LEAD_GATE_PHONE: Record<string, string> = {
+  it: "Numero di telefono", en: "Phone number", fr: "Numéro de téléphone", de: "Telefonnummer", es: "Número de teléfono",
+};
+const LEAD_GATE_SUBMIT: Record<string, string> = {
+  it: "Continua la consulenza →", en: "Continue consultation →", fr: "Continuer la consultation →", de: "Beratung fortsetzen →", es: "Continuar la consulta →",
+};
+const LEAD_GATE_THANKS: Record<string, string> = {
+  it: "Grazie! Ora possiamo continuare la tua consulenza tecnica personalizzata 🚀", en: "Thanks! Now we can continue your personalized technical consultation 🚀", fr: "Merci ! Nous pouvons maintenant poursuivre votre consultation technique personnalisée 🚀", de: "Danke! Jetzt können wir Ihre personalisierte technische Beratung fortsetzen 🚀", es: "¡Gracias! Ahora podemos continuar tu consulta técnica personalizada 🚀",
+};
 const SUBTITLE: Record<string, string> = {
   it: "Consulenza tecnica in tempo reale", en: "Real-time technical support", fr: "Conseil technique en temps réel", de: "Technische Beratung in Echtzeit", es: "Asesoría técnica en tiempo real",
 };
