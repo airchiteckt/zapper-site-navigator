@@ -1,5 +1,11 @@
 import ServizioTemplate, { ServizioData } from "./ServizioTemplate";
-import heroImg from "@/assets/servizi/manutenzione-cucine.jpg";
+import heroImg from "@/assets/servizi/manutenzione/cater-clean-services.jpg";
+import ductCleaningImg from "@/assets/servizi/manutenzione/duct-cleaning.jpg";
+import kitchenExtractImg from "@/assets/servizi/manutenzione/kitchen-extract-cleaning.jpg";
+import ventilationImg from "@/assets/servizi/manutenzione/kitchen-ventilation-cleaning.jpg";
+import productionImg from "@/assets/servizi/manutenzione/production-extraction.jpg";
+import standardsImg from "@/assets/servizi/manutenzione/cleaning-standards.jpg";
+import filtersImg from "@/assets/servizi/manutenzione/replacement-filters.jpg";
 
 const data: ServizioData = {
   slug: "manutenzione-cucine-industriali",
@@ -35,39 +41,64 @@ const data: ServizioData = {
   },
   approfondimenti: [
     {
-      title: "Perché la pulizia dei condotti è essenziale",
+      title: "Pulizia dei condotti di estrazione",
       paragraphs: [
         "I condotti di estrazione delle cucine professionali svolgono un ruolo fondamentale nel sistema di ventilazione. Durante il funzionamento, i ventilatori aspirano aria insieme a grasso, fumo e altri contaminanti generati dalla cottura. Con il tempo, queste sostanze si accumulano nei condotti, formando uno strato spesso di grasso altamente infiammabile.",
-        "Questo non solo rappresenta un grave pericolo di incendio, ma riduce anche l'efficienza del sistema di ventilazione, portando a un aumento dei consumi energetici e potenziali malfunzionamenti dell'impianto.",
+        "Il nostro servizio di pulizia professionale dei condotti rimuove completamente tutti i depositi, ripristinando il flusso d'aria ottimale e riducendo drasticamente il rischio di incendio.",
       ],
+      image: ductCleaningImg,
+      imageAlt: "Pulizia professionale dei condotti di estrazione cucina",
+      imagePosition: "right",
     },
     {
-      title: "Prevenzione del rischio incendio",
+      title: "Pulizia del sistema di estrazione cucina",
       paragraphs: [
-        "L'accumulo di grasso all'interno dei condotti è una delle principali cause di incendi nelle cucine commerciali. Il grasso è altamente infiammabile e quando si deposita nel sistema di ventilazione, il rischio di un innesco aumenta esponenzialmente.",
-        "Il nostro servizio di pulizia professionale si concentra sulla rimozione completa dei depositi di grasso, riducendo significativamente il rischio di incendio e garantendo la sicurezza della tua cucina e del tuo personale.",
+        "Il cuore del problema è il sistema di estrazione della cucina: il nascondiglio perfetto per grasso, olio e altri depositi. Un sistema di estrazione sporco non solo rappresenta un pericolo di incendio, ma riduce l'efficienza dell'intero impianto di ventilazione.",
+        "Interveniamo su tutti i componenti del sistema di estrazione — cappe, plenum, ventilatori e giunzioni — garantendo una pulizia completa e certificata.",
       ],
+      image: kitchenExtractImg,
+      imageAlt: "Pulizia sistema di estrazione cucina professionale",
+      imagePosition: "left",
     },
     {
-      title: "Efficienza energetica e risparmio sui costi",
+      title: "Pulizia della ventilazione cucina",
       paragraphs: [
-        "Un sistema di condotti pulito e ben mantenuto contribuisce direttamente all'efficienza delle operazioni in cucina. Quando grasso e contaminanti si accumulano, ostruiscono il flusso d'aria e compromettono l'efficacia della ventilazione.",
-        "Questo non solo porta a una scarsa qualità dell'aria interna, ma costringe le apparecchiature a lavorare di più, aumentando il consumo energetico e riducendo la loro durata. Ripristinando il flusso d'aria ottimale, i nostri interventi migliorano l'efficienza della cucina e riducono i costi energetici nel tempo.",
+        "Un sistema di ventilazione pulito e ben mantenuto contribuisce direttamente all'efficienza delle operazioni in cucina. Quando grasso e contaminanti si accumulano, ostruiscono il flusso d'aria e compromettono l'efficacia della ventilazione.",
+        "Ripristinando il flusso d'aria ottimale, i nostri interventi migliorano la qualità dell'aria interna, riducono i consumi energetici e prolungano la durata delle attrezzature.",
       ],
+      image: ventilationImg,
+      imageAlt: "Pulizia ventilazione cucina industriale",
+      imagePosition: "right",
     },
     {
-      title: "Conformità alle normative di sicurezza",
+      title: "Pulizia impianti di estrazione industriale",
       paragraphs: [
-        "In Italia, il rispetto delle normative igienico-sanitarie e antincendio è obbligatorio per le cucine commerciali. La pulizia regolare dei condotti di estrazione è spesso un requisito per soddisfare questi standard. La mancata conformità può comportare sanzioni, multe e persino la chiusura dell'attività.",
+        "Abbiamo una vasta esperienza nella pulizia di impianti di estrazione in ambienti di produzione industriale. Comprendiamo le sfide specifiche di lavorare in contesti produttivi dove la continuità operativa è fondamentale.",
+        "Pianifichiamo gli interventi fuori orario per ridurre al minimo l'impatto sulle operazioni, garantendo al contempo una pulizia accurata e conforme agli standard di settore.",
+      ],
+      image: productionImg,
+      imageAlt: "Pulizia estrazione industriale per ambienti produttivi",
+      imagePosition: "left",
+    },
+    {
+      title: "Standard e conformità normativa",
+      paragraphs: [
+        "In Italia, il rispetto delle normative igienico-sanitarie e antincendio è obbligatorio per le cucine commerciali. La pulizia regolare dei condotti di estrazione è spesso un requisito per soddisfare questi standard.",
         "I nostri interventi garantiscono che la tua cucina rimanga sempre conforme a tutte le normative vigenti, fornendoti documentazione e certificazioni che attestano lo stato degli impianti.",
       ],
+      image: standardsImg,
+      imageAlt: "Standard di pulizia e conformità normativa cucine",
+      imagePosition: "right",
     },
     {
-      title: "Protezione delle attrezzature",
+      title: "Sostituzione filtri a deflettore",
       paragraphs: [
-        "Le attrezzature di una cucina professionale rappresentano un investimento significativo. L'accumulo di grasso e contaminanti nei condotti non solo influisce sul sistema di ventilazione, ma espone anche le apparecchiature vicine a potenziali danni. La natura corrosiva del grasso può deteriorare i componenti metallici, causando costose riparazioni o sostituzioni premature.",
-        "Il nostro approccio preventivo alla pulizia dei condotti aiuta a proteggere il tuo investimento, prevenendo danni alle costose attrezzature di cucina.",
+        "I filtri a deflettore sono la prima linea di difesa contro l'accumulo di grasso nel sistema di estrazione. Filtri danneggiati o usurati non trattengono efficacemente il grasso, che si deposita nei condotti aumentando il rischio di incendio.",
+        "Forniamo un servizio dedicato di sostituzione filtri, assicurando che il tuo sistema di filtrazione sia sempre in condizioni ottimali per proteggere l'intero impianto.",
       ],
+      image: filtersImg,
+      imageAlt: "Sostituzione filtri a deflettore per cappe cucina",
+      imagePosition: "left",
     },
     {
       title: "Domande frequenti",
