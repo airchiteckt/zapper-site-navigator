@@ -10,6 +10,7 @@ const VISITOR_ID_KEY = "zapper_visitor_id";
 const VISITOR_NAME_KEY = "zapper_visitor_name";
 const VISITOR_SUBMITTED_KEY = "zapper_contact_submitted";
 const POPUP_DISMISSED_KEY = "zapper_popup_dismissed";
+const LEAD_CAPTURED_KEY = "zapper_lead_captured";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -77,9 +78,74 @@ const PLACEHOLDER: Record<string, string> = {
 const SUBTITLE: Record<string, string> = {
   it: "Consulenza tecnica in tempo reale", en: "Real-time technical support", fr: "Conseil technique en temps réel", de: "Technische Beratung in Echtzeit", es: "Asesoría técnica en tiempo real",
 };
+const LEAD_GATE_TITLE: Record<string, string> = {
+  it: "Prima di continuare, lasciaci i tuoi dati 📋",
+  en: "Before we continue, leave us your details 📋",
+  fr: "Avant de continuer, laissez-nous vos coordonnées 📋",
+  de: "Bevor wir fortfahren, hinterlassen Sie uns Ihre Daten 📋",
+  es: "Antes de continuar, déjanos tus datos 📋",
+};
+const LEAD_GATE_NAME: Record<string, string> = {
+  it: "Nome e cognome", en: "Full name", fr: "Nom complet", de: "Vollständiger Name", es: "Nombre completo",
+};
+const LEAD_GATE_PHONE: Record<string, string> = {
+  it: "Numero di telefono", en: "Phone number", fr: "Numéro de téléphone", de: "Telefonnummer", es: "Número de teléfono",
+};
+const LEAD_GATE_SUBMIT: Record<string, string> = {
+  it: "Continua la consulenza →", en: "Continue consultation →", fr: "Continuer la consultation →", de: "Beratung fortsetzen →", es: "Continuar la consulta →",
+};
+const LEAD_GATE_THANKS: Record<string, string> = {
+  it: "Grazie! Ora possiamo continuare la tua consulenza tecnica personalizzata 🚀",
+  en: "Thanks! Now we can continue your personalized technical consultation 🚀",
+  fr: "Merci ! Nous pouvons maintenant poursuivre votre consultation technique personnalisée 🚀",
+  de: "Danke! Jetzt können wir Ihre personalisierte technische Beratung fortsetzen 🚀",
+  es: "¡Gracias! Ahora podemos continuar tu consulta técnica personalizada 🚀",
+};
+
+/* ─── Inline lead gate form ─── */
+function LeadGateForm({ lang, onSubmit }: { lang: string; onSubmit: (name: string, phone: string) => void }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const canSubmit = name.trim().length >= 2 && phone.trim().length >= 6;
+
+  return (
+    <div className="flex gap-2 justify-start">
+      <div className="w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+        <Bot className="w-4 h-4 text-accent" />
+      </div>
+      <div className="max-w-[85%] rounded-2xl bg-muted text-foreground rounded-bl-md px-4 py-3 space-y-3">
+        <p className="text-sm font-semibold">{LEAD_GATE_TITLE[lang] || LEAD_GATE_TITLE.it}</p>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={LEAD_GATE_NAME[lang] || LEAD_GATE_NAME.it}
+          className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent/50"
+        />
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder={LEAD_GATE_PHONE[lang] || LEAD_GATE_PHONE.it}
+          className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent/50"
+        />
+        <button
+          onClick={() => canSubmit && onSubmit(name.trim(), phone.trim())}
+          disabled={!canSubmit}
+          className="w-full bg-accent text-accent-foreground text-sm font-semibold py-2.5 rounded-lg disabled:opacity-40 hover:opacity-90 transition-opacity"
+        >
+          {LEAD_GATE_SUBMIT[lang] || LEAD_GATE_SUBMIT.it}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /* ─── Shared message list ─── */
-function ChatMessages({ messages, isLoading, bottomRef }: { messages: Msg[]; isLoading: boolean; bottomRef: React.RefObject<HTMLDivElement> }) {
+function ChatMessages({ messages, isLoading, bottomRef, showLeadForm, lang, onLeadSubmit }: {
+  messages: Msg[]; isLoading: boolean; bottomRef: React.RefObject<HTMLDivElement>;
+  showLeadForm: boolean; lang: string; onLeadSubmit: (name: string, phone: string) => void;
+}) {
   return (
     <>
       {messages.map((msg, i) => (
@@ -115,6 +181,7 @@ function ChatMessages({ messages, isLoading, bottomRef }: { messages: Msg[]; isL
           </div>
         </div>
       )}
+      {showLeadForm && <LeadGateForm lang={lang} onSubmit={onLeadSubmit} />}
       <div ref={bottomRef} />
     </>
   );
@@ -179,6 +246,7 @@ export default function AIChatWidget() {
   const savedName = localStorage.getItem(VISITOR_NAME_KEY);
   const hasSubmittedBefore = localStorage.getItem(VISITOR_SUBMITTED_KEY) === "true";
   const popupAlreadyDismissed = localStorage.getItem(POPUP_DISMISSED_KEY) === "true";
+  const leadAlreadyCaptured = localStorage.getItem(LEAD_CAPTURED_KEY) === "true";
 
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([{
@@ -194,9 +262,13 @@ export default function AIChatWidget() {
   const [showPopup, setShowPopup] = useState(false);
   const [callbackMode, setCallbackMode] = useState(false);
   const [contactSubmitted, setContactSubmitted] = useState(hasSubmittedBefore);
+  const [leadCaptured, setLeadCaptured] = useState(leadAlreadyCaptured);
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [pendingUserMsg, setPendingUserMsg] = useState<Msg | null>(null);
   const sessionIdRef = useRef<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const userMsgCountRef = useRef(0);
 
   /* ─── Session persistence ─── */
   const ensureSession = useCallback(async () => {
@@ -220,7 +292,7 @@ export default function AIChatWidget() {
     } catch (err) { console.error("Failed to save message:", err); }
   }, [messages.length]);
 
-  /* ─── Popup after 20s ─── */
+  /* ─── Popup after 35s or 60% scroll ─── */
   useEffect(() => {
     if (popupAlreadyDismissed || hasSubmittedBefore) return;
     let shown = false;
@@ -249,7 +321,7 @@ export default function AIChatWidget() {
   }, []);
 
   useEffect(() => { if (open) setShowPulse(false); }, [open]);
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, showLeadForm]);
   useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
 
   /* ─── Popup handlers ─── */
@@ -336,6 +408,65 @@ export default function AIChatWidget() {
     } catch {}
   }, []);
 
+  /* ─── Lead form submit handler ─── */
+  const handleLeadSubmit = useCallback((name: string, phone: string) => {
+    setShowLeadForm(false);
+    setLeadCaptured(true);
+    localStorage.setItem(LEAD_CAPTURED_KEY, "true");
+    localStorage.setItem(VISITOR_NAME_KEY, name);
+    localStorage.setItem(VISITOR_SUBMITTED_KEY, "true");
+    setContactSubmitted(true);
+
+    const thanksMsg = LEAD_GATE_THANKS[lang] || LEAD_GATE_THANKS.it;
+    setMessages((prev) => [...prev, { role: "assistant", content: thanksMsg }]);
+    playSendSound();
+
+    // Save lead
+    supabase.from("datasheet_requests").insert({
+      first_name: name.split(" ")[0] || name,
+      last_name: name.split(" ").slice(1).join(" ") || "-",
+      email: "-",
+      phone,
+    }).then(() => {});
+
+    // Email notification
+    supabase.functions.invoke('send-email', {
+      body: {
+        to: ['info@smokezapper.it', 'stanislaoelefante@gmail.com'],
+        subject: `📋 Nuovo lead dalla chat: ${name}`,
+        html: `<h2>Nuovo lead dalla Chat AI</h2><p><strong>Nome:</strong> ${name}</p><p><strong>Telefono:</strong> ${phone}</p><p><strong>Fonte:</strong> Chat AI ZAPPER® - Lead Gate</p><p><strong>Data:</strong> ${new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome' })}</p>`,
+        from: 'ZAPPER® <info@email.smokezapper.it>',
+        replyTo: 'info@smokezapper.it',
+      },
+    });
+
+    // Update session
+    ensureSession().then(async (sid) => {
+      if (!sid) return;
+      try {
+        await supabase.from("chat_sessions").update({
+          contact_submitted: true,
+          visitor_name: name,
+          visitor_phone: phone,
+        }).eq("id", sid);
+      } catch {}
+    });
+
+    // Resume pending message if any
+    if (pendingUserMsg) {
+      const msg = pendingUserMsg;
+      setPendingUserMsg(null);
+      setTimeout(() => {
+        setMessages((prev) => {
+          const updated = [...prev, msg];
+          callAI(updated);
+          return updated;
+        });
+        ensureSession().then((sid) => { if (sid) saveMessage(sid, "user", msg.content); });
+      }, 800);
+    }
+  }, [lang, playSendSound, pendingUserMsg, callAI, ensureSession, saveMessage]);
+
   /* ─── Send ─── */
   const send = useCallback((text: string) => {
     if (!text.trim() || isLoading) return;
@@ -349,20 +480,13 @@ export default function AIChatWidget() {
       setMessages((prev) => [...prev, userMsg, { role: "assistant" as const, content: confirmMsg }]);
       setCallbackMode(false);
       setContactSubmitted(true);
+      setLeadCaptured(true);
       localStorage.setItem(VISITOR_SUBMITTED_KEY, "true");
+      localStorage.setItem(LEAD_CAPTURED_KEY, "true");
 
-      // Save phone as lead
       supabase.from("datasheet_requests").insert({
         first_name: "-", last_name: "-", email: "-", phone: text.trim(),
       }).then(() => {});
-      // Send notification to both addresses
-      const callbackNotification = {
-        name: "Richiesta di richiamata",
-        email: "info@smokezapper.it",
-        phone: text.trim(),
-        source: "Chat AI ZAPPER® - Callback",
-        message: "Richiesta di richiamata dal popup del sito.",
-      };
       supabase.functions.invoke('send-email', {
         body: {
           to: ['info@smokezapper.it', 'stanislaoelefante@gmail.com'],
@@ -382,60 +506,110 @@ export default function AIChatWidget() {
       return;
     }
 
-    /* Normal chat */
+    /* Lead gate: show form after first user message if not captured yet */
+    userMsgCountRef.current += 1;
+    if (!leadCaptured && userMsgCountRef.current === 1) {
+      // Show the user message, get AI response, then show lead form
+      setMessages((prev) => {
+        const updated = [...prev, userMsg];
+        // Call AI first, then show lead form after response
+        (async () => {
+          setIsLoading(true);
+          const sid = await ensureSession();
+          let assistantSoFar = "";
+          const upsertAssistant = (chunk: string) => {
+            assistantSoFar += chunk;
+            setMessages((prev2) => {
+              const last = prev2[prev2.length - 1];
+              if (last?.role === "assistant" && assistantSoFar.startsWith(last.content.slice(0, 10)))
+                return prev2.map((m, i) => i === prev2.length - 1 ? { ...m, content: assistantSoFar } : m);
+              return [...prev2, { role: "assistant", content: assistantSoFar }];
+            });
+          };
+          try {
+            const resp = await fetch(CHAT_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
+              body: JSON.stringify({ messages: updated, lang }),
+            });
+            if (!resp.ok || !resp.body) throw new Error("Stream failed");
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let textBuffer = "";
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              textBuffer += decoder.decode(value, { stream: true });
+              let newlineIndex: number;
+              while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+                let line = textBuffer.slice(0, newlineIndex);
+                textBuffer = textBuffer.slice(newlineIndex + 1);
+                if (line.endsWith("\r")) line = line.slice(0, -1);
+                if (line.startsWith(":") || line.trim() === "") continue;
+                if (!line.startsWith("data: ")) continue;
+                const jsonStr = line.slice(6).trim();
+                if (jsonStr === "[DONE]") break;
+                try { const p = JSON.parse(jsonStr); const c = p.choices?.[0]?.delta?.content; if (c) upsertAssistant(c); }
+                catch { textBuffer = line + "\n" + textBuffer; break; }
+              }
+            }
+            if (assistantSoFar && sid) saveMessage(sid, "assistant", assistantSoFar);
+          } catch { upsertAssistant("Mi dispiace, si è verificato un errore. Riprova o contattaci direttamente."); }
+          finally {
+            setIsLoading(false);
+            // Show lead form after AI response
+            setShowLeadForm(true);
+          }
+        })();
+        return updated;
+      });
+      ensureSession().then((sid) => { if (sid) saveMessage(sid, "user", text.trim()); });
+      return;
+    }
+
+    /* Normal chat (lead already captured) */
     setMessages((prev) => {
       const updated = [...prev, userMsg];
       callAI(updated);
       return updated;
     });
     ensureSession().then((sid) => { if (sid) saveMessage(sid, "user", text.trim()); });
-  }, [isLoading, callbackMode, lang, callAI, ensureSession, saveMessage, playSendSound]);
+  }, [isLoading, callbackMode, lang, callAI, ensureSession, saveMessage, playSendSound, leadCaptured]);
 
   const placeholder = PLACEHOLDER[lang] || PLACEHOLDER.it;
+  const inputDisabled = isLoading || showLeadForm;
 
   return (
     <>
       {/* ─── Floating callback card near FAB ─── */}
       {showPopup && !open && (
         <>
-          {/* Desktop: anchored above FAB */}
+          {/* Desktop */}
           <div className="fixed bottom-24 right-6 z-[60] hidden md:block animate-in fade-in slide-in-from-bottom-4 duration-300">
             <div className="bg-card rounded-2xl shadow-2xl p-5 w-72 border border-border">
               <div className="flex items-start justify-between mb-3">
-                <p className="text-base font-semibold text-foreground pr-2">
-                  {POPUP_TITLE[lang] || POPUP_TITLE.it}
-                </p>
+                <p className="text-base font-semibold text-foreground pr-2">{POPUP_TITLE[lang] || POPUP_TITLE.it}</p>
                 <button onClick={dismissPopup} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors flex-shrink-0">
                   <X className="w-3.5 h-3.5 text-muted-foreground" />
                 </button>
               </div>
               <hr className="border-border mb-3" />
-              <button onClick={acceptCallback} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
-                {POPUP_YES[lang] || POPUP_YES.it}
-              </button>
-              <button onClick={dismissPopup} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
-                {POPUP_NO[lang] || POPUP_NO.it}
-              </button>
+              <button onClick={acceptCallback} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">{POPUP_YES[lang] || POPUP_YES.it}</button>
+              <button onClick={dismissPopup} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">{POPUP_NO[lang] || POPUP_NO.it}</button>
             </div>
           </div>
-          {/* Mobile: anchored above FAB */}
+          {/* Mobile */}
           <div className="fixed bottom-20 right-4 z-[60] md:hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
             <div className="bg-card rounded-2xl shadow-2xl p-5 w-72 border border-border">
               <div className="flex items-start justify-between mb-3">
-                <p className="text-base font-semibold text-foreground pr-2">
-                  {POPUP_TITLE[lang] || POPUP_TITLE.it}
-                </p>
+                <p className="text-base font-semibold text-foreground pr-2">{POPUP_TITLE[lang] || POPUP_TITLE.it}</p>
                 <button onClick={dismissPopup} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors flex-shrink-0">
                   <X className="w-3.5 h-3.5 text-muted-foreground" />
                 </button>
               </div>
               <hr className="border-border mb-3" />
-              <button onClick={acceptCallback} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
-                {POPUP_YES[lang] || POPUP_YES.it}
-              </button>
-              <button onClick={dismissPopup} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">
-                {POPUP_NO[lang] || POPUP_NO.it}
-              </button>
+              <button onClick={acceptCallback} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">{POPUP_YES[lang] || POPUP_YES.it}</button>
+              <button onClick={dismissPopup} className="block w-full text-left text-accent font-semibold text-base py-1.5 hover:opacity-80 transition-opacity">{POPUP_NO[lang] || POPUP_NO.it}</button>
             </div>
           </div>
         </>
@@ -472,18 +646,18 @@ export default function AIChatWidget() {
           <div className="fixed inset-0 z-50 bg-card flex flex-col md:hidden" style={{ height: "100dvh" }}>
             <ChatHeader lang={lang} onClose={() => setOpen(false)} mobile />
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
-              <ChatMessages messages={messages} isLoading={isLoading} bottomRef={bottomRef} />
+              <ChatMessages messages={messages} isLoading={isLoading} bottomRef={bottomRef} showLeadForm={showLeadForm} lang={lang} onLeadSubmit={handleLeadSubmit} />
             </div>
-            <ChatInput inputRef={inputRef} input={input} setInput={setInput} onSend={() => send(input)} disabled={isLoading} placeholder={placeholder} mobile />
+            <ChatInput inputRef={inputRef} input={input} setInput={setInput} onSend={() => send(input)} disabled={inputDisabled} placeholder={placeholder} mobile />
           </div>
 
           {/* Desktop floating panel */}
           <div className="fixed bottom-24 right-6 z-50 w-[calc(100vw-2rem)] max-w-md bg-card border border-border rounded-2xl shadow-2xl flex-col overflow-hidden transform-gpu hidden md:flex" style={{ height: "min(500px, calc(100dvh - 10rem))" }}>
             <ChatHeader lang={lang} onClose={() => setOpen(false)} />
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
-              <ChatMessages messages={messages} isLoading={isLoading} bottomRef={bottomRef} />
+              <ChatMessages messages={messages} isLoading={isLoading} bottomRef={bottomRef} showLeadForm={showLeadForm} lang={lang} onLeadSubmit={handleLeadSubmit} />
             </div>
-            <ChatInput inputRef={inputRef} input={input} setInput={setInput} onSend={() => send(input)} disabled={isLoading} placeholder={placeholder} />
+            <ChatInput inputRef={inputRef} input={input} setInput={setInput} onSend={() => send(input)} disabled={inputDisabled} placeholder={placeholder} />
           </div>
         </>
       )}
