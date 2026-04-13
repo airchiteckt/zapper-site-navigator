@@ -130,8 +130,85 @@ function ChatMessages({ messages, isLoading, bottomRef }: { messages: Msg[]; isL
           </div>
         </div>
       )}
+  return (
+    <>
+      {messages.map((msg, i) => (
+        <div key={i} className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+          {msg.role === "assistant" && (
+            <div className="w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <Bot className="w-4 h-4 text-accent" />
+            </div>
+          )}
+          <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm ${msg.role === "user" ? "bg-accent text-accent-foreground rounded-br-md" : "bg-muted text-foreground rounded-bl-md"}`}>
+            {msg.role === "assistant" ? (
+              <div className="prose prose-sm max-w-none [&_p]:m-0"><ReactMarkdown>{msg.content}</ReactMarkdown></div>
+            ) : msg.content}
+          </div>
+          {msg.role === "user" && (
+            <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <User className="w-4 h-4 text-primary" />
+            </div>
+          )}
+        </div>
+      ))}
+      {isLoading && messages[messages.length - 1]?.role === "user" && (
+        <div className="flex gap-2">
+          <div className="w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+            <Bot className="w-4 h-4 text-accent" />
+          </div>
+          <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
+            <div className="flex gap-1">
+              <span className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+              <span className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+              <span className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+            </div>
+          </div>
+        </div>
+      )}
+      {showLeadForm && (
+        <LeadGateForm lang={lang} onSubmit={onLeadSubmit} />
+      )}
       <div ref={bottomRef} />
     </>
+  );
+}
+
+/* ─── Inline lead gate form ─── */
+function LeadGateForm({ lang, onSubmit }: { lang: string; onSubmit: (name: string, phone: string) => void }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const canSubmit = name.trim().length >= 2 && phone.trim().length >= 6;
+
+  return (
+    <div className="flex gap-2 justify-start">
+      <div className="w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+        <Bot className="w-4 h-4 text-accent" />
+      </div>
+      <div className="max-w-[85%] rounded-2xl bg-muted text-foreground rounded-bl-md px-4 py-3 space-y-3">
+        <p className="text-sm font-semibold">{LEAD_GATE_TITLE[lang] || LEAD_GATE_TITLE.it}</p>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={LEAD_GATE_NAME[lang] || LEAD_GATE_NAME.it}
+          className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent/50"
+        />
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder={LEAD_GATE_PHONE[lang] || LEAD_GATE_PHONE.it}
+          className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent/50"
+        />
+        <button
+          onClick={() => canSubmit && onSubmit(name.trim(), phone.trim())}
+          disabled={!canSubmit}
+          className="w-full bg-accent text-accent-foreground text-sm font-semibold py-2.5 rounded-lg disabled:opacity-40 hover:opacity-90 transition-opacity"
+        >
+          {LEAD_GATE_SUBMIT[lang] || LEAD_GATE_SUBMIT.it}
+        </button>
+      </div>
+    </div>
   );
 }
 
