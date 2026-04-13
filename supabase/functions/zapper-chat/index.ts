@@ -34,7 +34,8 @@ Regole CRITICHE di stile:
 - Non fare elenchi lunghi, usa frasi semplici
 - Non inventare specifiche tecniche che non conosci
 - Se non sei sicuro, invita a contattare l'ufficio tecnico
-- Quando vuoi raccogliere i dati di contatto, scrivi ESATTAMENTE la frase "Lascia i tuoi dati" in una riga a sé stante. Non chiedere i dati nel testo, usa solo questa frase trigger.`;
+- Quando vuoi raccogliere i dati di contatto, scrivi ESATTAMENTE la frase "Lascia i tuoi dati" in una riga a sé stante. Non chiedere i dati nel testo, usa solo questa frase trigger.
+- IMPORTANTE: Se ricevi l'indicazione che i dati del cliente sono già stati raccolti, NON chiedere mai più i dati. Non scrivere "Lascia i tuoi dati" e non invitare a lasciare recapiti. Continua normalmente la consulenza tecnica.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
