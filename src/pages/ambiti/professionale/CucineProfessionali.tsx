@@ -11,7 +11,8 @@ import SEO from "@/components/SEO";
 import heroImage from "@/assets/ambiti/cucine-professionali-hero.jpg";
 import soluzioneImage from "@/assets/zapper-prodotto-forni.jpg";
 import installazioneImage from "@/assets/forni-legna-installazione.webp";
-import primaDopoImage from "@/assets/forni-legna-prima-dopo.webp";
+import utaMachine from "@/assets/uta-carbone-attivo.webp";
+import { ChefHat, Coffee, Factory, Zap } from "lucide-react";
 
 const problemi = [
   { icon: Wind, testo: "Fumi e vapori da cotture multiple e simultanee che saturano l'aria" },
@@ -159,11 +160,52 @@ export default function CucineProfessionali() {
                 ))}
               </div>
             </div>
-            <div className="max-w-4xl mx-auto">
-              <img src={primaDopoImage} alt="Prima e dopo ZAPPER® in cucina professionale" className="rounded-2xl shadow-xl w-full" loading="lazy" width={1280} height={640} />
-              <p className="text-center text-muted-foreground text-sm mt-4">
-                A sinistra: emissioni senza trattamento. A destra: dopo l'installazione ZAPPER®.
-              </p>
+            {/* UTA a carbone attivo */}
+            <div className="max-w-5xl mx-auto mt-8">
+              <div className="grid lg:grid-cols-2 gap-10 items-center bg-card border border-border rounded-2xl p-8 shadow-lg">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center">
+                      <Wind className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-accent font-semibold text-sm uppercase tracking-wider">UTA a carbone attivo</span>
+                  </div>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+                    Unità di trattamento aria a <span className="text-accent">carbone attivo</span>
+                  </h3>
+                  <p className="text-muted-foreground text-base mb-6 leading-relaxed">
+                    Le nostre UTA a carbone attivo sono progettate per applicazioni standard nei settori professionale e industriale. Garantiscono l'abbattimento efficace di odori, COV e inquinanti gassosi attraverso filtrazione a carbone attivo ad alta efficienza, in un formato modulare e facilmente integrabile.
+                  </p>
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    {[
+                      { label: "Cucine professionali", icon: ChefHat },
+                      { label: "Torrefazioni", icon: Coffee },
+                      { label: "Processi industriali", icon: Factory },
+                      { label: "Taglio laser", icon: Zap },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center gap-3 px-4 py-3 bg-muted/50 border border-border rounded-xl">
+                        <item.icon className="w-4 h-4 text-accent shrink-0" />
+                        <span className="text-foreground text-sm font-medium">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="accent" size="lg" asChild>
+                    <Link to="/contatti">
+                      Richiedi informazioni
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Link>
+                  </Button>
+                </div>
+                <div className="flex justify-center">
+                  <div className="relative w-full max-w-md">
+                    <div className="absolute -inset-4 bg-accent/5 rounded-3xl blur-2xl" />
+                    <img src={utaMachine} alt="UTA ZAPPER a carbone attivo per trattamento aria in cucine professionali" className="relative w-full h-auto rounded-2xl" loading="lazy" />
+                    <div className="absolute bottom-4 left-4 right-4 bg-foreground/80 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
+                      <p className="text-white text-xs sm:text-sm font-medium">Filtrazione a carbone attivo — Applicazioni standard professionali e industriali</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
