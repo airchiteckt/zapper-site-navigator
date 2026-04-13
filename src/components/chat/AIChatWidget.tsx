@@ -363,7 +363,7 @@ export default function AIChatWidget() {
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
-        body: JSON.stringify({ messages: allMessages, lang }),
+        body: JSON.stringify({ messages: allMessages, lang, leadCaptured }),
       });
       if (!resp.ok || !resp.body) throw new Error("Stream failed");
       const reader = resp.body.getReader();
@@ -530,7 +530,7 @@ export default function AIChatWidget() {
             const resp = await fetch(CHAT_URL, {
               method: "POST",
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
-              body: JSON.stringify({ messages: updated, lang }),
+              body: JSON.stringify({ messages: updated, lang, leadCaptured: true }),
             });
             if (!resp.ok || !resp.body) throw new Error("Stream failed");
             const reader = resp.body.getReader();
