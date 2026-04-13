@@ -220,10 +220,10 @@ export default function AIChatWidget() {
     } catch (err) { console.error("Failed to save message:", err); }
   }, [messages.length]);
 
-  /* ─── Popup after 5s ─── */
+  /* ─── Popup after 20s ─── */
   useEffect(() => {
     if (popupAlreadyDismissed || hasSubmittedBefore) return;
-    const timer = setTimeout(() => setShowPopup(true), 5000);
+    const timer = setTimeout(() => setShowPopup(true), 20000);
     return () => clearTimeout(timer);
   }, [popupAlreadyDismissed, hasSubmittedBefore]);
 
@@ -309,11 +309,29 @@ export default function AIChatWidget() {
     finally { setIsLoading(false); }
   }, [lang, ensureSession, saveMessage]);
 
+  /* ─── Send sound ─── */
+  const playSendSound = useCallback(() => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.setValueAtTime(1100, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.2);
+    } catch {}
+  }, []);
+
   /* ─── Send ─── */
   const send = useCallback((text: string) => {
     if (!text.trim() || isLoading) return;
     const userMsg: Msg = { role: "user", content: text.trim() };
     setInput("");
+    playSendSound();
 
     /* Callback mode: user is giving their phone number */
     if (callbackMode) {
@@ -327,12 +345,22 @@ export default function AIChatWidget() {
       supabase.from("datasheet_requests").insert({
         first_name: "-", last_name: "-", email: "-", phone: text.trim(),
       }).then(() => {});
-      sendContactEmails({
+      // Send notification to both addresses
+      const callbackNotification = {
         name: "Richiesta di richiamata",
-        email: "-",
+        email: "info@smokezapper.it",
         phone: text.trim(),
         source: "Chat AI ZAPPER® - Callback",
         message: "Richiesta di richiamata dal popup del sito.",
+      };
+      supabase.functions.invoke('send-email', {
+        body: {
+          to: ['info@smokezapper.it', 'stanislaoelefante@gmail.com'],
+          subject: `📞 Richiesta di richiamata: ${text.trim()}`,
+          html: `<h2>Nuova richiesta di richiamata</h2><p><strong>Telefono:</strong> ${text.trim()}</p><p><strong>Fonte:</strong> Chat AI ZAPPER® - Popup callback</p><p><strong>Data:</strong> ${new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome' })}</p>`,
+          from: 'ZAPPER® <info@email.smokezapper.it>',
+          replyTo: 'info@smokezapper.it',
+        },
       });
 
       ensureSession().then(async (sid) => {
