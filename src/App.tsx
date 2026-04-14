@@ -13,6 +13,7 @@ import { useCartSync } from "@/hooks/useCartSync";
 import NotFound from "./pages/NotFound";
 import { appRoutes, getLocalizedRoutePath } from "@/routes/appRoutes";
 import AIChatWidget from "./components/chat/AIChatWidget";
+import ExitIntentPopup from "./components/ExitIntentPopup";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
             </Routes>
           </BrowserRouter>
           <AIChatWidget />
+          <ExitIntentPopup />
           
           </CartSyncWrapper>
           </CartProvider>
