@@ -300,7 +300,7 @@ export default function AIChatWidget() {
       if (!shown) {
         shown = true;
         setShowPopup(true);
-        // Play notification sound — works even without prior gesture on most browsers
+        // Play notification sound
         try {
           const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
           if (ctx.state === 'suspended') ctx.resume();
@@ -317,6 +317,8 @@ export default function AIChatWidget() {
             osc.stop(now + delay + 0.3);
           });
         } catch {}
+        // Vibrate on mobile
+        try { navigator.vibrate?.([100, 50, 100]); } catch {}
       }
     };
 
