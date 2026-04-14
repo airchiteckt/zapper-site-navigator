@@ -3,7 +3,6 @@ import { X, Phone, ArrowRight, Loader2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { sendContactEmails } from "@/lib/emailService";
-import { useNavigate } from "react-router-dom";
 
 const EXIT_DISMISSED_KEY = "zapper_exit_popup_dismissed";
 
@@ -12,7 +11,6 @@ const ExitIntentPopup = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
 
   const dismiss = useCallback(() => {
     setShow(false);
@@ -70,7 +68,7 @@ const ExitIntentPopup = () => {
       });
       dismiss();
       const lang = window.location.pathname.split("/").filter(Boolean)[0] || "it";
-      navigate(`/${lang}/grazie`);
+      window.location.href = `/${lang}/grazie`;
     } catch {
       setSubmitting(false);
     }
