@@ -23,7 +23,7 @@ const problemi = [
 
 const vantaggiSoluzione = [
   { icon: Droplets, titolo: "Abbattimento ad acqua", desc: "Tecnologia wet scrubber: l'acqua atomizzata cattura fuliggine, particolato e odori senza filtri da sostituire." },
-  { icon: Shield, titolo: "Nessun filtro elettrostatico", desc: "Zero manutenzione dei filtri, nessun rischio incendio. Solo acqua e una pulizia periodica." },
+  { icon: Shield, titolo: "Nessun filtro da sostituire", desc: "Utilizza solo l'acqua per l'abbattimento. Bassi costi di funzionamento e manutenzione minima." },
   { icon: Wrench, titolo: "Installazione in giornata", desc: "Si collega alla canna fumaria esistente. Nessuna modifica strutturale, nessun fermo attività." },
 ];
 
