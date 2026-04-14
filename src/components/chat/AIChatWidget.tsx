@@ -292,11 +292,33 @@ export default function AIChatWidget() {
     } catch (err) { console.error("Failed to save message:", err); }
   }, [messages.length]);
 
-  /* ─── Popup after 35s or 60% scroll ─── */
+  /* ─── Popup after 25s or 60% scroll ─── */
   useEffect(() => {
     if (popupAlreadyDismissed || hasSubmittedBefore) return;
     let shown = false;
-    const show = () => { if (!shown) { shown = true; setShowPopup(true); } };
+    const show = () => {
+      if (!shown) {
+        shown = true;
+        setShowPopup(true);
+        // Play notification sound — works even without prior gesture on most browsers
+        try {
+          const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+          if (ctx.state === 'suspended') ctx.resume();
+          const now = ctx.currentTime;
+          [0, 0.15].forEach((delay, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(i === 0 ? 523 : 659, now + delay);
+            gain.gain.setValueAtTime(0.2, now + delay);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.3);
+            osc.start(now + delay);
+            osc.stop(now + delay + 0.3);
+          });
+        } catch {}
+      }
+    };
 
     const timer = setTimeout(show, 25000);
 
