@@ -298,7 +298,7 @@ export default function AIChatWidget() {
     let shown = false;
     const show = () => { if (!shown) { shown = true; setShowPopup(true); } };
 
-    const timer = setTimeout(show, 35000);
+    const timer = setTimeout(show, 25000);
 
     const onScroll = () => {
       const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
