@@ -87,36 +87,20 @@ const ExitIntentPopup = () => {
 
         {/* Header */}
         <div className="bg-primary px-6 py-5 text-center">
-          <p className="text-primary-foreground/70 text-sm font-medium line-through">
-            Valutazione tecnica: 149€
-          </p>
-          <h2 className="text-primary-foreground text-xl sm:text-2xl font-bold mt-1">
-            Scopri quanto puoi risparmiare
+          <h2 className="text-primary-foreground text-xl sm:text-2xl font-bold">
+            Ricevi soluzione tecnica gratuita
           </h2>
-          <p className="text-primary-foreground/90 text-sm mt-1">
-            Gratis, in 24h
+          <p className="text-primary-foreground/80 text-sm font-medium mt-1">
+            (Valore 149€)
           </p>
         </div>
 
         {/* Body */}
         <div className="px-6 py-5">
-          <p className="text-muted-foreground text-sm text-center mb-4">
-            Un tecnico analizza il tuo caso e ti dà una risposta reale, non commerciale
+          <p className="text-muted-foreground text-sm text-center mb-5">
+            Un tecnico specializzato analizza il tuo caso e ti dà una risposta reale,{" "}
+            <span className="italic">(non commerciale)</span>
           </p>
-
-          {/* Value bullets */}
-          <div className="space-y-2 mb-5">
-            {[
-              "Analisi personalizzata",
-              "Nessun impegno",
-              "Risposta da tecnico esperto",
-            ].map((text) => (
-              <div key={text} className="flex items-center gap-2 text-sm text-foreground">
-                <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                <span>{text}</span>
-              </div>
-            ))}
-          </div>
 
           <form onSubmit={handleSubmit} className="space-y-3">
             <Input
@@ -152,15 +136,15 @@ const ExitIntentPopup = () => {
           <div className="mt-4 space-y-1.5">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <ShieldCheck className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Ti contattiamo solo per questa richiesta</span>
+              <span>Offerta gratuita valida per pochi clienti ogni settimana</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Phone className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Risposta da un tecnico, non da un commerciale</span>
+              <span>Ti contattiamo solo per questa richiesta</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Offerta gratuita valida per pochi clienti ogni settimana</span>
+              <span>Entro 24 ore</span>
             </div>
           </div>
         </div>
