@@ -292,11 +292,35 @@ export default function AIChatWidget() {
     } catch (err) { console.error("Failed to save message:", err); }
   }, [messages.length]);
 
-  /* ─── Popup after 35s or 60% scroll ─── */
+  /* ─── Popup after 25s or 60% scroll ─── */
   useEffect(() => {
     if (popupAlreadyDismissed || hasSubmittedBefore) return;
     let shown = false;
-    const show = () => { if (!shown) { shown = true; setShowPopup(true); } };
+    const show = () => {
+      if (!shown) {
+        shown = true;
+        setShowPopup(true);
+        // Play notification sound
+        try {
+          const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+          if (ctx.state === 'suspended') ctx.resume();
+          const now = ctx.currentTime;
+          [0, 0.15].forEach((delay, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(i === 0 ? 523 : 659, now + delay);
+            gain.gain.setValueAtTime(0.2, now + delay);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.3);
+            osc.start(now + delay);
+            osc.stop(now + delay + 0.3);
+          });
+        } catch {}
+        // Vibrate on mobile
+        try { navigator.vibrate?.([100, 50, 100]); } catch {}
+      }
+    };
 
     const timer = setTimeout(show, 25000);
 
@@ -391,20 +415,43 @@ export default function AIChatWidget() {
     finally { setIsLoading(false); }
   }, [lang, ensureSession, saveMessage]);
 
-  /* ─── Send sound ─── */
-  const playSendSound = useCallback(() => {
+  /* ─── Sound helpers ─── */
+  const playTone = useCallback((freq1: number, freq2: number, duration = 0.2, volume = 0.15) => {
     try {
       const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      if (ctx.state === 'suspended') ctx.resume();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
       gain.connect(ctx.destination);
-      osc.frequency.setValueAtTime(880, ctx.currentTime);
-      osc.frequency.setValueAtTime(1100, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.frequency.setValueAtTime(freq1, ctx.currentTime);
+      osc.frequency.setValueAtTime(freq2, ctx.currentTime + duration * 0.4);
+      gain.gain.setValueAtTime(volume, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
       osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.2);
+      osc.stop(ctx.currentTime + duration);
+    } catch {}
+  }, []);
+
+  const playSendSound = useCallback(() => playTone(880, 1100), [playTone]);
+
+  const playNotificationSound = useCallback(() => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      if (ctx.state === 'suspended') ctx.resume();
+      const now = ctx.currentTime;
+      // Two-tone chime
+      [0, 0.15].forEach((delay, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(i === 0 ? 523 : 659, now + delay);
+        gain.gain.setValueAtTime(0.2, now + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.3);
+        osc.start(now + delay);
+        osc.stop(now + delay + 0.3);
+      });
     } catch {}
   }, []);
 
