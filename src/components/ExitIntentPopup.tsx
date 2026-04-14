@@ -88,18 +88,20 @@ const ExitIntentPopup = () => {
         {/* Header */}
         <div className="bg-primary px-6 py-5 text-center">
           <h2 className="text-primary-foreground text-xl sm:text-2xl font-bold">
-            Ricevi soluzione tecnica gratuita
+            Prima di uscire…
           </h2>
-          <p className="text-primary-foreground/80 text-sm font-medium mt-1">
-            (Valore 149€)
-          </p>
         </div>
 
         {/* Body */}
         <div className="px-6 py-5">
+          <p className="text-foreground text-sm text-center font-medium mb-1">
+            Lo sai che puoi richiedere ora una valutazione tecnica gratuita?
+          </p>
+          <p className="text-primary text-sm font-semibold text-center mb-3">
+            (Valore 149€)
+          </p>
           <p className="text-muted-foreground text-sm text-center mb-5">
-            Un tecnico specializzato analizza il tuo caso e ti dà una risposta reale,{" "}
-            <span className="italic">(non commerciale)</span>
+            Un tecnico analizza il tuo caso e ti risponde entro 24h.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-3">
@@ -127,7 +129,7 @@ const ExitIntentPopup = () => {
               {submitting ? (
                 <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Invio...</>
               ) : (
-                <>Invia e fatti contattare da un tecnico<ArrowRight className="w-5 h-5 ml-2" /></>
+                <>Invia richiesta ora<ArrowRight className="w-5 h-5 ml-2" /></>
               )}
             </Button>
           </form>
@@ -136,15 +138,15 @@ const ExitIntentPopup = () => {
           <div className="mt-4 space-y-1.5">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <ShieldCheck className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Offerta gratuita valida per pochi clienti ogni settimana</span>
+              <span>Nessuna chiamata spam</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Phone className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Ti contattiamo solo per questa richiesta</span>
+              <span>Risposta da tecnico, non commerciale</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Entro 24 ore</span>
+              <span>Offerta gratuita valida per pochi clienti ogni settimana</span>
             </div>
           </div>
         </div>
