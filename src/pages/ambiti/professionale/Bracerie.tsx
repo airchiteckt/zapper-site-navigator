@@ -90,7 +90,7 @@ export default function Bracerie() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="accent" size="lg" asChild>
                   <Link to="/contatti">
-                    Richiedi una valutazione tecnica gratuita
+                    Consulenza tecnica gratuita
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
                 </Button>
@@ -300,14 +300,14 @@ export default function Bracerie() {
                 La tua braceria ha problemi di fumi o odori?
               </h2>
               <p className="text-primary-foreground/80 text-lg mb-3 max-w-2xl mx-auto">
-                Richiedi una valutazione tecnica gratuita.
+                Consulenza tecnica gratuita.
               </p>
               <p className="text-primary-foreground/50 text-sm mb-10 max-w-2xl mx-auto">
                 Analizziamo il tuo impianto da remoto e definiamo la soluzione ZAPPER® più adatta. Nessun impegno.
               </p>
               <Button variant="accent" size="lg" asChild>
                 <Link to="/contatti">
-                  Richiedi una valutazione tecnica
+                  Consulenza tecnica gratuita
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>

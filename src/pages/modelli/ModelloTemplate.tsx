@@ -380,7 +380,7 @@ const ModelloTemplate = ({ data }: ModelloTemplateProps) => {
               Conferma la soluzione con una valutazione
             </h2>
             <p className="text-accent-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-              Il modello non si sceglie, si conferma. Richiedi una valutazione tecnica gratuita per verificare
+              Il modello non si sceglie, si conferma. Consulenza tecnica gratuita per verificare
               che {data.name} sia la soluzione giusta per il tuo impianto.
             </p>
             <Button
@@ -390,7 +390,7 @@ const ModelloTemplate = ({ data }: ModelloTemplateProps) => {
               asChild
             >
               <Link to="/contatti">
-                Richiedi una valutazione tecnica
+                Consulenza tecnica gratuita
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
