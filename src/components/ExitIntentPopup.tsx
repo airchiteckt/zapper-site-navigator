@@ -88,7 +88,7 @@ const ExitIntentPopup = () => {
         {/* Header */}
         <div className="bg-primary px-6 py-5 text-center">
           <h2 className="text-primary-foreground text-xl sm:text-2xl font-bold">
-            Prima di uscire…
+            Richiedi una valutazione tecnica gratuita
           </h2>
         </div>
 
