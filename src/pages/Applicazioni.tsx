@@ -219,7 +219,7 @@ const Applicazioni = () => {
             </p>
             <Button variant="accent" size="lg" asChild>
               <Link to="/contatti">
-                Richiedi una valutazione tecnica gratuita
+                Consulenza tecnica gratuita
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>

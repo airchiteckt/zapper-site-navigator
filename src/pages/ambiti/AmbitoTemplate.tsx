@@ -235,7 +235,7 @@ const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
               Hai un problema simile?
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-2 max-w-2xl mx-auto">
-              Richiedi una valutazione tecnica gratuita.
+              Consulenza tecnica gratuita.
             </p>
             <p className="text-primary-foreground/60 text-sm mb-8 max-w-2xl mx-auto">
               Analizziamo il tuo impianto da remoto e definiamo la soluzione ZAPPER più adatta.
@@ -243,7 +243,7 @@ const AmbitoTemplate = ({ data }: AmbitoTemplateProps) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
                 <Link to="/contatti">
-                  Richiedi una valutazione tecnica
+                  Consulenza tecnica gratuita
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
