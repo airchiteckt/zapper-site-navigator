@@ -94,12 +94,6 @@ const ExitIntentPopup = () => {
 
         {/* Body */}
         <div className="px-6 py-5">
-          <p className="text-foreground text-sm text-center font-medium mb-1">
-            Lo sai che puoi richiedere ora una valutazione tecnica gratuita?
-          </p>
-          <p className="text-primary text-sm font-semibold text-center mb-3">
-            (Valore 149€)
-          </p>
           <p className="text-muted-foreground text-sm text-center mb-5">
             Un tecnico analizza il tuo caso e ti risponde entro 24h.
           </p>
