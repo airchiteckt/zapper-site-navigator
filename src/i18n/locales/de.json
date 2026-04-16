@@ -39,7 +39,8 @@
         "Grillhäuser",
         "Profiküchen"
       ],
-      "pain": "🔥 Ruß an Wänden und Balkonen, störende Kochgerüche, verärgerte Nachbarn"
+      "pain": "🔥 Ruß an Wänden und Balkonen, störende Kochgerüche, verärgerte Nachbarn",
+      "cta": "Lösungen für Gastronomie"
     },
     "domestic": {
       "title": "Häuslich",
@@ -51,7 +52,8 @@
         "Grills",
         "Gartenöfen"
       ],
-      "pain": "💨 Schwarzer Rauch aus dem Kamin, Brandgeruch im Haus, Nachbarbeschwerden"
+      "pain": "💨 Schwarzer Rauch aus dem Kamin, Brandgeruch im Haus, Nachbarbeschwerden",
+      "cta": "Für den Hausgebrauch entdecken"
     },
     "industrial": {
       "title": "Industriell",
@@ -63,7 +65,8 @@
         "Räuchereien",
         "Industrieöfen"
       ],
-      "pain": "🏭 Emissionen außerhalb der Norm, Staub, hartnäckige Gerüche"
+      "pain": "🏭 Emissionen außerhalb der Norm, Staub, hartnäckige Gerüche",
+      "cta": "Industrielle Lösungen"
     },
     "discoverSolutions": "Problem lösen"
   },

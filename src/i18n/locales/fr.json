@@ -39,7 +39,8 @@
         "Grillades",
         "Cuisines professionnelles"
       ],
-      "pain": "🔥 Suie sur les murs et balcons, odeurs de cuisson gênantes, voisins en colère"
+      "pain": "🔥 Suie sur les murs et balcons, odeurs de cuisson gênantes, voisins en colère",
+      "cta": "Solutions pour la restauration"
     },
     "domestic": {
       "title": "Domestique",
@@ -51,7 +52,8 @@
         "Barbecues",
         "Fours de jardin"
       ],
-      "pain": "💨 Fumée noire de la cheminée, odeur de brûlé à l'intérieur, plaintes des voisins"
+      "pain": "💨 Fumée noire de la cheminée, odeur de brûlé à l'intérieur, plaintes des voisins",
+      "cta": "Découvrir pour usage domestique"
     },
     "industrial": {
       "title": "Industriel",
@@ -63,7 +65,8 @@
         "Fumoirs",
         "Fours industriels"
       ],
-      "pain": "🏭 Émissions hors norme, poussières, odeurs persistantes"
+      "pain": "🏭 Émissions hors norme, poussières, odeurs persistantes",
+      "cta": "Solutions industrielles"
     },
     "discoverSolutions": "Résoudre le problème"
   },
