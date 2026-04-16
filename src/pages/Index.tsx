@@ -2,23 +2,17 @@ import { lazy, Suspense } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
-import ClientLogos from "@/components/home/ClientLogos";
+import TrustBar from "@/components/home/TrustBar";
+import StickyBottomCTA from "@/components/home/StickyBottomCTA";
 import SEO from "@/components/SEO";
 import { OrganizationSchema, LocalBusinessSchema } from "@/components/StructuredData";
 
 // Lazy load below-the-fold sections
 const ProblemSection = lazy(() => import("@/components/home/ProblemSection"));
 const SectorsSection = lazy(() => import("@/components/home/SectorsSection"));
-const HowItWorksSection = lazy(() => import("@/components/home/HowItWorksSection"));
-const ProfessionalSection = lazy(() => import("@/components/home/ProfessionalSection"));
-const UTASection = lazy(() => import("@/components/home/UTASection"));
-const IndustrialSection = lazy(() => import("@/components/home/IndustrialSection"));
-const SelfDiscoverySection = lazy(() => import("@/components/home/SelfDiscoverySection"));
-const IncentivesCarousel = lazy(() => import("@/components/home/IncentivesCarousel"));
-const CaseStudyTeaser = lazy(() => import("@/components/home/CaseStudyTeaser"));
 const TrustpilotSection = lazy(() => import("@/components/home/TrustpilotSection"));
-const BlogSection = lazy(() => import("@/components/home/BlogSection"));
-const CTASection = lazy(() => import("@/components/home/CTASection"));
+const HowItWorksSection = lazy(() => import("@/components/home/HowItWorksSection"));
+const FormFinaleSection = lazy(() => import("@/components/home/FormFinaleSection"));
 
 const Index = () => {
   return (
@@ -33,23 +27,17 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <ClientLogos />
+        <TrustBar />
         <Suspense fallback={null}>
           <ProblemSection />
           <SectorsSection />
-          <HowItWorksSection />
-          <ProfessionalSection />
-          <UTASection />
-          <IndustrialSection />
-          <SelfDiscoverySection />
-          <IncentivesCarousel />
-          <CaseStudyTeaser />
           <TrustpilotSection />
-          <BlogSection />
-          <CTASection />
+          <HowItWorksSection />
+          <FormFinaleSection />
         </Suspense>
       </main>
       <Footer />
+      <StickyBottomCTA />
     </div>
   );
 };

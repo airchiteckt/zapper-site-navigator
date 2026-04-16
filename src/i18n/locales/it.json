@@ -70,7 +70,8 @@
       "pain": "🏭 Emissioni fuori norma, polveri, odori persistenti",
       "cta": "Soluzioni industriali"
     },
-    "discoverSolutions": "Risolvi il problema"
+    "discoverSolutions": "Risolvi il problema",
+    "fiscalBadge": "Finanziabile fino al 65% a fondo perduto"
   },
   "clients": {
     "label": "Scelti dalle migliori attività e catene"
@@ -612,5 +613,25 @@
     "whatsappPrompt": "Vuoi una risposta ancora più rapida?",
     "whatsappButton": "Scrivici su WhatsApp",
     "backHome": "Torna alla Homepage"
+  },
+  "trustBar": {
+    "satisfied": "2.500+ attività soddisfatte",
+    "warranty": "Garanzia 5 anni",
+    "install": "Installazione in 1 giorno"
+  },
+  "formFinale": {
+    "title": "Scopri se ZAPPER® fa per te",
+    "subtitle": "Rispondi a 2 domande e ti ricontattiamo entro 48h.",
+    "sectorQuestion": "In che settore operi?",
+    "problemQuestion": "Qual è il problema principale?",
+    "contactQuestion": "Come possiamo contattarti?",
+    "problemSmoke": "Fumi visibili dal camino",
+    "problemOdor": "Odori molesti per i vicini",
+    "problemFines": "Sanzioni o controlli ASL",
+    "problemOther": "Altro problema",
+    "namePlaceholder": "Il tuo nome",
+    "phonePlaceholder": "Il tuo numero di telefono",
+    "submit": "Richiedi valutazione gratuita",
+    "preferCall": "Preferisci parlare con un tecnico?"
   }
 }

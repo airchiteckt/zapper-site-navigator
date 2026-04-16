@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChefHat, Home, Factory, ArrowRight } from "lucide-react";
+import { ChefHat, Home, Factory, ArrowRight, BadgePercent } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import sectorProfessionale from "@/assets/sector-professionale.webp";
 import sectorDomestico from "@/assets/sector-domestico.webp";
@@ -58,6 +58,16 @@ const SectorsSection = () => {
           <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0">
             {t("sectors.description")}
           </p>
+        </div>
+
+        {/* Fiscal incentive badge */}
+        <div className="flex items-center justify-center gap-2 mb-8 md:mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary/10 border border-primary/20 rounded-full">
+            <BadgePercent className="w-5 h-5 text-primary flex-shrink-0" />
+            <span className="text-sm sm:text-base font-semibold text-foreground">
+              {t("sectors.fiscalBadge")}
+            </span>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
