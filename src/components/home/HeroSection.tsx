@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero-zapper-team.webp";
+import trustpilotLogo from "@/assets/trustpilot-logo.png";
 
 const HeroSection = () => {
   const { t } = useTranslation();
@@ -40,9 +41,10 @@ const HeroSection = () => {
             </p>
 
             {/* Social Proof */}
-            <div className="flex items-center gap-2 justify-center lg:justify-start mb-5 sm:mb-6 animate-fade-in-up animation-delay-200">
+            <div className="flex items-center gap-3 justify-center lg:justify-start mb-5 sm:mb-6 animate-fade-in-up animation-delay-200">
               <div className="flex text-yellow-400 text-lg">★★★★★</div>
               <span className="text-white/80 text-sm sm:text-base font-medium">{t("hero.socialProof")}</span>
+              <img src={trustpilotLogo} alt="Trustpilot" className="h-4 sm:h-5 brightness-0 invert opacity-70" />
             </div>
 
             {/* CTA Primary */}
