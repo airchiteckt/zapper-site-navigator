@@ -310,6 +310,13 @@ export default function AIChatWidget() {
   const leadAlreadyCaptured = localStorage.getItem(LEAD_CAPTURED_KEY) === "true";
 
   const [open, setOpen] = useState(false);
+
+  // Allow external components to open the chat via custom event
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("open-zapper-chat", handler);
+    return () => window.removeEventListener("open-zapper-chat", handler);
+  }, []);
   const [messages, setMessages] = useState<Msg[]>([{
     role: "assistant",
     content: hasSubmittedBefore
