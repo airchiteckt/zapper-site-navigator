@@ -84,7 +84,7 @@ const faqItems = [
   },
   {
     domanda: "C'è una garanzia?",
-    risposta: "Sì, tutti i sistemi ZAPPER® hanno garanzia di 5 anni. Se il risultato non ti soddisfa, ne parliamo e troviamo la soluzione.",
+    risposta: "Sì, tutti i sistemi ZAPPER® hanno garanzia di 1 anno. Se il risultato non ti soddisfa, ne parliamo e troviamo la soluzione.",
   },
   {
     domanda: "Che manutenzione richiede?",
@@ -228,7 +228,7 @@ export default function ForniALegna() {
     <div className="min-h-screen bg-background">
       <SEO
         title="Forno a legna con problemi di fumi? Risolvi subito | ZAPPER®"
-        description="Il tuo forno a legna crea problemi con i vicini o l'ASL? ZAPPER® elimina fumi e fuliggine in un giorno. Nessun filtro, garanzia 5 anni. Scopri se fa per te."
+        description="Il tuo forno a legna crea problemi con i vicini o l'ASL? ZAPPER® elimina fumi e fuliggine in un giorno. Nessun filtro, garanzia 1 anno. Scopri se fa per te."
       />
       <Header />
       <main>
@@ -267,7 +267,7 @@ export default function ForniALegna() {
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-8 text-primary-foreground/60 text-sm">
                 <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> 2.500+ attività soddisfatte</span>
                 <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> Installazione in giornata</span>
-                <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> Garanzia 5 anni</span>
+                <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> Garanzia 1 anno</span>
               </div>
             </div>
           </div>
