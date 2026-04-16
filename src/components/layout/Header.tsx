@@ -43,7 +43,7 @@ const Header = () => {
             <LanguageSelector />
             <a href="tel:+3908119968436" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-4 h-4" />
-              <span className="font-medium">{t("nav.callNow")}</span>
+              <span className="font-medium">081 199 68 436</span>
             </a>
             <Button variant="accent" size="lg" asChild>
               <Link to="/contatti">{t("nav.freeTechnicalAssessment")}</Link>
