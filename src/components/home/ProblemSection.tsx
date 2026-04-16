@@ -28,15 +28,15 @@ const ProblemSection = () => {
             <p className="text-base sm:text-lg text-white/80 mb-6 sm:mb-8">{t("problem.description")}</p>
             <div className="grid grid-cols-3 gap-3 sm:gap-6 p-4 sm:p-6 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl">
               <div className="text-center">
-                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary">70%</p>
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary">{t("problem.stat1Value")}</p>
                 <p className="text-xs sm:text-sm text-white/70">{t("problem.stat1")}</p>
               </div>
               <div className="text-center">
-                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary">€5k</p>
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary">{t("problem.stat2Value")}</p>
                 <p className="text-xs sm:text-sm text-white/70">{t("problem.stat2")}</p>
               </div>
               <div className="text-center">
-                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary">30%</p>
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary">{t("problem.stat3Value")}</p>
                 <p className="text-xs sm:text-sm text-white/70">{t("problem.stat3")}</p>
               </div>
             </div>
