@@ -1,90 +1,105 @@
-import type { ReactNode } from "react";
+import { lazy, Suspense, type ReactNode } from "react";
+
+// Eager: homepage (critical path)
 import Index from "@/pages/Index";
-import Contatti from "@/pages/Contatti";
-import Interventi from "@/pages/Interventi";
-import Settori from "@/pages/Settori";
-import Applicazioni from "@/pages/Applicazioni";
-import Modelli from "@/pages/Modelli";
-import Agevolazioni from "@/pages/Agevolazioni";
-import Industria40 from "@/pages/agevolazioni/Industria40";
-import BandoInailIsi from "@/pages/agevolazioni/BandoInailIsi";
-import Professionale from "@/pages/settori/Professionale";
-import Domestico from "@/pages/settori/Domestico";
-import Industriale from "@/pages/settori/Industriale";
-import Pizzerie from "@/pages/ambiti/professionale/Pizzerie";
-import Panifici from "@/pages/ambiti/professionale/Panifici";
-import Bracerie from "@/pages/ambiti/professionale/Bracerie";
-import CucineProfessionali from "@/pages/ambiti/professionale/CucineProfessionali";
-import CaldaieBiomassaDom from "@/pages/ambiti/domestico/CaldaieBiomassa";
-import Camini from "@/pages/ambiti/domestico/Camini";
-import Stufe from "@/pages/ambiti/domestico/Stufe";
-import Torrefazioni from "@/pages/ambiti/industriale/Torrefazioni";
-import Caseifici from "@/pages/ambiti/industriale/Caseifici";
-import Affumicatori from "@/pages/ambiti/industriale/Affumicatori";
-import ForniIndustrialiAmbito from "@/pages/ambiti/industriale/ForniIndustriali";
-import ForniALegna from "@/pages/applicazioni/ForniALegna";
-import BraciCarbone from "@/pages/applicazioni/BraciCarbone";
-import CaldaieBiomassaApp from "@/pages/applicazioni/CaldaieBiomassa";
-import CaminiApp from "@/pages/applicazioni/Camini";
-import Cappe from "@/pages/applicazioni/Cappe";
-import ForniIndustrialiApp from "@/pages/applicazioni/ForniIndustriali";
-import TorrefazioniApp from "@/pages/applicazioni/Torrefazioni";
-import AffumicatoriApp from "@/pages/applicazioni/Affumicatori";
-import TaglioLaser from "@/pages/applicazioni/TaglioLaser";
-import ForniElettrici from "@/pages/applicazioni/ForniElettrici";
-import ZPZ from "@/pages/modelli/ZPZ";
-import ZPZMax from "@/pages/modelli/ZPZMax";
-import ZPZNuvolaL from "@/pages/modelli/ZPZNuvolaL";
-import ZPZNuvola from "@/pages/modelli/ZPZNuvola";
-import ZPF from "@/pages/modelli/ZPF";
-import ZPFMax from "@/pages/modelli/ZPFMax";
-import ZBRS from "@/pages/modelli/ZBRS";
-import ZBRMax from "@/pages/modelli/ZBRMax";
-import ZGR from "@/pages/modelli/ZGR";
-import ZGRMax from "@/pages/modelli/ZGRMax";
-import Destink from "@/pages/modelli/Destink";
-import DestinkMax from "@/pages/modelli/DestinkMax";
-import DestinkUltra from "@/pages/modelli/DestinkUltra";
-import DestinkUltraMax from "@/pages/modelli/DestinkUltraMax";
-import ZCL from "@/pages/modelli/ZCL";
-import ZCLMax from "@/pages/modelli/ZCLMax";
-import ZCM from "@/pages/modelli/ZCM";
-import ZMax from "@/pages/modelli/ZMax";
-import ZTRF from "@/pages/modelli/ZTRF";
-import ZTRFMax from "@/pages/modelli/ZTRFMax";
-import ZTRFMaxDesk from "@/pages/modelli/ZTRFMaxDesk";
-import ZAF from "@/pages/modelli/ZAF";
-import ZAFMax from "@/pages/modelli/ZAFMax";
-import ZTGL from "@/pages/modelli/ZTGL";
-import ZTGLMax from "@/pages/modelli/ZTGLMax";
-import ZTGLMaxUltra from "@/pages/modelli/ZTGLMaxUltra";
-import Calcolatore from "@/pages/Calcolatore";
-import Servizi from "@/pages/Servizi";
-import PuliziaCucineProfessionali from "@/pages/servizi/PuliziaCucineProfessionali";
-import DisinfestazioneCucine from "@/pages/servizi/DisinfestazioneCucine";
-import ManutenzioneCucineIndustriali from "@/pages/servizi/ManutenzioneCucineIndustriali";
-import ImpiantiAspirazioneFumi from "@/pages/servizi/ImpiantiAspirazioneFumi";
-import InterventiElettriciCucine from "@/pages/servizi/InterventiElettriciCucine";
-import ManutenzioneImpianti from "@/pages/servizi/ManutenzioneImpianti";
-import Shop from "@/pages/Shop";
-import ShopProduct from "@/pages/ShopProduct";
-import ShopCheckout from "@/pages/ShopCheckout";
-import BlogList from "@/pages/BlogList";
-import BlogPostPage from "@/pages/BlogPost";
-import Grazie from "@/pages/Grazie";
-import AdminAuth from "@/pages/admin/AdminAuth";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
-import AdminModels from "@/pages/admin/AdminModels";
-import AdminInterventions from "@/pages/admin/AdminInterventions";
-import AdminUsers from "@/pages/admin/AdminUsers";
-import AdminShop from "@/pages/admin/AdminShop";
-import AdminPartners from "@/pages/admin/AdminPartners";
-import AdminBlog from "@/pages/admin/AdminBlog";
-import AdminChatLogs from "@/pages/admin/AdminChatLogs";
-import PartnerLogin from "@/pages/partner/PartnerLogin";
-import PartnerMap from "@/pages/PartnerMap";
-import LandingPartners from "@/pages/LandingPartners";
-import PartnerDashboard from "@/pages/partner/PartnerDashboard";
+
+// Lazy load all other pages
+const Contatti = lazy(() => import("@/pages/Contatti"));
+const Interventi = lazy(() => import("@/pages/Interventi"));
+const Settori = lazy(() => import("@/pages/Settori"));
+const Applicazioni = lazy(() => import("@/pages/Applicazioni"));
+const Modelli = lazy(() => import("@/pages/Modelli"));
+const Agevolazioni = lazy(() => import("@/pages/Agevolazioni"));
+const Industria40 = lazy(() => import("@/pages/agevolazioni/Industria40"));
+const BandoInailIsi = lazy(() => import("@/pages/agevolazioni/BandoInailIsi"));
+const Professionale = lazy(() => import("@/pages/settori/Professionale"));
+const Domestico = lazy(() => import("@/pages/settori/Domestico"));
+const Industriale = lazy(() => import("@/pages/settori/Industriale"));
+const Pizzerie = lazy(() => import("@/pages/ambiti/professionale/Pizzerie"));
+const Panifici = lazy(() => import("@/pages/ambiti/professionale/Panifici"));
+const Bracerie = lazy(() => import("@/pages/ambiti/professionale/Bracerie"));
+const CucineProfessionali = lazy(() => import("@/pages/ambiti/professionale/CucineProfessionali"));
+const CaldaieBiomassaDom = lazy(() => import("@/pages/ambiti/domestico/CaldaieBiomassa"));
+const Camini = lazy(() => import("@/pages/ambiti/domestico/Camini"));
+const Stufe = lazy(() => import("@/pages/ambiti/domestico/Stufe"));
+const Torrefazioni = lazy(() => import("@/pages/ambiti/industriale/Torrefazioni"));
+const Caseifici = lazy(() => import("@/pages/ambiti/industriale/Caseifici"));
+const Affumicatori = lazy(() => import("@/pages/ambiti/industriale/Affumicatori"));
+const ForniIndustrialiAmbito = lazy(() => import("@/pages/ambiti/industriale/ForniIndustriali"));
+const ForniALegna = lazy(() => import("@/pages/applicazioni/ForniALegna"));
+const BraciCarbone = lazy(() => import("@/pages/applicazioni/BraciCarbone"));
+const CaldaieBiomassaApp = lazy(() => import("@/pages/applicazioni/CaldaieBiomassa"));
+const CaminiApp = lazy(() => import("@/pages/applicazioni/Camini"));
+const Cappe = lazy(() => import("@/pages/applicazioni/Cappe"));
+const ForniIndustrialiApp = lazy(() => import("@/pages/applicazioni/ForniIndustriali"));
+const TorrefazioniApp = lazy(() => import("@/pages/applicazioni/Torrefazioni"));
+const AffumicatoriApp = lazy(() => import("@/pages/applicazioni/Affumicatori"));
+const TaglioLaser = lazy(() => import("@/pages/applicazioni/TaglioLaser"));
+const ForniElettrici = lazy(() => import("@/pages/applicazioni/ForniElettrici"));
+const ZPZ = lazy(() => import("@/pages/modelli/ZPZ"));
+const ZPZMax = lazy(() => import("@/pages/modelli/ZPZMax"));
+const ZPZNuvolaL = lazy(() => import("@/pages/modelli/ZPZNuvolaL"));
+const ZPZNuvola = lazy(() => import("@/pages/modelli/ZPZNuvola"));
+const ZPF = lazy(() => import("@/pages/modelli/ZPF"));
+const ZPFMax = lazy(() => import("@/pages/modelli/ZPFMax"));
+const ZBRS = lazy(() => import("@/pages/modelli/ZBRS"));
+const ZBRMax = lazy(() => import("@/pages/modelli/ZBRMax"));
+const ZGR = lazy(() => import("@/pages/modelli/ZGR"));
+const ZGRMax = lazy(() => import("@/pages/modelli/ZGRMax"));
+const Destink = lazy(() => import("@/pages/modelli/Destink"));
+const DestinkMax = lazy(() => import("@/pages/modelli/DestinkMax"));
+const DestinkUltra = lazy(() => import("@/pages/modelli/DestinkUltra"));
+const DestinkUltraMax = lazy(() => import("@/pages/modelli/DestinkUltraMax"));
+const ZCL = lazy(() => import("@/pages/modelli/ZCL"));
+const ZCLMax = lazy(() => import("@/pages/modelli/ZCLMax"));
+const ZCM = lazy(() => import("@/pages/modelli/ZCM"));
+const ZMax = lazy(() => import("@/pages/modelli/ZMax"));
+const ZTRF = lazy(() => import("@/pages/modelli/ZTRF"));
+const ZTRFMax = lazy(() => import("@/pages/modelli/ZTRFMax"));
+const ZTRFMaxDesk = lazy(() => import("@/pages/modelli/ZTRFMaxDesk"));
+const ZAF = lazy(() => import("@/pages/modelli/ZAF"));
+const ZAFMax = lazy(() => import("@/pages/modelli/ZAFMax"));
+const ZTGL = lazy(() => import("@/pages/modelli/ZTGL"));
+const ZTGLMax = lazy(() => import("@/pages/modelli/ZTGLMax"));
+const ZTGLMaxUltra = lazy(() => import("@/pages/modelli/ZTGLMaxUltra"));
+const Calcolatore = lazy(() => import("@/pages/Calcolatore"));
+const Servizi = lazy(() => import("@/pages/Servizi"));
+const PuliziaCucineProfessionali = lazy(() => import("@/pages/servizi/PuliziaCucineProfessionali"));
+const DisinfestazioneCucine = lazy(() => import("@/pages/servizi/DisinfestazioneCucine"));
+const ManutenzioneCucineIndustriali = lazy(() => import("@/pages/servizi/ManutenzioneCucineIndustriali"));
+const ImpiantiAspirazioneFumi = lazy(() => import("@/pages/servizi/ImpiantiAspirazioneFumi"));
+const InterventiElettriciCucine = lazy(() => import("@/pages/servizi/InterventiElettriciCucine"));
+const ManutenzioneImpianti = lazy(() => import("@/pages/servizi/ManutenzioneImpianti"));
+const Shop = lazy(() => import("@/pages/Shop"));
+const ShopProduct = lazy(() => import("@/pages/ShopProduct"));
+const ShopCheckout = lazy(() => import("@/pages/ShopCheckout"));
+const BlogList = lazy(() => import("@/pages/BlogList"));
+const BlogPostPage = lazy(() => import("@/pages/BlogPost"));
+const Grazie = lazy(() => import("@/pages/Grazie"));
+const AdminAuth = lazy(() => import("@/pages/admin/AdminAuth"));
+const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
+const AdminModels = lazy(() => import("@/pages/admin/AdminModels"));
+const AdminInterventions = lazy(() => import("@/pages/admin/AdminInterventions"));
+const AdminUsers = lazy(() => import("@/pages/admin/AdminUsers"));
+const AdminShop = lazy(() => import("@/pages/admin/AdminShop"));
+const AdminPartners = lazy(() => import("@/pages/admin/AdminPartners"));
+const AdminBlog = lazy(() => import("@/pages/admin/AdminBlog"));
+const AdminChatLogs = lazy(() => import("@/pages/admin/AdminChatLogs"));
+const PartnerLogin = lazy(() => import("@/pages/partner/PartnerLogin"));
+const PartnerMap = lazy(() => import("@/pages/PartnerMap"));
+const LandingPartners = lazy(() => import("@/pages/LandingPartners"));
+const PartnerDashboard = lazy(() => import("@/pages/partner/PartnerDashboard"));
+
+// Suspense wrapper for lazy pages
+const S = ({ children }: { children: ReactNode }) => (
+  <Suspense fallback={
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+    </div>
+  }>
+    {children}
+  </Suspense>
+);
 
 export interface AppRouteConfig {
   path: string;
@@ -93,95 +108,95 @@ export interface AppRouteConfig {
 
 export const appRoutes: AppRouteConfig[] = [
   { path: "/", element: <Index /> },
-  { path: "/contatti", element: <Contatti /> },
-  { path: "/interventi", element: <Interventi /> },
-  { path: "/settori", element: <Settori /> },
-  { path: "/applicazioni", element: <Applicazioni /> },
-  { path: "/modelli", element: <Modelli /> },
-  { path: "/calcolatore", element: <Calcolatore /> },
-  { path: "/servizi", element: <Servizi /> },
-  { path: "/pulizia-cucine-professionali", element: <PuliziaCucineProfessionali /> },
-  { path: "/disinfestazione-cucine", element: <DisinfestazioneCucine /> },
-  { path: "/manutenzione-cucine-industriali", element: <ManutenzioneCucineIndustriali /> },
-  { path: "/impianti-aspirazione-fumi", element: <ImpiantiAspirazioneFumi /> },
-  { path: "/interventi-elettrici-cucine", element: <InterventiElettriciCucine /> },
-  { path: "/manutenzione-impianti", element: <ManutenzioneImpianti /> },
-  { path: "/agevolazioni", element: <Agevolazioni /> },
-  { path: "/agevolazioni/industria-40", element: <Industria40 /> },
-  { path: "/agevolazioni/bando-inail-isi", element: <BandoInailIsi /> },
-  { path: "/settori/professionale", element: <Professionale /> },
-  { path: "/settori/domestico", element: <Domestico /> },
-  { path: "/settori/industriale", element: <Industriale /> },
-  { path: "/professionale/pizzerie", element: <Pizzerie /> },
-  { path: "/professionale/panifici", element: <Panifici /> },
-  { path: "/professionale/bracerie", element: <Bracerie /> },
-  { path: "/professionale/cucine-professionali", element: <CucineProfessionali /> },
-  { path: "/domestico/caldaie-biomassa", element: <CaldaieBiomassaDom /> },
-  { path: "/domestico/camini", element: <Camini /> },
-  { path: "/domestico/stufe", element: <Stufe /> },
-  { path: "/industriale/torrefazioni", element: <Torrefazioni /> },
-  { path: "/industriale/caseifici", element: <Caseifici /> },
-  { path: "/industriale/affumicatori", element: <Affumicatori /> },
-  { path: "/industriale/forni-industriali", element: <ForniIndustrialiAmbito /> },
-  { path: "/applicazioni/forni-a-legna", element: <ForniALegna /> },
-  { path: "/applicazioni/braci-carbone", element: <BraciCarbone /> },
-  { path: "/applicazioni/caldaie-biomassa", element: <CaldaieBiomassaApp /> },
-  { path: "/applicazioni/camini", element: <CaminiApp /> },
-  { path: "/applicazioni/cappe", element: <Cappe /> },
-  { path: "/applicazioni/forni-industriali", element: <ForniIndustrialiApp /> },
-  { path: "/applicazioni/torrefazioni", element: <TorrefazioniApp /> },
-  { path: "/applicazioni/affumicatori", element: <AffumicatoriApp /> },
-  { path: "/applicazioni/taglio-laser", element: <TaglioLaser /> },
-  { path: "/applicazioni/forni-elettrici", element: <ForniElettrici /> },
-  { path: "/modelli/zpz", element: <ZPZ /> },
-  { path: "/modelli/zpz-max", element: <ZPZMax /> },
-  { path: "/modelli/zpz-nuvola-l", element: <ZPZNuvolaL /> },
-  { path: "/modelli/zpz-nuvola", element: <ZPZNuvola /> },
-  { path: "/modelli/zpz-nuvola-l-elettrico", element: <ZPZNuvolaL /> },
-  { path: "/modelli/zpf", element: <ZPF /> },
-  { path: "/modelli/zpf-max", element: <ZPFMax /> },
-  { path: "/modelli/zbr-s", element: <ZBRS /> },
-  { path: "/modelli/zbr-max", element: <ZBRMax /> },
-  { path: "/modelli/zgr", element: <ZGR /> },
-  { path: "/modelli/zgr-max", element: <ZGRMax /> },
-  { path: "/modelli/destink", element: <Destink /> },
-  { path: "/modelli/destink-max", element: <DestinkMax /> },
-  { path: "/modelli/destink-ultra", element: <DestinkUltra /> },
-  { path: "/modelli/destink-ultra-max", element: <DestinkUltraMax /> },
-  { path: "/modelli/zcl", element: <ZCL /> },
-  { path: "/modelli/zcl-max", element: <ZCLMax /> },
-  { path: "/modelli/zcl-max-res", element: <ZCLMax /> },
-  { path: "/modelli/zcl-ind", element: <ZCL /> },
-  { path: "/modelli/zcl-max-ind", element: <ZCLMax /> },
-  { path: "/modelli/zcm", element: <ZCM /> },
-  { path: "/modelli/z-max", element: <ZMax /> },
-  { path: "/modelli/ztrf", element: <ZTRF /> },
-  { path: "/modelli/ztrf-max", element: <ZTRFMax /> },
-  { path: "/modelli/ztrf-max-desk", element: <ZTRFMaxDesk /> },
-  { path: "/modelli/zaf", element: <ZAF /> },
-  { path: "/modelli/zaf-max", element: <ZAFMax /> },
-  { path: "/modelli/ztgl", element: <ZTGL /> },
-  { path: "/modelli/ztgl-max", element: <ZTGLMax /> },
-  { path: "/modelli/ztgl-max-ultra", element: <ZTGLMaxUltra /> },
-  { path: "/blog", element: <BlogList /> },
-  { path: "/blog/:slug", element: <BlogPostPage /> },
-  { path: "/shop", element: <Shop /> },
-  { path: "/shop/product/:handle", element: <ShopProduct /> },
-  { path: "/shop/checkout", element: <ShopCheckout /> },
-  { path: "/admin/auth", element: <AdminAuth /> },
-  { path: "/admin", element: <AdminDashboard /> },
-  { path: "/admin/models", element: <AdminModels /> },
-  { path: "/admin/interventions", element: <AdminInterventions /> },
-  { path: "/admin/users", element: <AdminUsers /> },
-  { path: "/admin/shop", element: <AdminShop /> },
-  { path: "/admin/partners", element: <AdminPartners /> },
-  { path: "/admin/blog", element: <AdminBlog /> },
-  { path: "/admin/chat-logs", element: <AdminChatLogs /> },
-  { path: "/partners", element: <PartnerMap /> },
-  { path: "/landing-partners", element: <LandingPartners /> },
-  { path: "/partner", element: <PartnerLogin /> },
-  { path: "/partner/dashboard", element: <PartnerDashboard /> },
-  { path: "/grazie", element: <Grazie /> },
+  { path: "/contatti", element: <S><Contatti /></S> },
+  { path: "/interventi", element: <S><Interventi /></S> },
+  { path: "/settori", element: <S><Settori /></S> },
+  { path: "/applicazioni", element: <S><Applicazioni /></S> },
+  { path: "/modelli", element: <S><Modelli /></S> },
+  { path: "/calcolatore", element: <S><Calcolatore /></S> },
+  { path: "/servizi", element: <S><Servizi /></S> },
+  { path: "/pulizia-cucine-professionali", element: <S><PuliziaCucineProfessionali /></S> },
+  { path: "/disinfestazione-cucine", element: <S><DisinfestazioneCucine /></S> },
+  { path: "/manutenzione-cucine-industriali", element: <S><ManutenzioneCucineIndustriali /></S> },
+  { path: "/impianti-aspirazione-fumi", element: <S><ImpiantiAspirazioneFumi /></S> },
+  { path: "/interventi-elettrici-cucine", element: <S><InterventiElettriciCucine /></S> },
+  { path: "/manutenzione-impianti", element: <S><ManutenzioneImpianti /></S> },
+  { path: "/agevolazioni", element: <S><Agevolazioni /></S> },
+  { path: "/agevolazioni/industria-40", element: <S><Industria40 /></S> },
+  { path: "/agevolazioni/bando-inail-isi", element: <S><BandoInailIsi /></S> },
+  { path: "/settori/professionale", element: <S><Professionale /></S> },
+  { path: "/settori/domestico", element: <S><Domestico /></S> },
+  { path: "/settori/industriale", element: <S><Industriale /></S> },
+  { path: "/professionale/pizzerie", element: <S><Pizzerie /></S> },
+  { path: "/professionale/panifici", element: <S><Panifici /></S> },
+  { path: "/professionale/bracerie", element: <S><Bracerie /></S> },
+  { path: "/professionale/cucine-professionali", element: <S><CucineProfessionali /></S> },
+  { path: "/domestico/caldaie-biomassa", element: <S><CaldaieBiomassaDom /></S> },
+  { path: "/domestico/camini", element: <S><Camini /></S> },
+  { path: "/domestico/stufe", element: <S><Stufe /></S> },
+  { path: "/industriale/torrefazioni", element: <S><Torrefazioni /></S> },
+  { path: "/industriale/caseifici", element: <S><Caseifici /></S> },
+  { path: "/industriale/affumicatori", element: <S><Affumicatori /></S> },
+  { path: "/industriale/forni-industriali", element: <S><ForniIndustrialiAmbito /></S> },
+  { path: "/applicazioni/forni-a-legna", element: <S><ForniALegna /></S> },
+  { path: "/applicazioni/braci-carbone", element: <S><BraciCarbone /></S> },
+  { path: "/applicazioni/caldaie-biomassa", element: <S><CaldaieBiomassaApp /></S> },
+  { path: "/applicazioni/camini", element: <S><CaminiApp /></S> },
+  { path: "/applicazioni/cappe", element: <S><Cappe /></S> },
+  { path: "/applicazioni/forni-industriali", element: <S><ForniIndustrialiApp /></S> },
+  { path: "/applicazioni/torrefazioni", element: <S><TorrefazioniApp /></S> },
+  { path: "/applicazioni/affumicatori", element: <S><AffumicatoriApp /></S> },
+  { path: "/applicazioni/taglio-laser", element: <S><TaglioLaser /></S> },
+  { path: "/applicazioni/forni-elettrici", element: <S><ForniElettrici /></S> },
+  { path: "/modelli/zpz", element: <S><ZPZ /></S> },
+  { path: "/modelli/zpz-max", element: <S><ZPZMax /></S> },
+  { path: "/modelli/zpz-nuvola-l", element: <S><ZPZNuvolaL /></S> },
+  { path: "/modelli/zpz-nuvola", element: <S><ZPZNuvola /></S> },
+  { path: "/modelli/zpz-nuvola-l-elettrico", element: <S><ZPZNuvolaL /></S> },
+  { path: "/modelli/zpf", element: <S><ZPF /></S> },
+  { path: "/modelli/zpf-max", element: <S><ZPFMax /></S> },
+  { path: "/modelli/zbr-s", element: <S><ZBRS /></S> },
+  { path: "/modelli/zbr-max", element: <S><ZBRMax /></S> },
+  { path: "/modelli/zgr", element: <S><ZGR /></S> },
+  { path: "/modelli/zgr-max", element: <S><ZGRMax /></S> },
+  { path: "/modelli/destink", element: <S><Destink /></S> },
+  { path: "/modelli/destink-max", element: <S><DestinkMax /></S> },
+  { path: "/modelli/destink-ultra", element: <S><DestinkUltra /></S> },
+  { path: "/modelli/destink-ultra-max", element: <S><DestinkUltraMax /></S> },
+  { path: "/modelli/zcl", element: <S><ZCL /></S> },
+  { path: "/modelli/zcl-max", element: <S><ZCLMax /></S> },
+  { path: "/modelli/zcl-max-res", element: <S><ZCLMax /></S> },
+  { path: "/modelli/zcl-ind", element: <S><ZCL /></S> },
+  { path: "/modelli/zcl-max-ind", element: <S><ZCLMax /></S> },
+  { path: "/modelli/zcm", element: <S><ZCM /></S> },
+  { path: "/modelli/z-max", element: <S><ZMax /></S> },
+  { path: "/modelli/ztrf", element: <S><ZTRF /></S> },
+  { path: "/modelli/ztrf-max", element: <S><ZTRFMax /></S> },
+  { path: "/modelli/ztrf-max-desk", element: <S><ZTRFMaxDesk /></S> },
+  { path: "/modelli/zaf", element: <S><ZAF /></S> },
+  { path: "/modelli/zaf-max", element: <S><ZAFMax /></S> },
+  { path: "/modelli/ztgl", element: <S><ZTGL /></S> },
+  { path: "/modelli/ztgl-max", element: <S><ZTGLMax /></S> },
+  { path: "/modelli/ztgl-max-ultra", element: <S><ZTGLMaxUltra /></S> },
+  { path: "/blog", element: <S><BlogList /></S> },
+  { path: "/blog/:slug", element: <S><BlogPostPage /></S> },
+  { path: "/shop", element: <S><Shop /></S> },
+  { path: "/shop/product/:handle", element: <S><ShopProduct /></S> },
+  { path: "/shop/checkout", element: <S><ShopCheckout /></S> },
+  { path: "/admin/auth", element: <S><AdminAuth /></S> },
+  { path: "/admin", element: <S><AdminDashboard /></S> },
+  { path: "/admin/models", element: <S><AdminModels /></S> },
+  { path: "/admin/interventions", element: <S><AdminInterventions /></S> },
+  { path: "/admin/users", element: <S><AdminUsers /></S> },
+  { path: "/admin/shop", element: <S><AdminShop /></S> },
+  { path: "/admin/partners", element: <S><AdminPartners /></S> },
+  { path: "/admin/blog", element: <S><AdminBlog /></S> },
+  { path: "/admin/chat-logs", element: <S><AdminChatLogs /></S> },
+  { path: "/partners", element: <S><PartnerMap /></S> },
+  { path: "/landing-partners", element: <S><LandingPartners /></S> },
+  { path: "/partner", element: <S><PartnerLogin /></S> },
+  { path: "/partner/dashboard", element: <S><PartnerDashboard /></S> },
+  { path: "/grazie", element: <S><Grazie /></S> },
 ];
 
 export const getLocalizedRoutePath = (path: string) => (path === "/" ? "/:lang" : `/:lang${path}`);
