@@ -1,6 +1,6 @@
-import { Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import trustpilotRating from "@/assets/trustpilot-rating.webp";
+import trustpilotBadge from "@/assets/trustpilot-badge.png";
 import review1 from "@/assets/trustpilot-review-1.webp";
 import review2 from "@/assets/trustpilot-review-2.webp";
 import review3 from "@/assets/trustpilot-review-3.webp";
@@ -25,7 +25,13 @@ const TrustpilotSection = () => {
           <p className="text-muted-foreground text-sm sm:text-base">{t("trustpilot.excellentRating", { percent: 95 })}</p>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {/* Badge Trustpilot */}
+          <div className="flex items-center justify-center bg-card rounded-lg sm:rounded-xl shadow-sm border border-border p-6 md:col-span-1 lg:row-span-2 animate-fade-in-up">
+            <img src={trustpilotBadge} alt="Trustpilot 4.8 Eccellente" className="w-32 sm:w-40" loading="lazy" />
+          </div>
+
+          {/* Recensioni */}
           {reviewScreenshots.map((src, index) => (
             <div key={index} className="bg-card rounded-lg sm:rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-md transition-shadow animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
               <img src={src} alt={t("trustpilot.reviewAlt", { index: index + 1 })} className="w-full h-auto" loading="lazy" />
