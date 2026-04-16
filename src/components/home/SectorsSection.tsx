@@ -93,7 +93,7 @@ const SectorsSection = () => {
                 </div>
                 <Button variant="sector-card" className="w-full sm:w-auto" asChild>
                   <Link to={sector.href}>
-                    {t(`sectors.${sector.id}.cta`)}
+                    {t(`sectors.${sector.id === 'professionale' ? 'professional' : sector.id === 'domestico' ? 'domestic' : 'industrial'}.cta`)}
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </Button>
