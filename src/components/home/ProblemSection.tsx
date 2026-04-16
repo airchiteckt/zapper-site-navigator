@@ -1,4 +1,4 @@
-import { AlertTriangle, CloudOff, Users, FileWarning, TrendingDown, Ban } from "lucide-react";
+import { CloudOff, Users, FileWarning, Ban } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import problemBg from "@/assets/problem-bg.webp";
 
@@ -9,9 +9,7 @@ const ProblemSection = () => {
     { icon: CloudOff, title: t("problem.visibleSmoke"), description: t("problem.visibleSmokeDesc") },
     { icon: Users, title: t("problem.neighborComplaints"), description: t("problem.neighborComplaintsDesc") },
     { icon: FileWarning, title: t("problem.aslControls"), description: t("problem.aslControlsDesc") },
-    { icon: TrendingDown, title: t("problem.reputationDamage"), description: t("problem.reputationDamageDesc") },
     { icon: Ban, title: t("problem.fines"), description: t("problem.finesDesc") },
-    { icon: AlertTriangle, title: t("problem.closureRisk"), description: t("problem.closureRiskDesc") },
   ];
 
   return (
@@ -41,7 +39,7 @@ const ProblemSection = () => {
               </div>
             </div>
           </div>
-          <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:gap-4 grid-cols-2">
             {problems.map((problem, index) => (
               <div key={problem.title} className={`group p-4 sm:p-5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20 hover:border-primary/30 hover:bg-white/15 transition-all duration-300 animate-fade-in-up animation-delay-${(index + 1) * 100}`}>
                 <div className="w-9 h-9 sm:w-10 sm:h-10 bg-primary/20 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/30 transition-colors">
