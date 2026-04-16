@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,8 +13,10 @@ import { CartProvider } from "@/contexts/CartContext";
 import { useCartSync } from "@/hooks/useCartSync";
 import NotFound from "./pages/NotFound";
 import { appRoutes, getLocalizedRoutePath } from "@/routes/appRoutes";
-import AIChatWidget from "./components/chat/AIChatWidget";
-import ExitIntentPopup from "./components/ExitIntentPopup";
+
+// Lazy load non-critical global widgets
+const AIChatWidget = lazy(() => import("./components/chat/AIChatWidget"));
+const ExitIntentPopup = lazy(() => import("./components/ExitIntentPopup"));
 
 const queryClient = new QueryClient();
 
@@ -49,8 +52,10 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-          <AIChatWidget />
-          <ExitIntentPopup />
+          <Suspense fallback={null}>
+            <AIChatWidget />
+            <ExitIntentPopup />
+          </Suspense>
           
           </CartSyncWrapper>
           </CartProvider>

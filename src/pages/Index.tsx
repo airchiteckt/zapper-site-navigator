@@ -1,21 +1,24 @@
+import { lazy, Suspense } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
-import SectorsSection from "@/components/home/SectorsSection";
 import ClientLogos from "@/components/home/ClientLogos";
-import ProblemSection from "@/components/home/ProblemSection";
-import HowItWorksSection from "@/components/home/HowItWorksSection";
-import SelfDiscoverySection from "@/components/home/SelfDiscoverySection";
-import IncentivesCarousel from "@/components/home/IncentivesCarousel";
-import CaseStudyTeaser from "@/components/home/CaseStudyTeaser";
-import TrustpilotSection from "@/components/home/TrustpilotSection";
-import CTASection from "@/components/home/CTASection";
-import BlogSection from "@/components/home/BlogSection";
-import IndustrialSection from "@/components/home/IndustrialSection";
-import ProfessionalSection from "@/components/home/ProfessionalSection";
-import UTASection from "@/components/home/UTASection";
 import SEO from "@/components/SEO";
 import { OrganizationSchema, LocalBusinessSchema } from "@/components/StructuredData";
+
+// Lazy load below-the-fold sections
+const ProblemSection = lazy(() => import("@/components/home/ProblemSection"));
+const SectorsSection = lazy(() => import("@/components/home/SectorsSection"));
+const HowItWorksSection = lazy(() => import("@/components/home/HowItWorksSection"));
+const ProfessionalSection = lazy(() => import("@/components/home/ProfessionalSection"));
+const UTASection = lazy(() => import("@/components/home/UTASection"));
+const IndustrialSection = lazy(() => import("@/components/home/IndustrialSection"));
+const SelfDiscoverySection = lazy(() => import("@/components/home/SelfDiscoverySection"));
+const IncentivesCarousel = lazy(() => import("@/components/home/IncentivesCarousel"));
+const CaseStudyTeaser = lazy(() => import("@/components/home/CaseStudyTeaser"));
+const TrustpilotSection = lazy(() => import("@/components/home/TrustpilotSection"));
+const BlogSection = lazy(() => import("@/components/home/BlogSection"));
+const CTASection = lazy(() => import("@/components/home/CTASection"));
 
 const Index = () => {
   return (
@@ -31,18 +34,20 @@ const Index = () => {
       <main>
         <HeroSection />
         <ClientLogos />
-        <ProblemSection />
-        <SectorsSection />
-        <HowItWorksSection />
-        <ProfessionalSection />
-        <UTASection />
-        <IndustrialSection />
-        <SelfDiscoverySection />
-        <IncentivesCarousel />
-        <CaseStudyTeaser />
-        <TrustpilotSection />
-        <BlogSection />
-        <CTASection />
+        <Suspense fallback={null}>
+          <ProblemSection />
+          <SectorsSection />
+          <HowItWorksSection />
+          <ProfessionalSection />
+          <UTASection />
+          <IndustrialSection />
+          <SelfDiscoverySection />
+          <IncentivesCarousel />
+          <CaseStudyTeaser />
+          <TrustpilotSection />
+          <BlogSection />
+          <CTASection />
+        </Suspense>
       </main>
       <Footer />
     </div>
