@@ -107,42 +107,49 @@ function buildNotificationEmailHtml(data: ContactData): string {
 }
 
 export async function sendContactEmails(data: ContactData): Promise<{ success: boolean }> {
-  if (!data.email || !data.email.includes('@')) {
-    console.error('sendContactEmails: invalid email', data.email);
-    return { success: false };
-  }
+  const hasValidEmail = data.email && data.email.includes('@') && data.email !== 'non fornita';
 
   try {
-    // Send welcome email to client
-    const welcomePromise = supabase.functions.invoke('send-email', {
-      body: {
-        to: data.email,
-        subject: 'Grazie per averci contattato — ZAPPER®',
-        html: buildWelcomeEmailHtml(data),
-        from: 'ZAPPER® <info@email.smokezapper.it>',
-        replyTo: 'info@smokezapper.it',
-      },
-    });
+    const promises: Promise<any>[] = [];
 
-    // Send notification to company
-    const notifyPromise = supabase.functions.invoke('send-email', {
-      body: {
-        to: 'info@smokezapper.it',
-        subject: `Nuovo contatto: ${data.name || data.email} — ${data.source}`,
-        html: buildNotificationEmailHtml(data),
-        from: 'ZAPPER® <info@email.smokezapper.it>',
-        replyTo: 'info@smokezapper.it',
-      },
-    });
+    // Send welcome email to client only if valid email
+    if (hasValidEmail) {
+      promises.push(
+        supabase.functions.invoke('send-email', {
+          body: {
+            to: data.email,
+            subject: 'Grazie per averci contattato — ZAPPER®',
+            html: buildWelcomeEmailHtml(data),
+            from: 'ZAPPER® <info@email.smokezapper.it>',
+            replyTo: 'info@smokezapper.it',
+          },
+        }).then(res => {
+          if (res.error) console.error('Welcome email error:', res.error);
+          else console.log('Welcome email result:', JSON.stringify(res.data));
+          return res;
+        })
+      );
+    }
 
-    const [welcomeRes, notifyRes] = await Promise.all([welcomePromise, notifyPromise]);
+    // Always send notification to company
+    promises.push(
+      supabase.functions.invoke('send-email', {
+        body: {
+          to: 'info@smokezapper.it',
+          subject: `Nuovo contatto: ${data.name || data.phone || data.email} — ${data.source}`,
+          html: buildNotificationEmailHtml(data),
+          from: 'ZAPPER® <info@email.smokezapper.it>',
+          replyTo: 'info@smokezapper.it',
+        },
+      }).then(res => {
+        if (res.error) console.error('Notification email error:', res.error);
+        else console.log('Notification email result:', JSON.stringify(res.data));
+        return res;
+      })
+    );
 
-    if (welcomeRes.error) console.error('Welcome email error:', welcomeRes.error);
-    if (notifyRes.error) console.error('Notification email error:', notifyRes.error);
-    console.log('Welcome email result:', JSON.stringify(welcomeRes.data));
-    console.log('Notification email result:', JSON.stringify(notifyRes.data));
-
-    return { success: !welcomeRes.error && !notifyRes.error };
+    const results = await Promise.all(promises);
+    return { success: results.every(r => !r.error) };
   } catch (error) {
     console.error('Email sending failed:', error);
     return { success: false };
