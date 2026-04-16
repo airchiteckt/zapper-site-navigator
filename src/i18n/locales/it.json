@@ -89,9 +89,12 @@
     "finesDesc": "Multe fino a €5.000 per mancato rispetto delle normative sulle emissioni.",
     "closureRisk": "Rischio chiusura",
     "closureRiskDesc": "In casi gravi, le autorità possono ordinare la cessazione dell'attività.",
-    "stat1": "Attività con problemi di fumi",
-    "stat2": "Multa media per violazione",
-    "stat3": "Rischiano la chiusura"
+    "stat1Value": "Fino al 70%",
+    "stat1": "delle attività ha problemi di fumi",
+    "stat2Value": "Fino a €5k",
+    "stat2": "di sanzione per violazione",
+    "stat3Value": "1 su 3",
+    "stat3": "rischia provvedimenti"
   },
   "howItWorks": {
     "label": "Come funziona",

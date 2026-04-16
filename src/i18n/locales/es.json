@@ -87,9 +87,12 @@
     "finesDesc": "Multas de hasta 5.000 € por incumplimiento de las normativas de emisiones.",
     "closureRisk": "Riesgo de cierre",
     "closureRiskDesc": "En casos graves, las autoridades pueden ordenar el cese de la actividad.",
-    "stat1": "Negocios con problemas de humo",
-    "stat2": "Multa media por infracción",
-    "stat3": "Arriesgan el cierre"
+    "stat1Value": "Hasta el 70%",
+    "stat1": "de los negocios tiene problemas de humo",
+    "stat2Value": "Hasta 5k€",
+    "stat2": "de multa por infracción",
+    "stat3Value": "1 de 3",
+    "stat3": "arriesga sanciones"
   },
   "howItWorks": {
     "label": "Cómo funciona",

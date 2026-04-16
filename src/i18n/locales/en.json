@@ -87,9 +87,12 @@
     "finesDesc": "Fines up to €5,000 for non-compliance with emission regulations.",
     "closureRisk": "Closure risk",
     "closureRiskDesc": "In severe cases, authorities can order the cessation of business activities.",
-    "stat1": "Businesses with smoke problems",
-    "stat2": "Average fine per violation",
-    "stat3": "Risk closure"
+    "stat1Value": "Up to 70%",
+    "stat1": "of businesses face smoke issues",
+    "stat2Value": "Up to €5k",
+    "stat2": "in fines per violation",
+    "stat3Value": "1 in 3",
+    "stat3": "risk enforcement action"
   },
   "howItWorks": {
     "label": "How it works",

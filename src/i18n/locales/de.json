@@ -87,9 +87,12 @@
     "finesDesc": "Bußgelder bis zu 5.000 € bei Nichteinhaltung der Emissionsvorschriften.",
     "closureRisk": "Schließungsrisiko",
     "closureRiskDesc": "In schweren Fällen können die Behörden die Einstellung der Geschäftstätigkeit anordnen.",
-    "stat1": "Betriebe mit Rauchproblemen",
-    "stat2": "Durchschnittliches Bußgeld pro Verstoß",
-    "stat3": "Droht die Schließung"
+    "stat1Value": "Bis zu 70%",
+    "stat1": "der Betriebe haben Rauchprobleme",
+    "stat2Value": "Bis zu 5k€",
+    "stat2": "Bußgeld pro Verstoß",
+    "stat3Value": "1 von 3",
+    "stat3": "riskiert Maßnahmen"
   },
   "howItWorks": {
     "label": "So funktioniert es",

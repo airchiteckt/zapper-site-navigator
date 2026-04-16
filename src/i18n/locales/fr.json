@@ -87,9 +87,12 @@
     "finesDesc": "Amendes jusqu'à 5 000 € pour non-respect des réglementations sur les émissions.",
     "closureRisk": "Risque de fermeture",
     "closureRiskDesc": "Dans les cas graves, les autorités peuvent ordonner la cessation de l'activité.",
-    "stat1": "Entreprises avec des problèmes de fumée",
-    "stat2": "Amende moyenne par infraction",
-    "stat3": "Risquent la fermeture"
+    "stat1Value": "Jusqu'à 70%",
+    "stat1": "des établissements ont des problèmes de fumée",
+    "stat2Value": "Jusqu'à 5k€",
+    "stat2": "d'amende par infraction",
+    "stat3Value": "1 sur 3",
+    "stat3": "risque des sanctions"
   },
   "howItWorks": {
     "label": "Comment ça marche",
