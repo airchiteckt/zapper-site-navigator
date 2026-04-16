@@ -39,7 +39,8 @@
         "Asadores",
         "Cocinas profesionales"
       ],
-      "pain": "🔥 Hollín en muros y balcones, olores de cocina molestos, vecinos enfadados"
+      "pain": "🔥 Hollín en muros y balcones, olores de cocina molestos, vecinos enfadados",
+      "cta": "Soluciones para restauración"
     },
     "domestic": {
       "title": "Doméstico",
@@ -51,7 +52,8 @@
         "Barbacoas",
         "Hornos de jardín"
       ],
-      "pain": "💨 Humo negro de la chimenea, olor a quemado en casa, quejas de los vecinos"
+      "pain": "💨 Humo negro de la chimenea, olor a quemado en casa, quejas de los vecinos",
+      "cta": "Descubre para uso doméstico"
     },
     "industrial": {
       "title": "Industrial",
@@ -63,7 +65,8 @@
         "Ahumaderos",
         "Hornos industriales"
       ],
-      "pain": "🏭 Emisiones fuera de norma, polvo, olores persistentes"
+      "pain": "🏭 Emisiones fuera de norma, polvo, olores persistentes",
+      "cta": "Soluciones industriales"
     },
     "discoverSolutions": "Resolver el problema"
   },

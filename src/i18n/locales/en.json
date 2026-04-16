@@ -39,7 +39,8 @@
         "Grill houses",
         "Professional kitchens"
       ],
-      "pain": "🔥 Soot on walls and balconies, cooking odours disturbing neighbours, complaints"
+      "pain": "🔥 Soot on walls and balconies, cooking odours disturbing neighbours, complaints",
+      "cta": "Solutions for restaurants"
     },
     "domestic": {
       "title": "Domestic",
@@ -51,7 +52,8 @@
         "Barbecues",
         "Garden ovens"
       ],
-      "pain": "💨 Black smoke from the chimney, burning smell indoors, neighbour complaints"
+      "pain": "💨 Black smoke from the chimney, burning smell indoors, neighbour complaints",
+      "cta": "Discover for home use"
     },
     "industrial": {
       "title": "Industrial",
@@ -63,7 +65,8 @@
         "Smokehouses",
         "Industrial furnaces"
       ],
-      "pain": "🏭 Out-of-spec emissions, dust, persistent odours"
+      "pain": "🏭 Out-of-spec emissions, dust, persistent odours",
+      "cta": "Industrial solutions"
     },
     "discoverSolutions": "Solve the problem"
   },
