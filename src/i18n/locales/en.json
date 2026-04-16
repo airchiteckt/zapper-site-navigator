@@ -68,7 +68,8 @@
       "pain": "🏭 Out-of-spec emissions, dust, persistent odours",
       "cta": "Industrial solutions"
     },
-    "discoverSolutions": "Solve the problem"
+    "discoverSolutions": "Solve the problem",
+    "fiscalBadge": "Financeable up to 65% non-repayable"
   },
   "clients": {
     "label": "Trusted by over 1500+ businesses in Italy and worldwide"
@@ -610,5 +611,25 @@
     "whatsappPrompt": "Want a faster response?",
     "whatsappButton": "Message us on WhatsApp",
     "backHome": "Back to Homepage"
+  },
+  "trustBar": {
+    "satisfied": "2,500+ satisfied businesses",
+    "warranty": "5-year warranty",
+    "install": "Installation in 1 day"
+  },
+  "formFinale": {
+    "title": "Find out if ZAPPER® is right for you",
+    "subtitle": "Answer 2 questions and we'll contact you within 48h.",
+    "sectorQuestion": "What sector do you work in?",
+    "problemQuestion": "What is the main problem?",
+    "contactQuestion": "How can we contact you?",
+    "problemSmoke": "Visible smoke from the chimney",
+    "problemOdor": "Annoying odors for neighbors",
+    "problemFines": "Fines or health inspections",
+    "problemOther": "Other problem",
+    "namePlaceholder": "Your name",
+    "phonePlaceholder": "Your phone number",
+    "submit": "Request free assessment",
+    "preferCall": "Prefer to speak with a technician?"
   }
 }

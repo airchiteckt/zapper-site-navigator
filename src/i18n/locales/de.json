@@ -68,7 +68,8 @@
       "pain": "🏭 Emissionen außerhalb der Norm, Staub, hartnäckige Gerüche",
       "cta": "Industrielle Lösungen"
     },
-    "discoverSolutions": "Problem lösen"
+    "discoverSolutions": "Problem lösen",
+    "fiscalBadge": "Bis zu 65% als verlorener Zuschuss finanzierbar"
   },
   "clients": {
     "label": "Vertraut von über 1500+ Unternehmen in Italien und weltweit"
@@ -610,5 +611,25 @@
     "whatsappPrompt": "Möchten Sie eine schnellere Antwort?",
     "whatsappButton": "Schreiben Sie uns auf WhatsApp",
     "backHome": "Zurück zur Startseite"
+  },
+  "trustBar": {
+    "satisfied": "2.500+ zufriedene Betriebe",
+    "warranty": "5 Jahre Garantie",
+    "install": "Installation in 1 Tag"
+  },
+  "formFinale": {
+    "title": "Finden Sie heraus, ob ZAPPER® zu Ihnen passt",
+    "subtitle": "Beantworten Sie 2 Fragen und wir kontaktieren Sie innerhalb von 48h.",
+    "sectorQuestion": "In welchem Bereich arbeiten Sie?",
+    "problemQuestion": "Was ist das Hauptproblem?",
+    "contactQuestion": "Wie können wir Sie kontaktieren?",
+    "problemSmoke": "Sichtbarer Rauch aus dem Kamin",
+    "problemOdor": "Störende Gerüche für die Nachbarn",
+    "problemFines": "Bußgelder oder Gesundheitskontrollen",
+    "problemOther": "Anderes Problem",
+    "namePlaceholder": "Ihr Name",
+    "phonePlaceholder": "Ihre Telefonnummer",
+    "submit": "Kostenlose Bewertung anfordern",
+    "preferCall": "Lieber mit einem Techniker sprechen?"
   }
 }

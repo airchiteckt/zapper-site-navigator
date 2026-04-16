@@ -68,7 +68,8 @@
       "pain": "🏭 Émissions hors norme, poussières, odeurs persistantes",
       "cta": "Solutions industrielles"
     },
-    "discoverSolutions": "Résoudre le problème"
+    "discoverSolutions": "Résoudre le problème",
+    "fiscalBadge": "Finançable jusqu'à 65% à fonds perdus"
   },
   "clients": {
     "label": "Choisi par plus de 1500 entreprises en Italie et dans le monde"
@@ -610,5 +611,25 @@
     "whatsappPrompt": "Vous souhaitez une réponse plus rapide ?",
     "whatsappButton": "Écrivez-nous sur WhatsApp",
     "backHome": "Retour à l'accueil"
+  },
+  "trustBar": {
+    "satisfied": "2 500+ activités satisfaites",
+    "warranty": "Garantie 5 ans",
+    "install": "Installation en 1 jour"
+  },
+  "formFinale": {
+    "title": "Découvrez si ZAPPER® est fait pour vous",
+    "subtitle": "Répondez à 2 questions et nous vous recontactons sous 48h.",
+    "sectorQuestion": "Dans quel secteur travaillez-vous ?",
+    "problemQuestion": "Quel est le problème principal ?",
+    "contactQuestion": "Comment pouvons-nous vous contacter ?",
+    "problemSmoke": "Fumées visibles de la cheminée",
+    "problemOdor": "Odeurs gênantes pour les voisins",
+    "problemFines": "Amendes ou contrôles sanitaires",
+    "problemOther": "Autre problème",
+    "namePlaceholder": "Votre nom",
+    "phonePlaceholder": "Votre numéro de téléphone",
+    "submit": "Demander une évaluation gratuite",
+    "preferCall": "Vous préférez parler à un technicien ?"
   }
 }
