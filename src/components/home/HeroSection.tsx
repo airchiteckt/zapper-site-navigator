@@ -48,7 +48,7 @@ const HeroSection = () => {
             {/* CTA Primary */}
             <div className="flex flex-col items-center lg:items-start gap-3 animate-fade-in-up animation-delay-300">
               <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
-                <Link to="/contatti">
+                <Link to="/scopri">
                   {t("hero.cta")}
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </Link>
