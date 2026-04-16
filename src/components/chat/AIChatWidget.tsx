@@ -102,6 +102,67 @@ const LEAD_GATE_THANKS: Record<string, string> = {
   es: "¡Gracias! Ahora podemos continuar tu consulta técnica personalizada 🚀",
 };
 
+/* ─── Mobile draggable FAB ─── */
+function MobileDraggableFAB({ lang, showBubble, onOpen }: { lang: string; showBubble: boolean; onOpen: () => void }) {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef<{ x: number; y: number; startX: number; startY: number } | null>(null);
+  const moved = useRef(false);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const t = e.touches[0];
+    dragStart.current = { x: pos.x, y: pos.y, startX: t.clientX, startY: t.clientY };
+    moved.current = false;
+  }, [pos]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!dragStart.current) return;
+    const t = e.touches[0];
+    const dx = t.clientX - dragStart.current.startX;
+    const dy = t.clientY - dragStart.current.startY;
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+      moved.current = true;
+      setDragging(true);
+    }
+    setPos({ x: dragStart.current.x + dx, y: dragStart.current.y + dy });
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    setDragging(false);
+    if (!moved.current) onOpen();
+    dragStart.current = null;
+  }, [onOpen]);
+
+  return (
+    <div
+      className="fixed z-50 flex items-center gap-2 md:hidden"
+      style={{
+        bottom: `calc(4.5rem + ${-pos.y}px)`,
+        right: `calc(1rem + ${-pos.x}px)`,
+        transition: dragging ? "none" : "transform 0.2s ease",
+      }}
+    >
+      {showBubble && !dragging && (
+        <button
+          onClick={onOpen}
+          className="bg-card text-foreground text-sm font-medium px-4 py-2 rounded-full shadow-lg border border-border animate-fade-in whitespace-nowrap"
+        >
+          {MOBILE_BUBBLE[lang] || MOBILE_BUBBLE.it}
+        </button>
+      )}
+      <button
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className={`w-12 h-12 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center relative ${dragging ? "scale-110" : ""} transition-transform`}
+        aria-label="Apri assistente AI"
+      >
+        <MessageCircle className="w-5 h-5" />
+      </button>
+    </div>
+  );
+}
+
 /* ─── Inline lead gate form ─── */
 function LeadGateForm({ lang, onSubmit }: { lang: string; onSubmit: (name: string, phone: string) => void }) {
   const [name, setName] = useState("");
