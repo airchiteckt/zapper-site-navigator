@@ -36,9 +36,18 @@ const HeroSection = () => {
             </p>
 
             {/* Context */}
-            <p className="text-base sm:text-lg text-white/60 mb-8 sm:mb-10 max-w-lg mx-auto lg:mx-0 animate-fade-in-up animation-delay-100">
-              {t("hero.description")}
+            <p className="text-base sm:text-lg text-white/60 mb-4 sm:mb-5 max-w-lg mx-auto lg:mx-0 animate-fade-in-up animation-delay-100">
+              Abbattitori di fuliggine e odori per:
             </p>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8 sm:mb-10 animate-fade-in-up animation-delay-100">
+              {["Forni a legna", "Braci a carbone", "Caldaie biomassa", "Camini e stufe", "Cappe cucina", "Forni elettrici", "Forni a gas", "Forni industriali", "Altri impianti"].map((tag) => (
+                <span key={tag} className="px-3 py-1 rounded-full border border-white/20 text-white/70 text-xs sm:text-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
 
             {/* Social Proof */}
             <div className="flex items-center gap-3 justify-center lg:justify-start mb-5 sm:mb-6 animate-fade-in-up animation-delay-200">
