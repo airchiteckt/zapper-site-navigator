@@ -477,7 +477,38 @@ export default function ForniALegna() {
           </div>
         </section>
 
-        {/* ═══ 7. URGENZA + CTA FINALE con form inline ═══ */}
+        {/* ═══ 7. DIVENTA PARTNER ═══ */}
+        <section className="py-12 md:py-16 bg-muted/30 border-y border-border">
+          <div className="container">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-5">
+                <Wrench className="w-4 h-4" />
+                Per installatori e rivenditori
+              </div>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-3">
+                Diventa Partner ZAPPER®
+              </h2>
+              <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                Sei un installatore di cappe o canne fumarie? Un rivenditore di attrezzature per la ristorazione? 
+                Entra nella rete ZAPPER® e offri ai tuoi clienti una soluzione che funziona davvero.
+              </p>
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-foreground/80 mb-8">
+                <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-primary" /> Listino riservato</span>
+                <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-primary" /> Formazione tecnica</span>
+                <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-primary" /> Supporto commerciale</span>
+                <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-primary" /> Area partner dedicata</span>
+              </div>
+              <Button variant="outline" size="lg" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Link to="/landing-partners">
+                  Scopri il programma partner
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ 8. URGENZA + CTA FINALE con form inline ═══ */}
         <section className="py-16 md:py-24 bg-zapper-black">
           <div className="container">
             {/* Urgency banner */}
