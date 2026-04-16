@@ -1,17 +1,6 @@
-import { useState, useEffect } from "react";
-import { Phone, Mail, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, MessagesSquare } from "lucide-react";
 
 const StickyBottomCTA = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  if (!visible) return null;
-
   const buttons = [
     {
       icon: Phone,
@@ -20,9 +9,9 @@ const StickyBottomCTA = () => {
       className: "bg-primary text-primary-foreground",
     },
     {
-      icon: Mail,
-      label: "Email",
-      href: "mailto:info@smokezapper.it",
+      icon: MessagesSquare,
+      label: "Live Chat",
+      onClick: () => window.dispatchEvent(new Event("open-zapper-chat")),
       className: "bg-foreground text-background",
     },
     {
@@ -34,20 +23,31 @@ const StickyBottomCTA = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border shadow-lg sm:hidden animate-in slide-in-from-bottom-2 duration-300">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border shadow-lg sm:hidden">
       <div className="flex items-stretch divide-x divide-border">
-        {buttons.map((btn) => (
-          <a
-            key={btn.label}
-            href={btn.href}
-            target={btn.label === "WhatsApp" ? "_blank" : undefined}
-            rel={btn.label === "WhatsApp" ? "noopener noreferrer" : undefined}
-            className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 ${btn.className} transition-opacity active:opacity-80`}
-          >
-            <btn.icon className="w-5 h-5" />
-            <span className="text-[11px] font-semibold">{btn.label}</span>
-          </a>
-        ))}
+        {buttons.map((btn) =>
+          btn.href ? (
+            <a
+              key={btn.label}
+              href={btn.href}
+              target={btn.label === "WhatsApp" ? "_blank" : undefined}
+              rel={btn.label === "WhatsApp" ? "noopener noreferrer" : undefined}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 ${btn.className} transition-opacity active:opacity-80`}
+            >
+              <btn.icon className="w-5 h-5" />
+              <span className="text-[11px] font-semibold">{btn.label}</span>
+            </a>
+          ) : (
+            <button
+              key={btn.label}
+              onClick={btn.onClick}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 ${btn.className} transition-opacity active:opacity-80`}
+            >
+              <btn.icon className="w-5 h-5" />
+              <span className="text-[11px] font-semibold">{btn.label}</span>
+            </button>
+          )
+        )}
       </div>
     </div>
   );
