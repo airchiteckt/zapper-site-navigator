@@ -89,6 +89,7 @@ const PartnerLogin = lazy(() => import("@/pages/partner/PartnerLogin"));
 const PartnerMap = lazy(() => import("@/pages/PartnerMap"));
 const LandingPartners = lazy(() => import("@/pages/LandingPartners"));
 const PartnerDashboard = lazy(() => import("@/pages/partner/PartnerDashboard"));
+const Scopri = lazy(() => import("@/pages/Scopri"));
 
 // Suspense wrapper for lazy pages
 const S = ({ children }: { children: ReactNode }) => (
@@ -196,6 +197,7 @@ export const appRoutes: AppRouteConfig[] = [
   { path: "/landing-partners", element: <S><LandingPartners /></S> },
   { path: "/partner", element: <S><PartnerLogin /></S> },
   { path: "/partner/dashboard", element: <S><PartnerDashboard /></S> },
+  { path: "/scopri", element: <S><Scopri /></S> },
   { path: "/grazie", element: <S><Grazie /></S> },
 ];
 
