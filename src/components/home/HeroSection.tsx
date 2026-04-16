@@ -1,12 +1,49 @@
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero-zapper-team.webp";
 import trustpilotLogo from "@/assets/trustpilot-logo.png";
 
+const HERO_TAGS = [
+  { label: "Forni a legna", href: "/applicazioni/forni-a-legna" },
+  { label: "Braci a carbone", href: "/applicazioni/braci-carbone" },
+  { label: "Caldaie biomassa", href: "/applicazioni/caldaie-biomassa" },
+  { label: "Camini e stufe", href: "/applicazioni/camini" },
+  { label: "Cappe cucina", href: "/applicazioni/cappe" },
+  { label: "Forni elettrici", href: "/applicazioni/forni-elettrici" },
+  { label: "Forni a gas", href: "/applicazioni/forni-a-legna" },
+  { label: "Forni industriali", href: "/applicazioni/forni-industriali" },
+  { label: "Altri impianti", href: "/applicazioni" },
+];
+
 const HeroSection = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  const handleTagClick = (tag: typeof HERO_TAGS[0]) => {
+    if (selectedTag === tag.label) {
+      // Second click → navigate
+      navigate(tag.href);
+    } else {
+      // First click → select & highlight CTA
+      setSelectedTag(tag.label);
+    }
+  };
+
+  // Pulse the CTA when a tag is selected
+  useEffect(() => {
+    if (selectedTag && ctaRef.current) {
+      ctaRef.current.classList.add("animate-pulse");
+      const timer = setTimeout(() => {
+        ctaRef.current?.classList.remove("animate-pulse");
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedTag]);
 
   return (
     <section className="relative min-h-screen flex items-center bg-zapper-black overflow-hidden">
@@ -42,10 +79,18 @@ const HeroSection = () => {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8 sm:mb-10 animate-fade-in-up animation-delay-100">
-              {["Forni a legna", "Braci a carbone", "Caldaie biomassa", "Camini e stufe", "Cappe cucina", "Forni elettrici", "Forni a gas", "Forni industriali", "Altri impianti"].map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-full border border-white/20 text-white/70 text-xs sm:text-sm">
-                  {tag}
-                </span>
+              {HERO_TAGS.map((tag) => (
+                <button
+                  key={tag.label}
+                  onClick={() => handleTagClick(tag)}
+                  className={`px-3 py-1 rounded-full border text-xs sm:text-sm transition-all cursor-pointer ${
+                    selectedTag === tag.label
+                      ? "border-primary bg-primary/20 text-primary"
+                      : "border-white/20 text-white/70 hover:border-white/40 hover:text-white/90"
+                  }`}
+                >
+                  {tag.label}
+                </button>
               ))}
             </div>
 
@@ -57,8 +102,13 @@ const HeroSection = () => {
             </div>
 
             {/* CTA Primary */}
-            <div className="flex flex-col items-center lg:items-start gap-3 animate-fade-in-up animation-delay-300">
-              <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
+            <div ref={ctaRef} className="flex flex-col items-center lg:items-start gap-3 animate-fade-in-up animation-delay-300">
+              <Button
+                variant="hero"
+                size="lg"
+                className={`w-full sm:w-auto transition-all ${selectedTag ? "ring-2 ring-primary ring-offset-2 ring-offset-zapper-black scale-105" : ""}`}
+                asChild
+              >
                 <Link to="/scopri">
                   {t("hero.cta")}
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
