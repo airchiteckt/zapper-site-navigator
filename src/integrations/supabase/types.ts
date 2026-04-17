@@ -315,6 +315,63 @@ export type Database = {
           },
         ]
       }
+      form_submissions: {
+        Row: {
+          created_at: string
+          email: string | null
+          email_error: string | null
+          email_sent: boolean
+          extra: Json | null
+          id: string
+          message: string | null
+          name: string | null
+          notes: string | null
+          page_url: string | null
+          phone: string | null
+          sector: string | null
+          source: string
+          status: string
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          email_error?: string | null
+          email_sent?: boolean
+          extra?: Json | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          notes?: string | null
+          page_url?: string | null
+          phone?: string | null
+          sector?: string | null
+          source: string
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          email_error?: string | null
+          email_sent?: boolean
+          extra?: Json | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          notes?: string | null
+          page_url?: string | null
+          phone?: string | null
+          sector?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       interventions: {
         Row: {
           application_type: string | null
