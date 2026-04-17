@@ -116,7 +116,6 @@ export async function trackPageview() {
   // bump pageview count
   try {
     const sessionId = getSessionId();
-    await supabase.rpc as never; // no-op placeholder
     const { data } = await supabase
       .from("analytics_sessions")
       .select("pageview_count")
