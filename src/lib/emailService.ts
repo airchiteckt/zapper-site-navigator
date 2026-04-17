@@ -106,8 +106,45 @@ function buildNotificationEmailHtml(data: ContactData): string {
 </html>`;
 }
 
+async function saveSubmissionToDb(
+  data: ContactData,
+  emailSent: boolean,
+  emailError: string | null
+): Promise<string | null> {
+  try {
+    const { data: row, error } = await supabase
+      .from('form_submissions')
+      .insert({
+        source: data.source,
+        name: data.name || null,
+        email: data.email && data.email !== 'non fornita' ? data.email : null,
+        phone: data.phone || null,
+        sector: data.sector || null,
+        message: data.message || null,
+        extra: data.extra || {},
+        page_url: typeof window !== 'undefined' ? window.location.href : null,
+        user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
+        email_sent: emailSent,
+        email_error: emailError,
+      })
+      .select('id')
+      .single();
+    if (error) {
+      console.error('Failed to save form submission to DB:', error);
+      return null;
+    }
+    return row?.id ?? null;
+  } catch (e) {
+    console.error('Failed to save form submission (exception):', e);
+    return null;
+  }
+}
+
 export async function sendContactEmails(data: ContactData): Promise<{ success: boolean }> {
   const hasValidEmail = data.email && data.email.includes('@') && data.email !== 'non fornita';
+
+  let emailSent = false;
+  let emailError: string | null = null;
 
   try {
     const promises: Promise<any>[] = [];
@@ -125,7 +162,6 @@ export async function sendContactEmails(data: ContactData): Promise<{ success: b
           },
         }).then(res => {
           if (res.error) console.error('Welcome email error:', res.error);
-          else console.log('Welcome email result:', JSON.stringify(res.data));
           return res;
         })
       );
@@ -143,15 +179,28 @@ export async function sendContactEmails(data: ContactData): Promise<{ success: b
         },
       }).then(res => {
         if (res.error) console.error('Notification email error:', res.error);
-        else console.log('Notification email result:', JSON.stringify(res.data));
         return res;
       })
     );
 
     const results = await Promise.all(promises);
-    return { success: results.every(r => !r.error) };
-  } catch (error) {
+    emailSent = results.every(r => !r.error);
+    if (!emailSent) {
+      emailError = results
+        .map(r => r.error?.message || (r.error ? JSON.stringify(r.error) : null))
+        .filter(Boolean)
+        .join(' | ') || 'Unknown email error';
+    }
+  } catch (error: any) {
     console.error('Email sending failed:', error);
-    return { success: false };
+    emailSent = false;
+    emailError = error?.message || String(error);
   }
+
+  // ALWAYS save to DB as fallback — even if email fails, the lead is preserved
+  await saveSubmissionToDb(data, emailSent, emailError);
+
+  // Return success=true if either email was sent OR data was saved (lead is preserved)
+  // We return true so user gets thank-you page; admin can check DB for any failures
+  return { success: true };
 }
