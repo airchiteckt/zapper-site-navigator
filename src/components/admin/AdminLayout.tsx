@@ -13,7 +13,8 @@ import {
   ChevronRight,
   ShoppingBag,
   FileText,
-  MessageCircle
+  MessageCircle,
+  BarChart3
 } from 'lucide-react';
 import logoVerde from '@/assets/logo-zapper-verde.svg';
 import { useState } from 'react';
@@ -26,6 +27,7 @@ interface AdminLayoutProps {
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/models', label: 'Modelli', icon: Package },
   { href: '/admin/interventions', label: 'Interventi', icon: Video },
   { href: '/admin/blog', label: 'Blog', icon: FileText },

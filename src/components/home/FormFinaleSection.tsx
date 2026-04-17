@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +6,7 @@ import { ArrowRight, Phone, Loader2, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { sendContactEmails } from "@/lib/emailService";
 import { useToast } from "@/hooks/use-toast";
+import { trackFormStart, trackFormSubmit, trackFormAbandon } from "@/lib/analytics";
 
 const STEPS = [
   { id: "sector", key: "formFinale.stepSector" },
@@ -34,6 +35,24 @@ const FormFinaleSection = () => {
     { value: "altro", label: t("formFinale.problemOther") },
   ];
 
+  // Track form start when user picks first option
+  useEffect(() => {
+    if (data.sector && step === 1) trackFormStart("homepage_quiz");
+  }, [data.sector, step]);
+
+  // Track abandon
+  useEffect(() => {
+    const onLeave = () => {
+      if ((data.sector || data.problem || data.name || data.phone) && !isSubmitting) {
+        const filled = Object.entries(data).filter(([, v]) => v).map(([k]) => k);
+        const last = filled[filled.length - 1] || "none";
+        trackFormAbandon("homepage_quiz", last, filled);
+      }
+    };
+    window.addEventListener("beforeunload", onLeave);
+    return () => window.removeEventListener("beforeunload", onLeave);
+  }, [data, isSubmitting]);
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
@@ -46,6 +65,7 @@ const FormFinaleSection = () => {
         source: "Quiz Homepage",
       });
       if (result.success) {
+        trackFormSubmit("homepage_quiz");
         navigate(`/${i18n.language || "it"}/grazie`);
       } else {
         toast({ title: t("cta.errorTitle"), description: t("cta.errorMessage"), variant: "destructive" });

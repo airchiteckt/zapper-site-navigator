@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import ClarityPageView from "@/components/ClarityPageView";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import LanguageRouteSync from "@/components/LanguageRouteSync";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -37,6 +38,7 @@ const App = () => (
           <BrowserRouter>
             <ScrollToTop />
             <ClarityPageView />
+            <AnalyticsTracker />
             <LanguageRouteSync />
             <Routes>
               {appRoutes.map((route) => (

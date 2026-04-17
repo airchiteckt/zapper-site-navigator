@@ -14,6 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          created_at: string
+          event_name: string | null
+          event_type: string
+          id: string
+          metadata: Json | null
+          page_title: string | null
+          page_url: string
+          session_id: string
+          visitor_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_name?: string | null
+          event_type: string
+          id?: string
+          metadata?: Json | null
+          page_title?: string | null
+          page_url: string
+          session_id: string
+          visitor_id: string
+        }
+        Update: {
+          created_at?: string
+          event_name?: string | null
+          event_type?: string
+          id?: string
+          metadata?: Json | null
+          page_title?: string | null
+          page_url?: string
+          session_id?: string
+          visitor_id?: string
+        }
+        Relationships: []
+      }
+      analytics_sessions: {
+        Row: {
+          country: string | null
+          created_at: string
+          device_type: string | null
+          id: string
+          landing_page: string | null
+          language: string | null
+          last_activity_at: string
+          pageview_count: number
+          referrer: string | null
+          session_id: string
+          started_at: string
+          user_agent: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          visitor_id: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          landing_page?: string | null
+          language?: string | null
+          last_activity_at?: string
+          pageview_count?: number
+          referrer?: string | null
+          session_id: string
+          started_at?: string
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visitor_id: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          landing_page?: string | null
+          language?: string | null
+          last_activity_at?: string
+          pageview_count?: number
+          referrer?: string | null
+          session_id?: string
+          started_at?: string
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visitor_id?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author: string | null

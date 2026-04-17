@@ -85,6 +85,7 @@ const AdminShop = lazy(() => import("@/pages/admin/AdminShop"));
 const AdminPartners = lazy(() => import("@/pages/admin/AdminPartners"));
 const AdminBlog = lazy(() => import("@/pages/admin/AdminBlog"));
 const AdminChatLogs = lazy(() => import("@/pages/admin/AdminChatLogs"));
+const AdminAnalytics = lazy(() => import("@/pages/admin/AdminAnalytics"));
 const PartnerLogin = lazy(() => import("@/pages/partner/PartnerLogin"));
 const PartnerMap = lazy(() => import("@/pages/PartnerMap"));
 const LandingPartners = lazy(() => import("@/pages/LandingPartners"));
@@ -193,6 +194,7 @@ export const appRoutes: AppRouteConfig[] = [
   { path: "/admin/partners", element: <S><AdminPartners /></S> },
   { path: "/admin/blog", element: <S><AdminBlog /></S> },
   { path: "/admin/chat-logs", element: <S><AdminChatLogs /></S> },
+  { path: "/admin/analytics", element: <S><AdminAnalytics /></S> },
   { path: "/partners", element: <S><PartnerMap /></S> },
   { path: "/landing-partners", element: <S><LandingPartners /></S> },
   { path: "/partner", element: <S><PartnerLogin /></S> },
