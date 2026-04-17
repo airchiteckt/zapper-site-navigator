@@ -1,54 +1,15 @@
-import { Phone, MessageCircle, MessagesSquare } from "lucide-react";
+import { Phone } from "lucide-react";
 
 const StickyBottomCTA = () => {
-  const buttons = [
-    {
-      icon: Phone,
-      label: "Chiama",
-      href: "tel:+390811996843",
-      className: "bg-primary text-primary-foreground",
-    },
-    {
-      icon: MessagesSquare,
-      label: "Live Chat",
-      onClick: () => window.dispatchEvent(new Event("open-zapper-chat")),
-      className: "bg-foreground text-background",
-    },
-    {
-      icon: MessageCircle,
-      label: "WhatsApp",
-      href: "https://wa.me/390811996843",
-      className: "bg-[#25D366] text-white",
-    },
-  ];
-
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border shadow-lg sm:hidden">
-      <div className="flex items-stretch divide-x divide-border">
-        {buttons.map((btn) =>
-          btn.href ? (
-            <a
-              key={btn.label}
-              href={btn.href}
-              target={btn.label === "WhatsApp" ? "_blank" : undefined}
-              rel={btn.label === "WhatsApp" ? "noopener noreferrer" : undefined}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 ${btn.className} transition-opacity active:opacity-80`}
-            >
-              <btn.icon className="w-5 h-5" />
-              <span className="text-[11px] font-semibold">{btn.label}</span>
-            </a>
-          ) : (
-            <button
-              key={btn.label}
-              onClick={btn.onClick}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 ${btn.className} transition-opacity active:opacity-80`}
-            >
-              <btn.icon className="w-5 h-5" />
-              <span className="text-[11px] font-semibold">{btn.label}</span>
-            </button>
-          )
-        )}
-      </div>
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-primary shadow-lg sm:hidden">
+      <a
+        href="tel:+390811996843"
+        className="flex items-center justify-center gap-2 py-4 text-primary-foreground font-semibold text-base active:opacity-90 transition-opacity"
+      >
+        <Phone className="w-5 h-5" />
+        <span>Chiama ora</span>
+      </a>
     </div>
   );
 };
