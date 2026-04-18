@@ -402,7 +402,7 @@ export default function ForniALegna() {
           </div>
         </section>
 
-        {/* ═══ 5. PROOF — CASI CLIENTI ═══ */}
+        {/* ═══ 5. PROOF — VIDEO INTERVENTO + RECENSIONI ═══ */}
         <section className="py-12 md:py-20 bg-muted/30">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center mb-10">
@@ -410,27 +410,37 @@ export default function ForniALegna() {
               <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
                 Chi ha già risolto con ZAPPER®
               </h2>
+              <p className="text-muted-foreground">
+                Un intervento reale e oltre 2.500 clienti soddisfatti.
+              </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {casiClienti.map((c, idx) => (
-                <div key={idx} className="bg-card rounded-2xl p-6 shadow-lg border border-border flex flex-col">
-                  <div className="flex items-center gap-2 mb-3">
+
+            <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
+              {/* Video YouTube Intervento */}
+              <div className="bg-card rounded-2xl overflow-hidden shadow-lg border border-border">
+                <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
+                  <iframe
+                    src="https://www.youtube.com/embed/SiRqbSE0ESE"
+                    title="Installazione ZPZ 250 - Pizzeria i Perticali, Carrù"
+                    className="absolute inset-0 w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-accent" />
-                    <span className="text-sm text-muted-foreground">{c.citta}</span>
+                    <span className="text-sm text-muted-foreground">Carrù (CN)</span>
                   </div>
-                  <h3 className="font-display text-lg font-bold text-foreground mb-4">{c.titolo}</h3>
-                  <div className="space-y-3 text-sm flex-1">
-                    <div className="flex items-start gap-2">
-                      <AlertTriangle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{c.problema}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                      <span className="text-foreground font-medium">{c.risultato}</span>
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                    <span className="px-3 py-1.5 bg-accent/10 rounded-full text-sm font-semibold text-accent">{c.modello}</span>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">
+                    Pizzeria i Perticali — Installazione ZPZ 250
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Forno a legna: zero fumo visibile dalla canna fumaria, in linea con i requisiti del Comune.
+                  </p>
+                  <div className="flex items-center justify-between pt-3 border-t border-border">
+                    <span className="px-3 py-1.5 bg-accent/10 rounded-full text-sm font-semibold text-accent">ZPZ</span>
                     <div className="flex gap-0.5">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-accent text-accent" />
@@ -438,9 +448,30 @@ export default function ForniALegna() {
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Recensioni Trustpilot */}
+              <div className="space-y-4">
+                <div className="bg-card rounded-2xl p-5 shadow-lg border border-border">
+                  <div className="flex items-center gap-3 mb-2">
+                    <img src={trustpilotRating} alt="Trustpilot 4.8" className="h-6" />
+                    <span className="text-sm text-muted-foreground">2.500+ clienti soddisfatti</span>
+                  </div>
+                  <p className="text-sm text-foreground">
+                    Valutazione <span className="font-bold">Eccellente</span> su Trustpilot — il 95% dei clienti consiglia ZAPPER®.
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {[review1, review2, review3, review4].map((src, i) => (
+                    <div key={i} className="bg-card rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-md transition-shadow">
+                      <img src={src} alt={`Recensione cliente ZAPPER ${i + 1}`} className="w-full h-auto" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="text-center mt-8">
+
+            <div className="text-center mt-10">
               <Link to="/interventi" className="text-accent hover:text-primary font-medium inline-flex items-center gap-1 transition-colors">
                 Vedi tutti gli interventi <ArrowRight className="w-4 h-4" />
               </Link>
