@@ -245,16 +245,16 @@ export default function ForniALegna() {
               <span className="text-primary-foreground/80">Forni a Legna</span>
             </nav>
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-destructive/20 border border-destructive/30 rounded-full mb-6">
-                <AlertTriangle className="w-4 h-4 text-destructive" />
-                <span className="text-sm font-medium text-primary-foreground/90">Fumi, fuliggine e odori dal forno a legna?</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/20 border border-accent/30 rounded-full mb-6">
+                <Flame className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-primary-foreground/90">Forno a legna: tutto il sapore, zero problemi</span>
               </div>
               <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
-                Il tuo forno a legna ti ha già creato problemi
-                <span className="text-accent"> con i vicini o l'ASL?</span>
+                Cuoci a legna come hai sempre fatto.
+                <span className="text-accent"> Senza fumo, senza lamentele.</span>
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl">
-                ZAPPER® elimina fumi neri, fuliggine e odori dal giorno dell'installazione. Nessun filtro da cambiare, nessun giorno di chiusura.
+                ZAPPER® mantiene intatto il gusto autentico della cottura a legna e abbatte fino al 99% di fumi, fuliggine e odori. Vicini tranquilli, ASL in regola, attività libera di lavorare ogni giorno.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="accent" size="lg" asChild>
