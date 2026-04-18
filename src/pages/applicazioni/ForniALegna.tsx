@@ -21,6 +21,11 @@ import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/applicazione-forni.webp";
 import soluzioneImage from "@/assets/zapper-prodotto-forni.jpg";
 import primaDopoImage from "@/assets/forni-legna-prima-dopo.webp";
+import trustpilotRating from "@/assets/trustpilot-rating.webp";
+import review1 from "@/assets/trustpilot-review-1.webp";
+import review2 from "@/assets/trustpilot-review-2.webp";
+import review3 from "@/assets/trustpilot-review-3.webp";
+import review4 from "@/assets/trustpilot-review-4.webp";
 
 /* ═══════════════════════════════════════════
    DATA
