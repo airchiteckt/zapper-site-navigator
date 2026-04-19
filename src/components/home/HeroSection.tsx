@@ -69,7 +69,7 @@ const HeroSection = () => {
 
             {/* Context */}
             <p className="text-base sm:text-lg text-white/60 mb-4 sm:mb-5 max-w-lg mx-auto lg:mx-0 animate-fade-in-up animation-delay-100">
-              Abbattitori di fuliggine e odori per:
+              <span className="underline underline-offset-4 decoration-white/40">Abbattitori di fuliggine e odori</span> per:
             </p>
 
             {/* Tags */}
