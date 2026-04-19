@@ -39,10 +39,6 @@
     --accent: 117 58% 57%;
     --accent-foreground: 0 0% 100%;
 
-    /* Accent Blue: #1559A7 - Highlight & emphasis (non-CTA) */
-    --accent-blue: 212 77% 37%;
-    --accent-blue-foreground: 0 0% 100%;
-
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -100,9 +96,6 @@
 
     --accent: 117 58% 57%;
     --accent-foreground: 0 0% 100%;
-
-    --accent-blue: 212 77% 50%;
-    --accent-blue-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 100%;
