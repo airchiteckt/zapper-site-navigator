@@ -103,7 +103,7 @@ const FounderSection = () => {
               className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
               <a
-                href="https://wa.me/390811996843"
+                href="https://wa.me/390811996843?text=Ciao%20Pasquale%2C%20vorrei%20una%20valutazione%20tecnica%20per%20il%20mio%20impianto"
                 target="_blank"
                 rel="noopener noreferrer"
               >
