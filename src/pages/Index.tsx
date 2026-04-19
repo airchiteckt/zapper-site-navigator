@@ -33,7 +33,9 @@ const Index = () => {
         <TrustBar />
         <Suspense fallback={null}>
           <ProblemSection />
-          <SectorsSection />
+          <ProfessionalSection />
+          <UTASection />
+          <IndustrialSection />
           <TrustpilotSection />
           <HowItWorksSection />
           <LeadMagnetBanner source="homepage" />
