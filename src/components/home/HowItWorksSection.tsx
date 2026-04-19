@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
-import { Flame, Wind, Sparkles, Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import illCattura from "@/assets/howitworks-cattura.png";
+import illFiltraggio from "@/assets/howitworks-filtraggio.png";
+import illEmissione from "@/assets/howitworks-emissione.png";
 
 const HowItWorksSection = () => {
   const { t } = useTranslation();
 
   const steps = [
-    { icon: Flame, title: t("howItWorks.step1Title"), description: t("howItWorks.step1Desc") },
-    { icon: Wind, title: t("howItWorks.step2Title"), description: t("howItWorks.step2Desc") },
-    { icon: Sparkles, title: t("howItWorks.step3Title"), description: t("howItWorks.step3Desc") },
+    { image: illCattura, alt: "Canna fumaria collegata al macchinario ZAPPER®", title: t("howItWorks.step1Title"), description: t("howItWorks.step1Desc") },
+    { image: illFiltraggio, alt: "Acqua atomizzata che cattura le particelle dei fumi", title: t("howItWorks.step2Title"), description: t("howItWorks.step2Desc") },
+    { image: illEmissione, alt: "Aria pulita rilasciata nell'ambiente", title: t("howItWorks.step3Title"), description: t("howItWorks.step3Desc") },
   ];
 
   const badges = [
@@ -32,10 +35,17 @@ const HowItWorksSection = () => {
 
         {/* 3 steps inline */}
         <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8 md:mb-12">
-          {steps.map((step, i) => (
+          {steps.map((step) => (
             <div key={step.title} className="text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-zapper-black mb-4">
-                <step.icon className="w-7 h-7 text-white" />
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-4 overflow-hidden">
+                <img
+                  src={step.image}
+                  alt={step.alt}
+                  className="w-16 h-16 object-contain"
+                  loading="lazy"
+                  width={512}
+                  height={512}
+                />
               </div>
               <h3 className="font-display text-lg font-bold text-foreground mb-2">{step.title}</h3>
               <p className="text-sm text-muted-foreground">{step.description}</p>
