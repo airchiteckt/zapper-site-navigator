@@ -13,6 +13,7 @@ const SectorsSection = lazy(() => import("@/components/home/SectorsSection"));
 const TrustpilotSection = lazy(() => import("@/components/home/TrustpilotSection"));
 const HowItWorksSection = lazy(() => import("@/components/home/HowItWorksSection"));
 const FormFinaleSection = lazy(() => import("@/components/home/FormFinaleSection"));
+const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
 
 const Index = () => {
   return (
