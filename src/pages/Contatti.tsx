@@ -74,9 +74,39 @@ const Contatti = () => {
               <p className="text-lg md:text-xl text-muted-foreground mb-3">
                 {t("contattiPage.assessmentDescription")}
               </p>
-              <p className="text-sm text-primary font-medium">
+              <p className="text-sm text-primary font-medium mb-6">
                 {t("contattiPage.assessmentSubtext")}
               </p>
+
+              {/* Direct contact buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-[#25D366] hover:bg-[#25D366]/90 text-white flex-1"
+                >
+                  <a
+                    href="https://wa.me/390811996843"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Scrivi su WhatsApp"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Scrivi su WhatsApp
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-foreground text-foreground hover:bg-foreground hover:text-background flex-1"
+                >
+                  <a href="tel:+390811996843" aria-label="Chiama 081 199 68 436">
+                    <Phone className="w-5 h-5 mr-2" />
+                    Chiama 081 199 68 436
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
