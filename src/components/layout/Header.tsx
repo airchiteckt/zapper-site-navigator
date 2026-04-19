@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -77,9 +77,27 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-4 mt-2 border-t border-border">
+              <div className="pt-4 mt-2 border-t border-border space-y-2">
+                <a
+                  href="https://wa.me/390811996843"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg bg-[#25D366] text-white font-medium hover:bg-[#25D366]/90 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Scrivi su WhatsApp
+                </a>
+                <a
+                  href="tel:+3908119968436"
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg border border-foreground text-foreground font-medium hover:bg-foreground hover:text-background transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Phone className="w-5 h-5" />
+                  Chiama 081 199 68 436
+                </a>
                 <Button variant="accent" className="w-full" size="lg" asChild>
-                  <Link to="/contatti">{t("nav.freeTechnicalAssessment")}</Link>
+                  <Link to="/contatti" onClick={() => setIsMenuOpen(false)}>{t("nav.freeTechnicalAssessment")}</Link>
                 </Button>
               </div>
             </nav>
