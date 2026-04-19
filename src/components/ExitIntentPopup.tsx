@@ -1,16 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
-import { X, ArrowRight, Loader2, ShieldCheck, Phone, CheckCircle2, Clock } from "lucide-react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
+import { X, Download, FileText, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { sendContactEmails } from "@/lib/emailService";
+
+const LeadMagnetModal = lazy(() => import("./LeadMagnetModal"));
 
 const EXIT_DISMISSED_KEY = "zapper_exit_popup_dismissed";
 
 const ExitIntentPopup = () => {
   const [show, setShow] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const dismiss = useCallback(() => {
     setShow(false);
@@ -51,101 +49,91 @@ const ExitIntentPopup = () => {
     };
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!phone.trim()) return;
-    setSubmitting(true);
-    try {
-      await sendContactEmails({
-        name: name.trim() || "Non fornito",
-        email: "non fornita",
-        phone: phone.trim(),
-        source: "Exit Intent Popup",
-        message: "",
-      });
-      dismiss();
-      const lang = window.location.pathname.split("/").filter(Boolean)[0] || "it";
-      window.location.href = `/${lang}/grazie`;
-    } catch {
-      setSubmitting(false);
-    }
+  const handleClaim = () => {
+    setOpenModal(true);
+    sessionStorage.setItem(EXIT_DISMISSED_KEY, "1");
+    setShow(false);
   };
 
-  if (!show) return null;
+  if (!show && !openModal) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={dismiss} />
+    <>
+      {show && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={dismiss} />
 
-      <div className="relative bg-card rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95 duration-300">
-        <button
-          onClick={dismiss}
-          className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-muted/80 hover:bg-muted text-muted-foreground transition-colors"
-        >
-          <X className="w-4 h-4" />
-        </button>
-
-        {/* Header */}
-        <div className="bg-primary px-6 py-5 text-center">
-          <h2 className="text-primary-foreground text-xl sm:text-2xl font-bold">
-            Richiedi una valutazione tecnica gratuita
-          </h2>
-        </div>
-
-        {/* Body */}
-        <div className="px-6 py-5">
-          <p className="text-muted-foreground text-sm text-center mb-5">
-            Un tecnico analizza il tuo caso e ti risponde entro 24h.
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <Input
-              placeholder="+39 333 1234567"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-              className="h-12"
-              autoFocus
-            />
-            <Input
-              placeholder="Nome (opzionale)"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="h-12"
-            />
-            <Button
-              type="submit"
-              size="lg"
-              className="w-full text-base py-6"
-              disabled={submitting}
+          <div className="relative bg-card rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95 duration-300">
+            <button
+              onClick={dismiss}
+              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-muted/80 hover:bg-muted text-muted-foreground transition-colors"
+              aria-label="Chiudi"
             >
-              {submitting ? (
-                <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Invio...</>
-              ) : (
-                <>Invia richiesta ora<ArrowRight className="w-5 h-5 ml-2" /></>
-              )}
-            </Button>
-          </form>
+              <X className="w-4 h-4" />
+            </button>
 
-          {/* Trust micro-copy */}
-          <div className="mt-4 space-y-1.5">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <ShieldCheck className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Nessuna chiamata spam</span>
+            {/* Header */}
+            <div className="bg-foreground px-6 py-6 text-center">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/20 rounded-xl mb-3">
+                <FileText className="w-7 h-7 text-primary" />
+              </div>
+              <p className="text-primary text-xs font-bold uppercase tracking-wider mb-2">
+                Aspetta — non andare via a mani vuote
+              </p>
+              <h2 className="text-background text-xl sm:text-2xl font-bold leading-tight">
+                Scarica gratis la Guida tecnica all'abbattimento fumi
+              </h2>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Phone className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Risposta da tecnico, non commerciale</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Clock className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-              <span>Offerta gratuita valida per pochi clienti ogni settimana</span>
+
+            {/* Body */}
+            <div className="px-6 py-5">
+              <p className="text-muted-foreground text-sm text-center mb-4">
+                10 pagine di esperienza diretta dei nostri tecnici. Evita gli errori più costosi
+                <span className="font-semibold text-foreground"> prima </span>
+                di scegliere il tuo sistema.
+              </p>
+
+              <ul className="space-y-2 mb-5 text-sm">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">7 errori più costosi (con soluzione)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">Checklist normativa aggiornata</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">Tabella diagnostica + case study reale</span>
+                </li>
+              </ul>
+
+              <Button
+                onClick={handleClaim}
+                size="lg"
+                className="w-full text-base py-6"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Scarica la guida ora
+              </Button>
+
+              <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                <span>Gratis. Niente spam. PDF in 30 secondi.</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      <Suspense fallback={null}>
+        <LeadMagnetModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          source="exit_intent_popup"
+        />
+      </Suspense>
+    </>
   );
 };
 
