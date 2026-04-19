@@ -101,9 +101,9 @@ const Contatti = () => {
                   size="lg"
                   className="border-foreground text-foreground hover:bg-foreground hover:text-background flex-1"
                 >
-                  <a href="tel:+390811996843" aria-label="Chiama 0811996843">
+                  <a href="tel:+390811996843" aria-label="Chiama 081 199 68 436">
                     <Phone className="w-5 h-5 mr-2" />
-                    Chiama 081 1996 8436
+                    Chiama 081 199 68 436
                   </a>
                 </Button>
               </div>
