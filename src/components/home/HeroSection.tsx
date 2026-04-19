@@ -53,14 +53,9 @@ const HeroSection = () => {
         }} />
       </div>
 
-      <div className="container relative z-10 pt-20 pb-20 sm:pt-24 sm:pb-12 md:pt-32 md:pb-24 px-4 sm:px-6">
+      <div className="container relative z-10 pt-12 pb-24 sm:pt-20 sm:pb-12 md:pt-32 md:pb-24 px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="text-center lg:text-left max-w-xl mx-auto lg:max-w-none lg:mx-0">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 rounded-full mb-4 sm:mb-6 animate-fade-in">
-              <span className="text-white/90 text-xs sm:text-sm font-medium">{t("hero.badge")}</span>
-            </div>
-
             {/* Headline */}
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-3 sm:mb-4 animate-fade-in-up leading-[1.1]">
               {t("hero.title1")}{" "}
