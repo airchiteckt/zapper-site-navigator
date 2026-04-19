@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
-import founderImage from "@/assets/pasquale-elefante-founder.jpg";
+import founderImage from "@/assets/pasquale-elefante-founder.webp";
 
 const STEPS = [
   {
