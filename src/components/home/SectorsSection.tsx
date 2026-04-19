@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChefHat, Home, Factory, ArrowRight, BadgePercent } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import sectorProfessionale from "@/assets/sector-professionale.webp";
-import sectorDomestico from "@/assets/sector-domestico.webp";
-import sectorIndustriale from "@/assets/sector-industriale.webp";
+import sectorProfessionale from "@/assets/professional-machine.webp";
+import sectorDomestico from "@/assets/industrial-machine.webp";
+import sectorIndustriale from "@/assets/hero-industrial.webp";
 
 const SectorsSection = () => {
   const { t } = useTranslation();
