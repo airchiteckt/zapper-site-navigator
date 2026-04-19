@@ -14,6 +14,7 @@ const UTASection = lazy(() => import("@/components/home/UTASection"));
 const IndustrialSection = lazy(() => import("@/components/home/IndustrialSection"));
 const TrustpilotSection = lazy(() => import("@/components/home/TrustpilotSection"));
 const HowItWorksSection = lazy(() => import("@/components/home/HowItWorksSection"));
+const FounderSection = lazy(() => import("@/components/home/FounderSection"));
 const FormFinaleSection = lazy(() => import("@/components/home/FormFinaleSection"));
 const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
 
@@ -38,6 +39,7 @@ const Index = () => {
           <IndustrialSection />
           <TrustpilotSection />
           <HowItWorksSection />
+          <FounderSection />
           <LeadMagnetBanner source="homepage" />
           <FormFinaleSection />
         </Suspense>
