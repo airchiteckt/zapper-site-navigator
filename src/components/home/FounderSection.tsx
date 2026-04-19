@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 import founderImage from "@/assets/pasquale-elefante-founder.webp";
 
 const STEPS = [
@@ -10,13 +10,13 @@ const STEPS = [
       "Analizziamo insieme a te e ai nostri partner il tuo impianto, le emissioni e i vincoli normativi (ASL/ARPA, vicinato).",
   },
   {
-    icon: ShieldCheck,
+    icon: CheckCircle2,
     title: "Proposta soddisfatti o rimborsati",
     description:
       "Ti proponiamo la soluzione tecnica più adatta con la garanzia ZAPPER®: se non risolve, ti rimborsiamo.",
   },
   {
-    icon: Sparkles,
+    icon: CheckCircle2,
     title: "Professionalità a 360°",
     description:
       "Assistenza pre, durante e post-vendita: progettazione, installazione, manutenzione e supporto normativo.",
