@@ -9,7 +9,9 @@ import { OrganizationSchema, LocalBusinessSchema } from "@/components/Structured
 
 // Lazy load below-the-fold sections
 const ProblemSection = lazy(() => import("@/components/home/ProblemSection"));
-const SectorsSection = lazy(() => import("@/components/home/SectorsSection"));
+const ProfessionalSection = lazy(() => import("@/components/home/ProfessionalSection"));
+const UTASection = lazy(() => import("@/components/home/UTASection"));
+const IndustrialSection = lazy(() => import("@/components/home/IndustrialSection"));
 const TrustpilotSection = lazy(() => import("@/components/home/TrustpilotSection"));
 const HowItWorksSection = lazy(() => import("@/components/home/HowItWorksSection"));
 const FormFinaleSection = lazy(() => import("@/components/home/FormFinaleSection"));
@@ -31,7 +33,9 @@ const Index = () => {
         <TrustBar />
         <Suspense fallback={null}>
           <ProblemSection />
-          <SectorsSection />
+          <ProfessionalSection />
+          <UTASection />
+          <IndustrialSection />
           <TrustpilotSection />
           <HowItWorksSection />
           <LeadMagnetBanner source="homepage" />
