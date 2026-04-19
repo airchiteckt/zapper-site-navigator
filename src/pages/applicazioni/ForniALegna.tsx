@@ -17,6 +17,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/SEO";
 import { sendContactEmails } from "@/lib/emailService";
+import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/applicazione-forni.webp";
 import soluzioneImage from "@/assets/zapper-prodotto-forni.jpg";
@@ -543,6 +544,9 @@ export default function ForniALegna() {
             </div>
           </div>
         </section>
+
+        {/* ═══ 7b. LEAD MAGNET — Guida tecnica gratuita ═══ */}
+        <LeadMagnetBanner source="forni_a_legna" />
 
         {/* ═══ 8. URGENZA + CTA FINALE con form inline ═══ */}
         <section className="py-16 md:py-24 bg-zapper-black">

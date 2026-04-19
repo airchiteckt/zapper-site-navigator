@@ -34,6 +34,7 @@ const Index = () => {
           <SectorsSection />
           <TrustpilotSection />
           <HowItWorksSection />
+          <LeadMagnetBanner source="homepage" />
           <FormFinaleSection />
         </Suspense>
       </main>
