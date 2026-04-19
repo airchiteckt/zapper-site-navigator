@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
-import founderImage from "@/assets/pasquale-elefante-founder.jpg";
+import founderImage from "@/assets/pasquale-elefante-founder.webp";
 
 const STEPS = [
   {
@@ -34,11 +34,11 @@ const FounderSection = () => {
             <img
               src={founderImage}
               alt="Pasquale Elefante — Fondatore e Responsabile Tecnico ZAPPER®"
-              width={1024}
-              height={1024}
+              width={900}
+              height={1198}
               loading="lazy"
               decoding="async"
-              className="relative rounded-2xl shadow-2xl w-full h-auto object-cover aspect-square"
+              className="relative rounded-2xl shadow-2xl w-full h-auto object-cover bg-muted"
             />
             {/* Badge fondatore */}
             <div className="absolute -bottom-5 left-4 right-4 sm:left-6 sm:right-auto bg-card border border-border p-4 sm:p-5 rounded-xl shadow-xl">
