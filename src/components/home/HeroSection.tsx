@@ -67,62 +67,65 @@ const HeroSection = () => {
               {t("hero.subtitle")}
             </p>
 
-            {/* Context */}
-            <p className="text-base sm:text-lg text-white/60 mb-4 sm:mb-5 max-w-lg mx-auto lg:mx-0 animate-fade-in-up animation-delay-100">
-              <span className="font-bold text-primary">Abbattitori di fuliggine e odori</span> per:
-            </p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8 sm:mb-10 animate-fade-in-up animation-delay-100">
-              {HERO_TAGS.map((tag) => (
-                <button
-                  key={tag.label}
-                  onClick={() => handleTagClick(tag)}
-                  className={`px-3 py-1 rounded-full border text-xs sm:text-sm transition-all cursor-pointer ${
-                    selectedTag === tag.label
-                      ? "border-primary bg-primary/20 text-primary"
-                      : "border-white/20 text-white/70 hover:border-white/40 hover:text-white/90"
-                  }`}
-                >
-                  {tag.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Social Proof */}
-            <div className="flex items-center gap-3 justify-center lg:justify-start mb-5 sm:mb-6 animate-fade-in-up animation-delay-200">
-              <div className="flex text-yellow-400 text-lg">★★★★★</div>
-              <span className="text-white/80 text-sm sm:text-base font-medium">{t("hero.socialProof")}</span>
-              <img src={trustpilotLogo} alt="Trustpilot" className="h-4 sm:h-5 brightness-0 invert opacity-70" />
-            </div>
-
-            {/* CTA Primary */}
-            <div ref={ctaRef} className="flex flex-col items-center lg:items-start gap-3 animate-fade-in-up animation-delay-300">
-              <Button
-                variant="hero"
-                size="lg"
-                className={`w-full sm:w-auto transition-all ${selectedTag ? "ring-2 ring-primary ring-offset-2 ring-offset-zapper-black scale-105" : ""}`}
-                asChild
-              >
-                <Link to="/scopri">
-                  {t("hero.cta")}
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-                </Link>
-              </Button>
-
-              {/* Reassurance */}
-              <p className="text-xs sm:text-sm text-white/50">
-                {t("hero.ctaSubtext")}
+            {/* Focus Box: Context + Tags + Social Proof + CTA */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 sm:p-6 animate-fade-in-up animation-delay-100">
+              {/* Context */}
+              <p className="text-base sm:text-lg text-white/70 mb-4 max-w-lg mx-auto lg:mx-0">
+                <span className="font-bold text-primary">Abbattitori di fuliggine e odori</span> per:
               </p>
 
-              {/* CTA Secondary - text link */}
-              <Link
-                to="/interventi"
-                className="inline-flex items-center gap-2 text-sm sm:text-base text-white/70 hover:text-primary transition-colors mt-2"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                {t("hero.ctaSecondary")}
-              </Link>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-6">
+                {HERO_TAGS.map((tag) => (
+                  <button
+                    key={tag.label}
+                    onClick={() => handleTagClick(tag)}
+                    className={`px-3 py-1 rounded-full border text-xs sm:text-sm transition-all cursor-pointer ${
+                      selectedTag === tag.label
+                        ? "border-primary bg-primary/20 text-primary"
+                        : "border-white/20 text-white/70 hover:border-white/40 hover:text-white/90"
+                    }`}
+                  >
+                    {tag.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Social Proof */}
+              <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-5 pb-5 border-b border-white/10">
+                <div className="flex text-yellow-400 text-lg">★★★★★</div>
+                <span className="text-white/80 text-sm sm:text-base font-medium">{t("hero.socialProof")}</span>
+                <img src={trustpilotLogo} alt="Trustpilot" className="h-4 sm:h-5 brightness-0 invert opacity-70" />
+              </div>
+
+              {/* CTA Primary */}
+              <div ref={ctaRef} className="flex flex-col items-center lg:items-start gap-3">
+                <Button
+                  variant="hero"
+                  size="lg"
+                  className={`w-full sm:w-auto transition-all ${selectedTag ? "ring-2 ring-primary ring-offset-2 ring-offset-zapper-black scale-105" : ""}`}
+                  asChild
+                >
+                  <Link to="/scopri">
+                    {t("hero.cta")}
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                  </Link>
+                </Button>
+
+                {/* Reassurance */}
+                <p className="text-xs sm:text-sm text-white/50">
+                  {t("hero.ctaSubtext")}
+                </p>
+
+                {/* CTA Secondary - text link */}
+                <Link
+                  to="/interventi"
+                  className="inline-flex items-center gap-2 text-sm sm:text-base text-white/70 hover:text-primary transition-colors mt-1"
+                >
+                  <Play className="w-4 h-4 fill-current" />
+                  {t("hero.ctaSecondary")}
+                </Link>
+              </div>
             </div>
           </div>
 
