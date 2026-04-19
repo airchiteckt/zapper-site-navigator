@@ -79,7 +79,7 @@ const Header = () => {
               ))}
               <div className="pt-4 mt-2 border-t border-border space-y-2">
                 <a
-                  href="https://wa.me/390811996843"
+                  href="https://wa.me/3908119968436?text=Ciao%2C%20vorrei%20informazioni%20sui%20sistemi%20ZAPPER%C2%AE"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg bg-[#25D366] text-white font-medium hover:bg-[#25D366]/90 transition-colors"
