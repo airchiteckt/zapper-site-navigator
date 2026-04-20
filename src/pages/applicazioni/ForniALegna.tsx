@@ -271,6 +271,7 @@ export default function ForniALegna() {
                 </Button>
               </div>
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-8 text-primary-foreground/60 text-sm">
+                <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-accent" /> Sopralluogo gratuito in tutta Italia</span>
                 <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> 2.500+ attività soddisfatte</span>
                 <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> Installazione in giornata</span>
                 <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-accent" /> Garanzia 1 anno</span>
