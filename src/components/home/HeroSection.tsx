@@ -92,10 +92,16 @@ const HeroSection = () => {
               </div>
 
               {/* Social Proof */}
-              <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-5 pb-5 border-b border-white/10">
+              <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-3">
                 <div className="flex text-yellow-400 text-lg">★★★★★</div>
                 <span className="text-white/80 text-sm sm:text-base font-medium">{t("hero.socialProof")}</span>
                 <img src={trustpilotLogo} alt="Trustpilot" className="h-4 sm:h-5 brightness-0 invert opacity-70" />
+              </div>
+
+              {/* Sopralluogo gratuito */}
+              <div className="flex items-center gap-2 justify-center lg:justify-start mb-5 pb-5 border-b border-white/10">
+                <MapPin className="w-4 h-4 text-primary shrink-0" />
+                <span className="text-white/90 text-sm sm:text-base font-semibold">Sopralluogo gratuito in tutta Italia</span>
               </div>
 
               {/* CTA Primary */}
