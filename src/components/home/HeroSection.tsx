@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero-zapper-team.webp";
 import trustpilotLogo from "@/assets/trustpilot-logo.png";
