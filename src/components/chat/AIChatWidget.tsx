@@ -390,7 +390,9 @@ export default function AIChatWidget() {
       }
     };
 
-    const timer = setTimeout(show, 25000);
+    const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+    const delay = isMobile ? 20000 : 25000;
+    const timer = setTimeout(show, delay);
 
     const onScroll = () => {
       const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
@@ -401,70 +403,12 @@ export default function AIChatWidget() {
     return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, [popupAlreadyDismissed, hasSubmittedBefore]);
 
-  /* ─── Mobile bubble after 15s ─── */
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (!isMobile) return;
-    const timer = setTimeout(() => {
-      setShowMobileBubble(true);
-      setTimeout(() => setShowMobileBubble(false), 5000);
-    }, 15000);
-    return () => clearTimeout(timer);
-  }, []);
-
   useEffect(() => { if (open) setShowPulse(false); }, [open]);
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, showLeadForm]);
   useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
 
-  /* ─── Mobile auto-open after 20s with notification sound ─── */
-  useEffect(() => {
-    const isMobile =
-      window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
-    if (!isMobile) return;
-    if (popupAlreadyDismissed) return;
+  /* Mobile auto-open chat removed: at 20s mobile users now see the callback popup instead. */
 
-    const AUTO_OPEN_KEY = "zapper_chat_auto_opened";
-    if (sessionStorage.getItem(AUTO_OPEN_KEY)) return;
-
-    const timer = window.setTimeout(() => {
-      if (open) return; // user already engaged
-      sessionStorage.setItem(AUTO_OPEN_KEY, "1");
-
-      // Soft two-tone "ping" via Web Audio API
-      try {
-        const AudioCtx =
-          window.AudioContext ||
-          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        if (AudioCtx) {
-          const ctx = new AudioCtx();
-          const tone = (freq: number, start: number, duration: number) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = "sine";
-            osc.frequency.value = freq;
-            gain.gain.setValueAtTime(0, ctx.currentTime + start);
-            gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + start + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + duration);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(ctx.currentTime + start);
-            osc.stop(ctx.currentTime + start + duration);
-          };
-          tone(880, 0, 0.18);
-          tone(1320, 0.16, 0.22);
-        }
-      } catch { /* audio not critical */ }
-
-      if ("vibrate" in navigator) {
-        try { navigator.vibrate([60, 40, 60]); } catch { /* noop */ }
-      }
-
-      setShowMobileBubble(false);
-      setOpen(true);
-    }, 20000);
-
-    return () => window.clearTimeout(timer);
-  }, [open, popupAlreadyDismissed]);
 
   /* ─── Popup handlers ─── */
   const dismissPopup = useCallback(() => {
