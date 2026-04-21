@@ -390,7 +390,9 @@ export default function AIChatWidget() {
       }
     };
 
-    const timer = setTimeout(show, 25000);
+    const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+    const delay = isMobile ? 20000 : 25000;
+    const timer = setTimeout(show, delay);
 
     const onScroll = () => {
       const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
@@ -400,17 +402,6 @@ export default function AIChatWidget() {
 
     return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, [popupAlreadyDismissed, hasSubmittedBefore]);
-
-  /* ─── Mobile bubble after 15s ─── */
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (!isMobile) return;
-    const timer = setTimeout(() => {
-      setShowMobileBubble(true);
-      setTimeout(() => setShowMobileBubble(false), 5000);
-    }, 15000);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => { if (open) setShowPulse(false); }, [open]);
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, showLeadForm]);
