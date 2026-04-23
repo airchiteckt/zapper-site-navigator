@@ -538,16 +538,15 @@ export default function AIChatWidget() {
       phone,
     }).then(() => {});
 
-    // Email notification
-    supabase.functions.invoke('send-email', {
-      body: {
-        to: ['info@smokezapper.it', 'stanislaoelefante@gmail.com'],
-        subject: `📋 Nuovo lead dalla chat: ${name}`,
-        html: `<h2>Nuovo lead dalla Chat AI</h2><p><strong>Nome:</strong> ${name}</p><p><strong>Telefono:</strong> ${phone}</p><p><strong>Fonte:</strong> Chat AI ZAPPER® - Lead Gate</p><p><strong>Data:</strong> ${new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome' })}</p>`,
-        from: 'ZAPPER® <info@email.smokezapper.it>',
-        replyTo: 'info@smokezapper.it',
-      },
-    });
+    // Salva il lead in form_submissions (visibile in /admin/leads) + invia email branded
+    sendContactEmails({
+      name,
+      email: "non fornita",
+      phone,
+      source: "chat_lead_gate",
+      message: "Lead acquisito tramite Chat AI - Lead Gate",
+      extra: { page_url: window.location.pathname },
+    }).catch((err) => console.error("sendContactEmails (lead gate) failed:", err));
 
     // Update session
     ensureSession().then(async (sid) => {
