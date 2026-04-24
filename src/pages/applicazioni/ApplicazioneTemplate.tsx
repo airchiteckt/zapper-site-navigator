@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle, AlertTriangle, MapPin, LucideIcon, ClipboardCh
 import Header from "@/components/layout/Header";
 import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
+import { BreadcrumbSchema, ProductSchema } from "@/components/StructuredData";
 
 export interface ApplicazioneData {
   id: string;
@@ -26,6 +27,11 @@ const ApplicazioneTemplate = ({ data }: ApplicazioneTemplateProps) => {
   return (
     <div className="min-h-screen bg-background">
       <SEO title={`${data.title} – Abbattimento Fumi`} description={`Sistemi ZAPPER® per ${data.title.toLowerCase()}: ${data.subtitle}`} />
+      <BreadcrumbSchema items={[
+        { name: "Home", href: "/" },
+        { name: "Applicazioni", href: "/applicazioni" },
+        { name: data.title, href: `/applicazioni/${data.id}` },
+      ]} />
       <Header />
       <main>
         {/* 1. Hero Applicazione */}
