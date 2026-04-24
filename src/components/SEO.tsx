@@ -14,7 +14,7 @@ interface SEOProps {
 
 const SITE_NAME = "ZAPPER®";
 const BASE_URL = "https://www.smokezapper.it";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/icon-512.png`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 const TWITTER_HANDLE = "@smokezapper";
 
 const OG_LOCALE_MAP: Record<string, string> = {
