@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => ({
       "react-i18next",
       "i18next-browser-languagedetector",
       "@radix-ui/react-tooltip",
+      "react-helmet-async",
     ],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
