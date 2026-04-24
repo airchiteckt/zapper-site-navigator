@@ -138,7 +138,7 @@ const HeroSection = () => {
           <div className="relative animate-fade-in-up animation-delay-200 hidden lg:block">
             <div className="relative">
               <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-2xl"></div>
-              <img src={heroImage} alt="Sistema ZAPPER® per abbattimento fumi" className="relative rounded-2xl shadow-2xl w-full object-contain" loading="lazy" decoding="async" />
+              <img src={heroImage} alt="Sistema ZAPPER® per abbattimento fumi" className="relative rounded-2xl shadow-2xl w-full object-contain" loading="eager" fetchPriority="high" decoding="async" width={800} height={600} />
               <div className="absolute -bottom-6 -left-6 bg-white p-4 sm:p-6 rounded-xl shadow-xl animate-float">
                 <div className="flex items-center gap-3">
                   <div>
