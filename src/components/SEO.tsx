@@ -80,6 +80,8 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={absoluteOgImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={imageAlt} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={SITE_NAME} />
