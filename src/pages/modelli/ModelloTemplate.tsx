@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import SEO from "@/components/SEO";
 import Footer from "@/components/layout/Footer";
 import DatasheetRequestModal from "@/components/modelli/DatasheetRequestModal";
+import { BreadcrumbSchema, ProductSchema } from "@/components/StructuredData";
 import { supabase } from "@/integrations/supabase/client";
 
 import { DatasheetUrls } from "@/types/admin";
@@ -77,6 +78,16 @@ const ModelloTemplate = ({ data }: ModelloTemplateProps) => {
   return (
     <div className="min-h-screen bg-background">
       <SEO title={`${data.name} – ${data.tagline}`} description={`${data.name} ZAPPER® (${data.diameter}): ${data.description.slice(0, 140)}`} />
+      <BreadcrumbSchema items={[
+        { name: "Home", href: "/" },
+        { name: "Modelli", href: "/modelli" },
+        { name: data.name, href: `/modelli/${data.id}` },
+      ]} />
+      <ProductSchema
+        name={`ZAPPER® ${data.name}`}
+        description={data.description}
+        url={`/modelli/${data.id}`}
+      />
       <Header />
       <main>
         {/* Hero */}

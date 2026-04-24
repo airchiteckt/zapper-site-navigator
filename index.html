@@ -47,9 +47,68 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@smokezapper" />
+    <meta name="twitter:creator" content="@smokezapper" />
     <meta name="twitter:title" content="ZAPPER® | Sistemi di Abbattimento Fumi, Odori e Polveri" />
     <meta name="twitter:description" content="Sistemi di abbattimento fumi, odori e polveri per pizzerie, bracerie, forni a legna, camini e industria. Tecnologia italiana certificata." />
     <meta name="twitter:image" content="https://www.smokezapper.it/icon-512.png" />
+
+    <!-- Structured Data: Organization + WebSite + LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.smokezapper.it/#organization",
+          "name": "ZAPPER®",
+          "url": "https://www.smokezapper.it",
+          "logo": "https://www.smokezapper.it/icon-512.png",
+          "email": "info@smokezapper.it",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+39-081-199-68-436",
+            "contactType": "customer service",
+            "areaServed": ["IT","EU"],
+            "availableLanguage": ["Italian","English","French","German","Spanish"]
+          },
+          "sameAs": [
+            "https://www.facebook.com/smokezapper",
+            "https://www.instagram.com/smokezapper",
+            "https://www.linkedin.com/company/smokezapper",
+            "https://www.youtube.com/@smokezapper"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.smokezapper.it/#website",
+          "url": "https://www.smokezapper.it",
+          "name": "ZAPPER®",
+          "inLanguage": ["it","en","fr","de","es"],
+          "publisher": { "@id": "https://www.smokezapper.it/#organization" }
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://www.smokezapper.it/#localbusiness",
+          "name": "ZAPPER®",
+          "url": "https://www.smokezapper.it",
+          "image": "https://www.smokezapper.it/icon-512.png",
+          "telephone": "+39-081-199-68-436",
+          "email": "info@smokezapper.it",
+          "priceRange": "€€€",
+          "address": { "@type": "PostalAddress", "addressCountry": "IT" },
+          "areaServed": { "@type": "Country", "name": "Italy" },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "2500",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
 
   <body>
