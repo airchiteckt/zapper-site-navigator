@@ -98,6 +98,19 @@ const Scopri = () => {
         },
       });
 
+      // GTM dataLayer event - invio modulo scopri
+      try {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "invio_modulo_scopri",
+          form_source: "discovery_funnel",
+          page_url: "/scopri",
+          fonte: sourceLabel,
+          situazione: situationLabel,
+          urgente: isUrgent ? "si" : "no",
+        });
+      } catch {}
+
       setStep(4);
     } catch (e) {
       console.error("Discovery submit error:", e);
