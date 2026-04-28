@@ -22,6 +22,27 @@ export default class ErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error("ErrorBoundary caught:", error, info.componentStack);
+
+    // Auto-recover from stale-deploy chunk load failures (one-shot via sessionStorage flag)
+    const msg = String(error?.message || "");
+    const isChunkError =
+      /Failed to fetch dynamically imported module/i.test(msg) ||
+      /Loading chunk \d+ failed/i.test(msg) ||
+      /Importing a module script failed/i.test(msg) ||
+      /error loading dynamically imported module/i.test(msg) ||
+      error?.name === "ChunkLoadError";
+
+    if (isChunkError) {
+      try {
+        const FLAG = "lovable:chunk-reload-attempted";
+        if (sessionStorage.getItem(FLAG) !== "1") {
+          sessionStorage.setItem(FLAG, "1");
+          window.location.reload();
+        }
+      } catch {
+        window.location.reload();
+      }
+    }
   }
 
   handleReload = () => {
