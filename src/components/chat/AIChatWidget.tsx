@@ -616,6 +616,17 @@ export default function AIChatWidget() {
         extra: { page_url: window.location.pathname },
       }).catch((err) => console.error("sendContactEmails (callback) failed:", err));
 
+      // GTM dataLayer event - invio form chat assistente
+      try {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "invio_chat_assistente",
+          form_source: "chat_callback_popup",
+          page_url: window.location.pathname,
+          lang,
+        });
+      } catch {}
+
       ensureSession().then(async (sid) => {
         if (!sid) return;
         saveMessage(sid, "user", text.trim());
