@@ -551,13 +551,15 @@ export default function AIChatWidget() {
     // GTM dataLayer event - invio form chat assistente
     try {
       (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer.push({
+      const payload = {
         event: "invio_chat_assistente",
         form_source: "chat_lead_gate",
         page_url: window.location.pathname,
         lang,
-      });
-    } catch {}
+      };
+      (window as any).dataLayer.push(payload);
+      console.log("[GTM dataLayer push]", payload);
+    } catch (e) { console.warn("[GTM] push failed", e); }
 
     // Update session
     ensureSession().then(async (sid) => {
@@ -619,13 +621,15 @@ export default function AIChatWidget() {
       // GTM dataLayer event - invio form chat assistente
       try {
         (window as any).dataLayer = (window as any).dataLayer || [];
-        (window as any).dataLayer.push({
+        const payload = {
           event: "invio_chat_assistente",
           form_source: "chat_callback_popup",
           page_url: window.location.pathname,
           lang,
-        });
-      } catch {}
+        };
+        (window as any).dataLayer.push(payload);
+        console.log("[GTM dataLayer push]", payload);
+      } catch (e) { console.warn("[GTM] push failed", e); }
 
       ensureSession().then(async (sid) => {
         if (!sid) return;

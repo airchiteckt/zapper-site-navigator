@@ -101,15 +101,17 @@ const Scopri = () => {
       // GTM dataLayer event - invio modulo scopri
       try {
         (window as any).dataLayer = (window as any).dataLayer || [];
-        (window as any).dataLayer.push({
+        const payload = {
           event: "invio_modulo_scopri",
           form_source: "discovery_funnel",
           page_url: "/scopri",
           fonte: sourceLabel,
           situazione: situationLabel,
           urgente: isUrgent ? "si" : "no",
-        });
-      } catch {}
+        };
+        (window as any).dataLayer.push(payload);
+        console.log("[GTM dataLayer push]", payload);
+      } catch (e) { console.warn("[GTM] push failed", e); }
 
       setStep(4);
     } catch (e) {
