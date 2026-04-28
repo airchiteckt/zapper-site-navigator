@@ -1,4 +1,5 @@
-import { lazy, Suspense, type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
+import { lazyWithRetry as lazy } from "@/lib/lazyWithRetry";
 
 // Eager: homepage (critical path)
 import Index from "@/pages/Index";
