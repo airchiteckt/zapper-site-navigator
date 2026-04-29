@@ -74,6 +74,25 @@ const Scopri = () => {
   const handleSubmit = async () => {
     if (!name.trim() || !phone.trim()) return;
     setSubmitting(true);
+
+    // GTM dataLayer event — FIRED FIRST, before any network call,
+    // so it triggers even if backend/email is slow or fails.
+    try {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      const payload = {
+        event: "invio_modulo_scopri",
+        form_source: "discovery_funnel",
+        page_url: "/scopri",
+        fonte: sourceLabel,
+        situazione: situationLabel,
+        urgente: isUrgent ? "si" : "no",
+      };
+      (window as any).dataLayer.push(payload);
+      console.log("[GTM dataLayer push]", payload);
+    } catch (e) {
+      console.warn("[GTM] push failed", e);
+    }
+
     try {
       // Save to chat_sessions as a discovery lead
       await supabase.from("chat_sessions").insert({
@@ -97,21 +116,6 @@ const Scopri = () => {
           urgente: isUrgent ? "Sì" : "No",
         },
       });
-
-      // GTM dataLayer event - invio modulo scopri
-      try {
-        (window as any).dataLayer = (window as any).dataLayer || [];
-        const payload = {
-          event: "invio_modulo_scopri",
-          form_source: "discovery_funnel",
-          page_url: "/scopri",
-          fonte: sourceLabel,
-          situazione: situationLabel,
-          urgente: isUrgent ? "si" : "no",
-        };
-        (window as any).dataLayer.push(payload);
-        console.log("[GTM dataLayer push]", payload);
-      } catch (e) { console.warn("[GTM] push failed", e); }
 
       setStep(4);
     } catch (e) {
