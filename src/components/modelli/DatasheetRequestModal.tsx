@@ -95,21 +95,37 @@ export default function DatasheetRequestModal({
 
     setIsSubmitting(true);
 
+    // Fire GTM event IMMEDIATELY on submit
+    if (typeof window !== "undefined") {
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      const payload = {
+        event: "scarica_scheda_tecnica",
+        model: modelName,
+        language: effectiveLanguage,
+        page_url: window.location.href,
+      };
+      w.dataLayer.push(payload);
+      console.log("[GTM dataLayer push]", payload);
+    }
+
     try {
-      // Save lead to database
-      const { error } = await supabase.from('datasheet_requests').insert({
+      // Save lead to database (non-blocking for download)
+      const { error: dbError } = await supabase.from('datasheet_requests').insert({
         model_id: modelId,
-        first_name: formData.firstName,
-        last_name: formData.lastName,
+        first_name: formData.firstName || '—',
+        last_name: formData.lastName || '—',
         email: formData.email,
         phone: formData.phone,
       });
 
-      if (error) throw error;
+      if (dbError) {
+        console.error('DB insert failed (continuing):', dbError);
+      }
 
-      // Send emails
-      await sendContactEmails({
-        name: `${formData.firstName} ${formData.lastName}`,
+      // Send emails (best-effort, don't block download)
+      sendContactEmails({
+        name: `${formData.firstName} ${formData.lastName}`.trim() || formData.email,
         email: formData.email,
         phone: formData.phone,
         source: `Scheda tecnica — ${modelName}`,
@@ -117,7 +133,7 @@ export default function DatasheetRequestModal({
           'Modello': modelName,
           'Lingua': effectiveLanguage?.toUpperCase() || '—',
         },
-      });
+      }).catch((err) => console.error('Email send failed (non-blocking):', err));
 
       // Trigger download
       const datasheetUrl = datasheetUrls[effectiveLanguage];
@@ -137,7 +153,7 @@ export default function DatasheetRequestModal({
       navigate(`/${lang}/grazie`);
 
     } catch (error) {
-      console.error('Error submitting request:', error);
+      console.error('Error submitting datasheet request:', error);
       toast({
         title: 'Errore',
         description: 'Impossibile inviare la richiesta. Riprova.',
