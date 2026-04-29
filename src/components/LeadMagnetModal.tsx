@@ -23,6 +23,20 @@ const LeadMagnetModal = ({ open, onClose, source = "lead_magnet_modal" }: LeadMa
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !phone.trim()) return;
+
+    // Fire GTM event IMMEDIATELY on submit (before async work)
+    if (typeof window !== "undefined") {
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      const payload = {
+        event: "scarica_guida",
+        source,
+        page_url: window.location.href,
+      };
+      w.dataLayer.push(payload);
+      console.log("[GTM dataLayer push]", payload);
+    }
+
     setSubmitting(true);
     try {
       await supabase.functions.invoke("send-lead-magnet", {
@@ -35,13 +49,6 @@ const LeadMagnetModal = ({ open, onClose, source = "lead_magnet_modal" }: LeadMa
         },
       });
       trackFormSubmit("lead_magnet_guida");
-      // GTM event
-      if (typeof window !== "undefined" && (window as unknown as { dataLayer?: unknown[] }).dataLayer) {
-        (window as unknown as { dataLayer: Record<string, unknown>[] }).dataLayer.push({
-          event: "lead_magnet_download",
-          source,
-        });
-      }
       setSuccess(true);
       // Trigger immediate browser download
       window.open(PDF_URL, "_blank");
