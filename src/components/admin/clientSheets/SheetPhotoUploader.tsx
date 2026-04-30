@@ -75,7 +75,6 @@ export default function SheetPhotoUploader({ sheetId }: Props) {
               <div>
                 <p className="font-medium">
                   {cat.label}
-                  {cat.required && <span className="text-destructive ml-1">*</span>}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   {catPhotos.length} foto caricate

@@ -9,6 +9,14 @@ export type ComplexityLevel = "low" | "medium" | "high";
 export type ProbabilityLevel = "high" | "medium" | "low";
 export type UrgencyLevel = "low" | "medium" | "high";
 
+export interface HoodUnit {
+  type?: "wall" | "central" | "island";
+  length_cm?: number;
+  depth_cm?: number;
+  height_cm?: number;
+  state?: StateLevel;
+}
+
 export interface KitchenHood {
   count?: number;
   type?: "wall" | "central" | "island";
@@ -16,6 +24,8 @@ export interface KitchenHood {
   depth_cm?: number;
   height_cm?: number;
   state?: StateLevel;
+  /** Cappe aggiuntive oltre la prima (la prima resta sui campi base) */
+  units?: HoodUnit[];
 }
 
 export interface CookingArea {
@@ -155,10 +165,10 @@ export type PhotoCategory =
   | "other";
 
 export const PHOTO_CATEGORIES: { value: PhotoCategory; label: string; required?: boolean }[] = [
-  { value: "hood_front", label: "Frontale cappa", required: true },
-  { value: "hood_inside", label: "Interno cappa", required: true },
-  { value: "filters", label: "Filtri", required: true },
-  { value: "cooking_area", label: "Zona fuochi", required: true },
+  { value: "hood_front", label: "Frontale cappa", required: false },
+  { value: "hood_inside", label: "Interno cappa", required: false },
+  { value: "filters", label: "Filtri", required: false },
+  { value: "cooking_area", label: "Zona fuochi", required: false },
   { value: "ductwork", label: "Canalizzazione", required: false },
   { value: "exhaust", label: "Aspirazione/Motore", required: false },
   { value: "other", label: "Altro", required: false },
