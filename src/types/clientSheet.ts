@@ -165,10 +165,10 @@ export type PhotoCategory =
   | "other";
 
 export const PHOTO_CATEGORIES: { value: PhotoCategory; label: string; required?: boolean }[] = [
-  { value: "hood_front", label: "Frontale cappa", required: true },
-  { value: "hood_inside", label: "Interno cappa", required: true },
-  { value: "filters", label: "Filtri", required: true },
-  { value: "cooking_area", label: "Zona fuochi", required: true },
+  { value: "hood_front", label: "Frontale cappa", required: false },
+  { value: "hood_inside", label: "Interno cappa", required: false },
+  { value: "filters", label: "Filtri", required: false },
+  { value: "cooking_area", label: "Zona fuochi", required: false },
   { value: "ductwork", label: "Canalizzazione", required: false },
   { value: "exhaust", label: "Aspirazione/Motore", required: false },
   { value: "other", label: "Altro", required: false },
