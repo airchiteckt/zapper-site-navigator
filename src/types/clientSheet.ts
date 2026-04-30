@@ -9,6 +9,14 @@ export type ComplexityLevel = "low" | "medium" | "high";
 export type ProbabilityLevel = "high" | "medium" | "low";
 export type UrgencyLevel = "low" | "medium" | "high";
 
+export interface HoodUnit {
+  type?: "wall" | "central" | "island";
+  length_cm?: number;
+  depth_cm?: number;
+  height_cm?: number;
+  state?: StateLevel;
+}
+
 export interface KitchenHood {
   count?: number;
   type?: "wall" | "central" | "island";
@@ -16,6 +24,8 @@ export interface KitchenHood {
   depth_cm?: number;
   height_cm?: number;
   state?: StateLevel;
+  /** Cappe aggiuntive oltre la prima (la prima resta sui campi base) */
+  units?: HoodUnit[];
 }
 
 export interface CookingArea {
