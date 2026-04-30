@@ -605,17 +605,73 @@ export default function AIChatWidget() {
       localStorage.setItem(VISITOR_SUBMITTED_KEY, "true");
       localStorage.setItem(LEAD_CAPTURED_KEY, "true");
 
+      const phoneTrim = text.trim();
+      const pageUrl = window.location.pathname;
+
+      // 1) PRIORITÀ: salvataggio immediato e diretto in DB (non dipendente dalle email)
+      //    così la richiesta non viene mai persa, anche se l'utente chiude la tab.
+      supabase.from("form_submissions").insert({
+        source: "chat_callback_popup",
+        name: "Richiesta richiamata",
+        phone: phoneTrim,
+        message: "Richiesta di richiamata dal popup della Chat AI",
+        page_url: pageUrl,
+        user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 500) : null,
+        extra: { page_url: pageUrl },
+      }).then(({ error }) => {
+        if (error) console.error("[callback] form_submissions insert failed:", error);
+      });
+
+      // 2) Crea/aggiorna chat_session così la richiesta appare anche in /admin/chat-logs
+      (async () => {
+        try {
+          let sid = sessionIdRef.current;
+          if (!sid) {
+            const { data, error } = await supabase
+              .from("chat_sessions")
+              .insert({
+                visitor_id: visitorId,
+                page_url: pageUrl,
+                user_agent: navigator.userAgent.slice(0, 500),
+                visitor_phone: phoneTrim,
+                visitor_name: "Richiesta richiamata",
+                contact_submitted: true,
+                message_count: 1,
+              })
+              .select("id").single();
+            if (error) throw error;
+            sid = data.id;
+            sessionIdRef.current = sid;
+          } else {
+            await supabase.from("chat_sessions").update({
+              visitor_phone: phoneTrim,
+              visitor_name: "Richiesta richiamata",
+              contact_submitted: true,
+            }).eq("id", sid);
+          }
+          // Salva i messaggi
+          await supabase.from("chat_messages").insert([
+            { session_id: sid, role: "user", content: phoneTrim },
+            { session_id: sid, role: "assistant", content: confirmMsg },
+          ]);
+        } catch (err) {
+          console.error("[callback] chat_session save failed:", err);
+        }
+      })();
+
+      // 3) Backup legacy: datasheet_requests
       supabase.from("datasheet_requests").insert({
-        first_name: "-", last_name: "-", email: "-", phone: text.trim(),
+        first_name: "-", last_name: "-", email: "-", phone: phoneTrim,
       }).then(() => {});
-      // Salva il lead in form_submissions (visibile in /admin/leads) + invia email branded
+
+      // 4) Email branded (fire-and-forget, non blocca il salvataggio)
       sendContactEmails({
         name: "Richiesta richiamata",
         email: "non fornita",
-        phone: text.trim(),
+        phone: phoneTrim,
         source: "chat_callback_popup",
         message: "Richiesta di richiamata dal popup della Chat AI",
-        extra: { page_url: window.location.pathname },
+        extra: { page_url: pageUrl },
       }).catch((err) => console.error("sendContactEmails (callback) failed:", err));
 
       // GTM dataLayer event - invio form chat assistente
