@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/accordion";
 import { Eye, EyeOff, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SECTION_LABELS, type ClientSheet, type HoodUnit, type SectionKey } from "@/types/clientSheet";
+import { SECTION_LABELS, type ClientSheet, type HoodUnit, type DuctLine, type FilterDetail, type CarbonFilterUnit, type FilterKind, type SectionKey } from "@/types/clientSheet";
 import SheetPhotoUploader from "./SheetPhotoUploader";
 import QuoteEditor from "./QuoteEditor";
 
