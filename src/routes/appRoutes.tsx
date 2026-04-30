@@ -88,6 +88,9 @@ const AdminBlog = lazy(() => import("@/pages/admin/AdminBlog"));
 const AdminChatLogs = lazy(() => import("@/pages/admin/AdminChatLogs"));
 const AdminAnalytics = lazy(() => import("@/pages/admin/AdminAnalytics"));
 const AdminLeads = lazy(() => import("@/pages/admin/AdminLeads"));
+const AdminClientSheets = lazy(() => import("@/pages/admin/AdminClientSheets"));
+const AdminClientSheetEditor = lazy(() => import("@/pages/admin/AdminClientSheetEditor"));
+const PublicClientSheet = lazy(() => import("@/pages/PublicClientSheet"));
 const PartnerLogin = lazy(() => import("@/pages/partner/PartnerLogin"));
 const PartnerMap = lazy(() => import("@/pages/PartnerMap"));
 const LandingPartners = lazy(() => import("@/pages/LandingPartners"));
@@ -198,6 +201,9 @@ export const appRoutes: AppRouteConfig[] = [
   { path: "/admin/chat-logs", element: <S><AdminChatLogs /></S> },
   { path: "/admin/analytics", element: <S><AdminAnalytics /></S> },
   { path: "/admin/leads", element: <S><AdminLeads /></S> },
+  { path: "/admin/clienti", element: <S><AdminClientSheets /></S> },
+  { path: "/admin/clienti/:id", element: <S><AdminClientSheetEditor /></S> },
+  { path: "/scheda/:token", element: <S><PublicClientSheet /></S> },
   { path: "/partners", element: <S><PartnerMap /></S> },
   { path: "/landing-partners", element: <S><LandingPartners /></S> },
   { path: "/partner", element: <S><PartnerLogin /></S> },
