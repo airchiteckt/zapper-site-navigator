@@ -687,12 +687,7 @@ export default function AIChatWidget() {
         console.log("[GTM dataLayer push]", payload);
       } catch (e) { console.warn("[GTM] push failed", e); }
 
-      ensureSession().then(async (sid) => {
-        if (!sid) return;
-        saveMessage(sid, "user", text.trim());
-        saveMessage(sid, "assistant", confirmMsg);
-        try { await supabase.from("chat_sessions").update({ contact_submitted: true, visitor_phone: text.trim() }).eq("id", sid); } catch {}
-      });
+      // (chat_session + messaggi già salvati sopra in modo prioritario)
       return;
     }
 
