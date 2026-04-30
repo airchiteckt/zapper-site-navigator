@@ -55,6 +55,113 @@ function VisibilityBadge({
   );
 }
 
+const FILTER_KIND_OPTIONS: { value: FilterKind; label: string }[] = [
+  { value: "carbon", label: "Filtro a carbone" },
+  { value: "metallic", label: "Filtro metallico" },
+  { value: "pocket", label: "Filtro a tasche" },
+  { value: "synthetic", label: "Filtro sintetico" },
+  { value: "absolute", label: "Filtro assoluto (HEPA)" },
+  { value: "prefilter", label: "Pre-filtro" },
+  { value: "other", label: "Altro" },
+];
+
+function FilterDetailsEditor({
+  filters,
+  onChange,
+}: {
+  filters: FilterDetail[];
+  onChange: (next: FilterDetail[]) => void;
+}) {
+  const update = (idx: number, patch: Partial<FilterDetail>) => {
+    const next = [...filters];
+    next[idx] = { ...next[idx], ...patch };
+    onChange(next);
+  };
+  const remove = (idx: number) => onChange(filters.filter((_, i) => i !== idx));
+  const add = () => onChange([...filters, {} as FilterDetail]);
+
+  return (
+    <div className="space-y-2 pt-2 border-t">
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+        Dettaglio filtri
+      </p>
+      {filters.map((f, idx) => (
+        <div key={idx} className="rounded-md border bg-background p-2 space-y-2">
+          <div className="grid sm:grid-cols-2 gap-2">
+            <div>
+              <Label className="text-xs">Tipo</Label>
+              <Select
+                value={f.kind ?? ""}
+                onValueChange={(val) => update(idx, { kind: val as FilterKind })}
+              >
+                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                <SelectContent>
+                  {FILTER_KIND_OPTIONS.map((o) => (
+                    <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-xs">Etichetta</Label>
+              <Input
+                value={f.label ?? ""}
+                placeholder="es. Filtro metallico cappa principale"
+                onChange={(e) => update(idx, { label: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label className="text-xs">Dimensioni</Label>
+              <Input
+                value={f.dimensions ?? ""}
+                placeholder="es. 500x500x50 mm"
+                onChange={(e) => update(idx, { dimensions: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label className="text-xs">Quantità</Label>
+              <Input
+                type="number"
+                value={f.quantity ?? ""}
+                onChange={(e) => update(idx, { quantity: Number(e.target.value) || undefined })}
+              />
+            </div>
+            <div>
+              <Label className="text-xs">Stato</Label>
+              <Select
+                value={f.state ?? ""}
+                onValueChange={(val) => update(idx, { state: val as "good" | "medium" | "bad" })}
+              >
+                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="good">🟢 Buono</SelectItem>
+                  <SelectItem value="medium">🟡 Da pulire</SelectItem>
+                  <SelectItem value="bad">🔴 Da sostituire</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="sm:col-span-2">
+              <Label className="text-xs">Note</Label>
+              <Input
+                value={f.notes ?? ""}
+                onChange={(e) => update(idx, { notes: e.target.value })}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <Button type="button" variant="ghost" size="sm" onClick={() => remove(idx)}>
+              <Trash2 className="h-3 w-3 mr-1" /> Rimuovi filtro
+            </Button>
+          </div>
+        </div>
+      ))}
+      <Button type="button" variant="outline" size="sm" onClick={add}>
+        <Plus className="h-3 w-3 mr-1" /> Aggiungi filtro
+      </Button>
+    </div>
+  );
+}
+
 export default function ClientSheetSections({ sheet, onPatch }: Props) {
   const v = sheet.section_visibility;
   const toggleVis = (key: SectionKey) =>
