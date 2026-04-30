@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/accordion";
 import { Eye, EyeOff, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SECTION_LABELS, type ClientSheet, type HoodUnit, type SectionKey } from "@/types/clientSheet";
+import { SECTION_LABELS, type ClientSheet, type HoodUnit, type DuctLine, type FilterDetail, type CarbonFilterUnit, type FilterKind, type SectionKey } from "@/types/clientSheet";
 import SheetPhotoUploader from "./SheetPhotoUploader";
 import QuoteEditor from "./QuoteEditor";
 
@@ -51,6 +51,113 @@ function VisibilityBadge({
         onCheckedChange={onToggle}
         aria-label={`Visibilità sezione ${sectionKey}`}
       />
+    </div>
+  );
+}
+
+const FILTER_KIND_OPTIONS: { value: FilterKind; label: string }[] = [
+  { value: "carbon", label: "Filtro a carbone" },
+  { value: "metallic", label: "Filtro metallico" },
+  { value: "pocket", label: "Filtro a tasche" },
+  { value: "synthetic", label: "Filtro sintetico" },
+  { value: "absolute", label: "Filtro assoluto (HEPA)" },
+  { value: "prefilter", label: "Pre-filtro" },
+  { value: "other", label: "Altro" },
+];
+
+function FilterDetailsEditor({
+  filters,
+  onChange,
+}: {
+  filters: FilterDetail[];
+  onChange: (next: FilterDetail[]) => void;
+}) {
+  const update = (idx: number, patch: Partial<FilterDetail>) => {
+    const next = [...filters];
+    next[idx] = { ...next[idx], ...patch };
+    onChange(next);
+  };
+  const remove = (idx: number) => onChange(filters.filter((_, i) => i !== idx));
+  const add = () => onChange([...filters, {} as FilterDetail]);
+
+  return (
+    <div className="space-y-2 pt-2 border-t">
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+        Dettaglio filtri
+      </p>
+      {filters.map((f, idx) => (
+        <div key={idx} className="rounded-md border bg-background p-2 space-y-2">
+          <div className="grid sm:grid-cols-2 gap-2">
+            <div>
+              <Label className="text-xs">Tipo</Label>
+              <Select
+                value={f.kind ?? ""}
+                onValueChange={(val) => update(idx, { kind: val as FilterKind })}
+              >
+                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                <SelectContent>
+                  {FILTER_KIND_OPTIONS.map((o) => (
+                    <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-xs">Etichetta</Label>
+              <Input
+                value={f.label ?? ""}
+                placeholder="es. Filtro metallico cappa principale"
+                onChange={(e) => update(idx, { label: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label className="text-xs">Dimensioni</Label>
+              <Input
+                value={f.dimensions ?? ""}
+                placeholder="es. 500x500x50 mm"
+                onChange={(e) => update(idx, { dimensions: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label className="text-xs">Quantità</Label>
+              <Input
+                type="number"
+                value={f.quantity ?? ""}
+                onChange={(e) => update(idx, { quantity: Number(e.target.value) || undefined })}
+              />
+            </div>
+            <div>
+              <Label className="text-xs">Stato</Label>
+              <Select
+                value={f.state ?? ""}
+                onValueChange={(val) => update(idx, { state: val as "good" | "medium" | "bad" })}
+              >
+                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="good">🟢 Buono</SelectItem>
+                  <SelectItem value="medium">🟡 Da pulire</SelectItem>
+                  <SelectItem value="bad">🔴 Da sostituire</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="sm:col-span-2">
+              <Label className="text-xs">Note</Label>
+              <Input
+                value={f.notes ?? ""}
+                onChange={(e) => update(idx, { notes: e.target.value })}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <Button type="button" variant="ghost" size="sm" onClick={() => remove(idx)}>
+              <Trash2 className="h-3 w-3 mr-1" /> Rimuovi filtro
+            </Button>
+          </div>
+        </div>
+      ))}
+      <Button type="button" variant="outline" size="sm" onClick={add}>
+        <Plus className="h-3 w-3 mr-1" /> Aggiungi filtro
+      </Button>
     </div>
   );
 }
@@ -404,64 +511,173 @@ export default function ClientSheetSections({ sheet, onPatch }: Props) {
             <VisibilityBadge sectionKey="ductwork" visible={v.ductwork} onToggle={() => toggleVis("ductwork")} />
           </div>
         </AccordionTrigger>
-        <AccordionContent className="space-y-3 pt-2">
-          <div className="grid sm:grid-cols-2 gap-3">
-            <label className="flex items-center gap-2 sm:col-span-2">
-              <input
-                type="checkbox"
-                checked={sheet.ductwork.present ?? false}
-                onChange={(e) => onPatch({ ductwork: { ...sheet.ductwork, present: e.target.checked } })}
-              />
-              Canalizzazione presente
-            </label>
-            <div>
-              <Label>Lunghezza stimata (m)</Label>
-              <Input
-                type="number"
-                step="0.1"
-                value={sheet.ductwork.length_m ?? ""}
-                onChange={(e) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, length_m: Number(e.target.value) || undefined } })
-                }
-              />
+        <AccordionContent className="space-y-4 pt-2">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={sheet.ductwork.present ?? false}
+              onChange={(e) => onPatch({ ductwork: { ...sheet.ductwork, present: e.target.checked } })}
+            />
+            Canalizzazione presente
+          </label>
+
+          {/* Canalizzazione principale */}
+          <div className="rounded-lg border p-3 space-y-3 bg-muted/30">
+            <p className="text-sm font-semibold">Canalizzazione principale</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div>
+                <Label>Lunghezza stimata (m)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  value={sheet.ductwork.length_m ?? ""}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, length_m: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Diametro (cm)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  value={sheet.ductwork.diameter_cm ?? ""}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, diameter_cm: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Numero curve</Label>
+                <Input
+                  type="number"
+                  value={sheet.ductwork.curves_count ?? ""}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, curves_count: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Accessibilità</Label>
+                <Select
+                  value={sheet.ductwork.accessibility ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, accessibility: val as "easy" | "medium" | "hard" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="easy">Facile</SelectItem>
+                    <SelectItem value="medium">Media</SelectItem>
+                    <SelectItem value="hard">Difficile</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <label className="flex items-center gap-2 sm:col-span-2">
+                <input
+                  type="checkbox"
+                  checked={sheet.ductwork.has_inspection_hatches ?? false}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, has_inspection_hatches: e.target.checked } })
+                  }
+                />
+                Botole di ispezione presenti
+              </label>
             </div>
-            <div>
-              <Label>Numero curve</Label>
-              <Input
-                type="number"
-                value={sheet.ductwork.curves_count ?? ""}
-                onChange={(e) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, curves_count: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Accessibilità</Label>
-              <Select
-                value={sheet.ductwork.accessibility ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, accessibility: val as "easy" | "medium" | "hard" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="easy">Facile</SelectItem>
-                  <SelectItem value="medium">Media</SelectItem>
-                  <SelectItem value="hard">Difficile</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={sheet.ductwork.has_inspection_hatches ?? false}
-                onChange={(e) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, has_inspection_hatches: e.target.checked } })
-                }
-              />
-              Botole di ispezione presenti
-            </label>
           </div>
+
+          {/* Canalizzazioni aggiuntive */}
+          {(sheet.ductwork.lines ?? []).map((line, idx) => {
+            const updateLine = (patch: Partial<DuctLine>) => {
+              const lines = [...(sheet.ductwork.lines ?? [])];
+              lines[idx] = { ...lines[idx], ...patch };
+              onPatch({ ductwork: { ...sheet.ductwork, lines } });
+            };
+            const removeLine = () => {
+              const lines = (sheet.ductwork.lines ?? []).filter((_, i) => i !== idx);
+              onPatch({ ductwork: { ...sheet.ductwork, lines } });
+            };
+            return (
+              <div key={idx} className="rounded-lg border p-3 space-y-3 bg-muted/30">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold">Canalizzazione aggiuntiva #{idx + 1}</p>
+                  <Button type="button" variant="ghost" size="sm" onClick={removeLine}>
+                    <Trash2 className="h-4 w-4 mr-1" /> Rimuovi
+                  </Button>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="sm:col-span-2">
+                    <Label>Descrizione</Label>
+                    <Input
+                      value={line.description ?? ""}
+                      placeholder="es. Canna fumaria forno, scarico friggitrice..."
+                      onChange={(e) => updateLine({ description: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Lunghezza (m)</Label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      value={line.length_m ?? ""}
+                      onChange={(e) => updateLine({ length_m: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Diametro (cm)</Label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      value={line.diameter_cm ?? ""}
+                      onChange={(e) => updateLine({ diameter_cm: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Numero curve</Label>
+                    <Input
+                      type="number"
+                      value={line.curves_count ?? ""}
+                      onChange={(e) => updateLine({ curves_count: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Accessibilità</Label>
+                    <Select
+                      value={line.accessibility ?? ""}
+                      onValueChange={(val) => updateLine({ accessibility: val as "easy" | "medium" | "hard" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="easy">Facile</SelectItem>
+                        <SelectItem value="medium">Media</SelectItem>
+                        <SelectItem value="hard">Difficile</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <label className="flex items-center gap-2 sm:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={line.has_inspection_hatches ?? false}
+                      onChange={(e) => updateLine({ has_inspection_hatches: e.target.checked })}
+                    />
+                    Botole di ispezione presenti
+                  </label>
+                </div>
+              </div>
+            );
+          })}
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const lines = [...(sheet.ductwork.lines ?? []), {} as DuctLine];
+              onPatch({ ductwork: { ...sheet.ductwork, lines } });
+            }}
+          >
+            <Plus className="h-4 w-4 mr-1" /> Aggiungi canalizzazione
+          </Button>
         </AccordionContent>
       </AccordionItem>
 
@@ -550,80 +766,193 @@ export default function ClientSheetSections({ sheet, onPatch }: Props) {
             <VisibilityBadge sectionKey="carbon_filters" visible={v.carbon_filters} onToggle={() => toggleVis("carbon_filters")} />
           </div>
         </AccordionTrigger>
-        <AccordionContent className="space-y-3 pt-2">
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div>
-              <Label>Numero centrali</Label>
-              <Input
-                type="number"
-                value={sheet.carbon_filters.units_count ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, units_count: Number(e.target.value) || undefined } })
-                }
-              />
+        <AccordionContent className="space-y-4 pt-2">
+          {/* Centrale principale */}
+          <div className="rounded-lg border p-3 space-y-3 bg-muted/30">
+            <p className="text-sm font-semibold">Centrale principale</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div>
+                <Label>Numero centrali totali</Label>
+                <Input
+                  type="number"
+                  value={sheet.carbon_filters.units_count ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, units_count: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Marca / Modello</Label>
+                <Input
+                  value={sheet.carbon_filters.brand_model ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, brand_model: e.target.value } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Numero filtri carbone</Label>
+                <Input
+                  type="number"
+                  value={sheet.carbon_filters.filter_count ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, filter_count: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Stato</Label>
+                <Select
+                  value={sheet.carbon_filters.state ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, state: val as "good" | "medium" | "bad" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="good">🟢 Buono</SelectItem>
+                    <SelectItem value="medium">🟡 Da pulire</SelectItem>
+                    <SelectItem value="bad">🔴 Da sostituire</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Ultima manutenzione</Label>
+                <Input
+                  type="date"
+                  value={sheet.carbon_filters.last_maintenance ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, last_maintenance: e.target.value } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Odori percepiti</Label>
+                <Select
+                  value={sheet.carbon_filters.odor_level ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, odor_level: val as "none" | "medium" | "strong" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Nessuno</SelectItem>
+                    <SelectItem value="medium">Medio</SelectItem>
+                    <SelectItem value="strong">Forte</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div>
-              <Label>Marca / Modello</Label>
-              <Input
-                value={sheet.carbon_filters.brand_model ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, brand_model: e.target.value } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Numero filtri carbone</Label>
-              <Input
-                type="number"
-                value={sheet.carbon_filters.filter_count ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, filter_count: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Stato</Label>
-              <Select
-                value={sheet.carbon_filters.state ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, state: val as "good" | "medium" | "bad" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="good">🟢 Buono</SelectItem>
-                  <SelectItem value="medium">🟡 Da pulire</SelectItem>
-                  <SelectItem value="bad">🔴 Da sostituire</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>Ultima manutenzione</Label>
-              <Input
-                type="date"
-                value={sheet.carbon_filters.last_maintenance ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, last_maintenance: e.target.value } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Odori percepiti</Label>
-              <Select
-                value={sheet.carbon_filters.odor_level ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, odor_level: val as "none" | "medium" | "strong" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">Nessuno</SelectItem>
-                  <SelectItem value="medium">Medio</SelectItem>
-                  <SelectItem value="strong">Forte</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+
+            {/* Dettaglio filtri della centrale principale */}
+            <FilterDetailsEditor
+              filters={sheet.carbon_filters.filters ?? []}
+              onChange={(filters) =>
+                onPatch({ carbon_filters: { ...sheet.carbon_filters, filters } })
+              }
+            />
           </div>
+
+          {/* Centrali aggiuntive */}
+          {(sheet.carbon_filters.units ?? []).map((unit, idx) => {
+            const updateUnit = (patch: Partial<CarbonFilterUnit>) => {
+              const units = [...(sheet.carbon_filters.units ?? [])];
+              units[idx] = { ...units[idx], ...patch };
+              onPatch({ carbon_filters: { ...sheet.carbon_filters, units } });
+            };
+            const removeUnit = () => {
+              const units = (sheet.carbon_filters.units ?? []).filter((_, i) => i !== idx);
+              onPatch({ carbon_filters: { ...sheet.carbon_filters, units } });
+            };
+            return (
+              <div key={idx} className="rounded-lg border p-3 space-y-3 bg-muted/30">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold">Centrale aggiuntiva #{idx + 1}</p>
+                  <Button type="button" variant="ghost" size="sm" onClick={removeUnit}>
+                    <Trash2 className="h-4 w-4 mr-1" /> Rimuovi
+                  </Button>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="sm:col-span-2">
+                    <Label>Etichetta</Label>
+                    <Input
+                      value={unit.label ?? ""}
+                      placeholder="es. Centrale zona pizzeria"
+                      onChange={(e) => updateUnit({ label: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Marca / Modello</Label>
+                    <Input
+                      value={unit.brand_model ?? ""}
+                      onChange={(e) => updateUnit({ brand_model: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Numero filtri carbone</Label>
+                    <Input
+                      type="number"
+                      value={unit.filter_count ?? ""}
+                      onChange={(e) => updateUnit({ filter_count: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Stato</Label>
+                    <Select
+                      value={unit.state ?? ""}
+                      onValueChange={(val) => updateUnit({ state: val as "good" | "medium" | "bad" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="good">🟢 Buono</SelectItem>
+                        <SelectItem value="medium">🟡 Da pulire</SelectItem>
+                        <SelectItem value="bad">🔴 Da sostituire</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Ultima manutenzione</Label>
+                    <Input
+                      type="date"
+                      value={unit.last_maintenance ?? ""}
+                      onChange={(e) => updateUnit({ last_maintenance: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Odori</Label>
+                    <Select
+                      value={unit.odor_level ?? ""}
+                      onValueChange={(val) => updateUnit({ odor_level: val as "none" | "medium" | "strong" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Nessuno</SelectItem>
+                        <SelectItem value="medium">Medio</SelectItem>
+                        <SelectItem value="strong">Forte</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <FilterDetailsEditor
+                  filters={unit.filters ?? []}
+                  onChange={(filters) => updateUnit({ filters })}
+                />
+              </div>
+            );
+          })}
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const units = [...(sheet.carbon_filters.units ?? []), {} as CarbonFilterUnit];
+              onPatch({ carbon_filters: { ...sheet.carbon_filters, units } });
+            }}
+          >
+            <Plus className="h-4 w-4 mr-1" /> Aggiungi centrale
+          </Button>
         </AccordionContent>
       </AccordionItem>
 

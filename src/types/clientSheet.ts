@@ -35,12 +35,24 @@ export interface CookingArea {
   has_critical_buildup?: boolean;
 }
 
-export interface Ductwork {
-  present?: boolean;
+export interface DuctLine {
+  description?: string; // es. "Canna fumaria forno"
   length_m?: number;
+  diameter_cm?: number;
   curves_count?: number;
   accessibility?: Difficulty;
   has_inspection_hatches?: boolean;
+}
+
+export interface Ductwork {
+  present?: boolean;
+  length_m?: number;
+  diameter_cm?: number;
+  curves_count?: number;
+  accessibility?: Difficulty;
+  has_inspection_hatches?: boolean;
+  /** Canalizzazioni aggiuntive oltre la principale */
+  lines?: DuctLine[];
 }
 
 export interface ExhaustSystem {
@@ -50,6 +62,34 @@ export interface ExhaustSystem {
   state?: StateLevel;
 }
 
+export type FilterKind =
+  | "carbon"
+  | "metallic"
+  | "pocket"
+  | "synthetic"
+  | "absolute"
+  | "prefilter"
+  | "other";
+
+export interface FilterDetail {
+  kind?: FilterKind;
+  label?: string; // es. "Filtro metallico cappa principale"
+  dimensions?: string; // es. "500x500x50 mm"
+  quantity?: number;
+  state?: StateLevel;
+  notes?: string;
+}
+
+export interface CarbonFilterUnit {
+  label?: string; // es. "Centrale 1 - cucina"
+  brand_model?: string;
+  filter_count?: number;
+  state?: StateLevel;
+  last_maintenance?: string;
+  odor_level?: "none" | "medium" | "strong";
+  filters?: FilterDetail[];
+}
+
 export interface CarbonFilters {
   units_count?: number;
   brand_model?: string;
@@ -57,6 +97,10 @@ export interface CarbonFilters {
   state?: StateLevel;
   last_maintenance?: string; // ISO date
   odor_level?: "none" | "medium" | "strong";
+  /** Dettaglio filtri della centrale principale */
+  filters?: FilterDetail[];
+  /** Centrali aggiuntive */
+  units?: CarbonFilterUnit[];
 }
 
 export interface OperatingConditions {
