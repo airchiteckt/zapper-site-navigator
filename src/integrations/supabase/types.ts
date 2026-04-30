@@ -277,6 +277,140 @@ export type Database = {
         }
         Relationships: []
       }
+      client_sheet_photos: {
+        Row: {
+          caption: string | null
+          category: string
+          created_at: string
+          id: string
+          is_public: boolean
+          sheet_id: string
+          sort_order: number
+          url: string
+        }
+        Insert: {
+          caption?: string | null
+          category: string
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          sheet_id: string
+          sort_order?: number
+          url: string
+        }
+        Update: {
+          caption?: string | null
+          category?: string
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          sheet_id?: string
+          sort_order?: number
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_sheet_photos_sheet_id_fkey"
+            columns: ["sheet_id"]
+            isOneToOne: false
+            referencedRelation: "client_sheets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_sheets: {
+        Row: {
+          address: string | null
+          business_name: string
+          business_type: string | null
+          carbon_filters: Json
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          cooking_area: Json
+          created_at: string
+          created_by: string | null
+          ductwork: Json
+          exhaust_system: Json
+          id: string
+          internal_evaluation: Json
+          intervention_estimate: Json
+          intervention_hours: string | null
+          kitchen_hood: Json
+          opening_hours: string | null
+          operating_conditions: Json
+          public_token: string
+          quote_items: Json
+          quote_notes: string | null
+          quote_total_cents: number
+          risks: Json
+          section_visibility: Json
+          status: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          address?: string | null
+          business_name: string
+          business_type?: string | null
+          carbon_filters?: Json
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          cooking_area?: Json
+          created_at?: string
+          created_by?: string | null
+          ductwork?: Json
+          exhaust_system?: Json
+          id?: string
+          internal_evaluation?: Json
+          intervention_estimate?: Json
+          intervention_hours?: string | null
+          kitchen_hood?: Json
+          opening_hours?: string | null
+          operating_conditions?: Json
+          public_token?: string
+          quote_items?: Json
+          quote_notes?: string | null
+          quote_total_cents?: number
+          risks?: Json
+          section_visibility?: Json
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          address?: string | null
+          business_name?: string
+          business_type?: string | null
+          carbon_filters?: Json
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          cooking_area?: Json
+          created_at?: string
+          created_by?: string | null
+          ductwork?: Json
+          exhaust_system?: Json
+          id?: string
+          internal_evaluation?: Json
+          intervention_estimate?: Json
+          intervention_hours?: string | null
+          kitchen_hood?: Json
+          opening_hours?: string | null
+          operating_conditions?: Json
+          public_token?: string
+          quote_items?: Json
+          quote_notes?: string | null
+          quote_total_cents?: number
+          risks?: Json
+          section_visibility?: Json
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       datasheet_requests: {
         Row: {
           created_at: string
@@ -815,6 +949,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_public_client_sheet: { Args: { _token: string }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

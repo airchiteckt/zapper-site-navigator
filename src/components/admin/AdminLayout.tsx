@@ -15,7 +15,8 @@ import {
   FileText,
   MessageCircle,
   BarChart3,
-  Inbox
+  Inbox,
+  ClipboardList
 } from 'lucide-react';
 import logoVerde from '@/assets/logo-zapper-verde.svg';
 import { useState } from 'react';
@@ -29,6 +30,7 @@ interface AdminLayoutProps {
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/leads', label: 'Lead / Form', icon: Inbox },
+  { href: '/admin/clienti', label: 'Schede Cliente', icon: ClipboardList },
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/models', label: 'Modelli', icon: Package },
   { href: '/admin/interventions', label: 'Interventi', icon: Video },
