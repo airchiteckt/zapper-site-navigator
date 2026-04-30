@@ -35,12 +35,24 @@ export interface CookingArea {
   has_critical_buildup?: boolean;
 }
 
-export interface Ductwork {
-  present?: boolean;
+export interface DuctLine {
+  description?: string; // es. "Canna fumaria forno"
   length_m?: number;
+  diameter_cm?: number;
   curves_count?: number;
   accessibility?: Difficulty;
   has_inspection_hatches?: boolean;
+}
+
+export interface Ductwork {
+  present?: boolean;
+  length_m?: number;
+  diameter_cm?: number;
+  curves_count?: number;
+  accessibility?: Difficulty;
+  has_inspection_hatches?: boolean;
+  /** Canalizzazioni aggiuntive oltre la principale */
+  lines?: DuctLine[];
 }
 
 export interface ExhaustSystem {
