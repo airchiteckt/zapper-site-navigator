@@ -15,8 +15,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Eye, EyeOff } from "lucide-react";
-import { SECTION_LABELS, type ClientSheet, type SectionKey } from "@/types/clientSheet";
+import { Eye, EyeOff, Plus, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { SECTION_LABELS, type ClientSheet, type HoodUnit, type SectionKey } from "@/types/clientSheet";
 import SheetPhotoUploader from "./SheetPhotoUploader";
 import QuoteEditor from "./QuoteEditor";
 
