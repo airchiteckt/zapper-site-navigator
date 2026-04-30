@@ -404,64 +404,173 @@ export default function ClientSheetSections({ sheet, onPatch }: Props) {
             <VisibilityBadge sectionKey="ductwork" visible={v.ductwork} onToggle={() => toggleVis("ductwork")} />
           </div>
         </AccordionTrigger>
-        <AccordionContent className="space-y-3 pt-2">
-          <div className="grid sm:grid-cols-2 gap-3">
-            <label className="flex items-center gap-2 sm:col-span-2">
-              <input
-                type="checkbox"
-                checked={sheet.ductwork.present ?? false}
-                onChange={(e) => onPatch({ ductwork: { ...sheet.ductwork, present: e.target.checked } })}
-              />
-              Canalizzazione presente
-            </label>
-            <div>
-              <Label>Lunghezza stimata (m)</Label>
-              <Input
-                type="number"
-                step="0.1"
-                value={sheet.ductwork.length_m ?? ""}
-                onChange={(e) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, length_m: Number(e.target.value) || undefined } })
-                }
-              />
+        <AccordionContent className="space-y-4 pt-2">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={sheet.ductwork.present ?? false}
+              onChange={(e) => onPatch({ ductwork: { ...sheet.ductwork, present: e.target.checked } })}
+            />
+            Canalizzazione presente
+          </label>
+
+          {/* Canalizzazione principale */}
+          <div className="rounded-lg border p-3 space-y-3 bg-muted/30">
+            <p className="text-sm font-semibold">Canalizzazione principale</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div>
+                <Label>Lunghezza stimata (m)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  value={sheet.ductwork.length_m ?? ""}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, length_m: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Diametro (cm)</Label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  value={sheet.ductwork.diameter_cm ?? ""}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, diameter_cm: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Numero curve</Label>
+                <Input
+                  type="number"
+                  value={sheet.ductwork.curves_count ?? ""}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, curves_count: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Accessibilità</Label>
+                <Select
+                  value={sheet.ductwork.accessibility ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, accessibility: val as "easy" | "medium" | "hard" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="easy">Facile</SelectItem>
+                    <SelectItem value="medium">Media</SelectItem>
+                    <SelectItem value="hard">Difficile</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <label className="flex items-center gap-2 sm:col-span-2">
+                <input
+                  type="checkbox"
+                  checked={sheet.ductwork.has_inspection_hatches ?? false}
+                  onChange={(e) =>
+                    onPatch({ ductwork: { ...sheet.ductwork, has_inspection_hatches: e.target.checked } })
+                  }
+                />
+                Botole di ispezione presenti
+              </label>
             </div>
-            <div>
-              <Label>Numero curve</Label>
-              <Input
-                type="number"
-                value={sheet.ductwork.curves_count ?? ""}
-                onChange={(e) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, curves_count: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Accessibilità</Label>
-              <Select
-                value={sheet.ductwork.accessibility ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, accessibility: val as "easy" | "medium" | "hard" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="easy">Facile</SelectItem>
-                  <SelectItem value="medium">Media</SelectItem>
-                  <SelectItem value="hard">Difficile</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={sheet.ductwork.has_inspection_hatches ?? false}
-                onChange={(e) =>
-                  onPatch({ ductwork: { ...sheet.ductwork, has_inspection_hatches: e.target.checked } })
-                }
-              />
-              Botole di ispezione presenti
-            </label>
           </div>
+
+          {/* Canalizzazioni aggiuntive */}
+          {(sheet.ductwork.lines ?? []).map((line, idx) => {
+            const updateLine = (patch: Partial<DuctLine>) => {
+              const lines = [...(sheet.ductwork.lines ?? [])];
+              lines[idx] = { ...lines[idx], ...patch };
+              onPatch({ ductwork: { ...sheet.ductwork, lines } });
+            };
+            const removeLine = () => {
+              const lines = (sheet.ductwork.lines ?? []).filter((_, i) => i !== idx);
+              onPatch({ ductwork: { ...sheet.ductwork, lines } });
+            };
+            return (
+              <div key={idx} className="rounded-lg border p-3 space-y-3 bg-muted/30">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold">Canalizzazione aggiuntiva #{idx + 1}</p>
+                  <Button type="button" variant="ghost" size="sm" onClick={removeLine}>
+                    <Trash2 className="h-4 w-4 mr-1" /> Rimuovi
+                  </Button>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="sm:col-span-2">
+                    <Label>Descrizione</Label>
+                    <Input
+                      value={line.description ?? ""}
+                      placeholder="es. Canna fumaria forno, scarico friggitrice..."
+                      onChange={(e) => updateLine({ description: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Lunghezza (m)</Label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      value={line.length_m ?? ""}
+                      onChange={(e) => updateLine({ length_m: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Diametro (cm)</Label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      value={line.diameter_cm ?? ""}
+                      onChange={(e) => updateLine({ diameter_cm: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Numero curve</Label>
+                    <Input
+                      type="number"
+                      value={line.curves_count ?? ""}
+                      onChange={(e) => updateLine({ curves_count: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Accessibilità</Label>
+                    <Select
+                      value={line.accessibility ?? ""}
+                      onValueChange={(val) => updateLine({ accessibility: val as "easy" | "medium" | "hard" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="easy">Facile</SelectItem>
+                        <SelectItem value="medium">Media</SelectItem>
+                        <SelectItem value="hard">Difficile</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <label className="flex items-center gap-2 sm:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={line.has_inspection_hatches ?? false}
+                      onChange={(e) => updateLine({ has_inspection_hatches: e.target.checked })}
+                    />
+                    Botole di ispezione presenti
+                  </label>
+                </div>
+              </div>
+            );
+          })}
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const lines = [...(sheet.ductwork.lines ?? []), {} as DuctLine];
+              onPatch({ ductwork: { ...sheet.ductwork, lines } });
+            }}
+          >
+            <Plus className="h-4 w-4 mr-1" /> Aggiungi canalizzazione
+          </Button>
         </AccordionContent>
       </AccordionItem>
 
