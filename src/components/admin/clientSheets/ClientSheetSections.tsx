@@ -659,80 +659,193 @@ export default function ClientSheetSections({ sheet, onPatch }: Props) {
             <VisibilityBadge sectionKey="carbon_filters" visible={v.carbon_filters} onToggle={() => toggleVis("carbon_filters")} />
           </div>
         </AccordionTrigger>
-        <AccordionContent className="space-y-3 pt-2">
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div>
-              <Label>Numero centrali</Label>
-              <Input
-                type="number"
-                value={sheet.carbon_filters.units_count ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, units_count: Number(e.target.value) || undefined } })
-                }
-              />
+        <AccordionContent className="space-y-4 pt-2">
+          {/* Centrale principale */}
+          <div className="rounded-lg border p-3 space-y-3 bg-muted/30">
+            <p className="text-sm font-semibold">Centrale principale</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div>
+                <Label>Numero centrali totali</Label>
+                <Input
+                  type="number"
+                  value={sheet.carbon_filters.units_count ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, units_count: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Marca / Modello</Label>
+                <Input
+                  value={sheet.carbon_filters.brand_model ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, brand_model: e.target.value } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Numero filtri carbone</Label>
+                <Input
+                  type="number"
+                  value={sheet.carbon_filters.filter_count ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, filter_count: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Stato</Label>
+                <Select
+                  value={sheet.carbon_filters.state ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, state: val as "good" | "medium" | "bad" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="good">🟢 Buono</SelectItem>
+                    <SelectItem value="medium">🟡 Da pulire</SelectItem>
+                    <SelectItem value="bad">🔴 Da sostituire</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Ultima manutenzione</Label>
+                <Input
+                  type="date"
+                  value={sheet.carbon_filters.last_maintenance ?? ""}
+                  onChange={(e) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, last_maintenance: e.target.value } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Odori percepiti</Label>
+                <Select
+                  value={sheet.carbon_filters.odor_level ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ carbon_filters: { ...sheet.carbon_filters, odor_level: val as "none" | "medium" | "strong" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Nessuno</SelectItem>
+                    <SelectItem value="medium">Medio</SelectItem>
+                    <SelectItem value="strong">Forte</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div>
-              <Label>Marca / Modello</Label>
-              <Input
-                value={sheet.carbon_filters.brand_model ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, brand_model: e.target.value } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Numero filtri carbone</Label>
-              <Input
-                type="number"
-                value={sheet.carbon_filters.filter_count ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, filter_count: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Stato</Label>
-              <Select
-                value={sheet.carbon_filters.state ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, state: val as "good" | "medium" | "bad" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="good">🟢 Buono</SelectItem>
-                  <SelectItem value="medium">🟡 Da pulire</SelectItem>
-                  <SelectItem value="bad">🔴 Da sostituire</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>Ultima manutenzione</Label>
-              <Input
-                type="date"
-                value={sheet.carbon_filters.last_maintenance ?? ""}
-                onChange={(e) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, last_maintenance: e.target.value } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Odori percepiti</Label>
-              <Select
-                value={sheet.carbon_filters.odor_level ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ carbon_filters: { ...sheet.carbon_filters, odor_level: val as "none" | "medium" | "strong" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">Nessuno</SelectItem>
-                  <SelectItem value="medium">Medio</SelectItem>
-                  <SelectItem value="strong">Forte</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+
+            {/* Dettaglio filtri della centrale principale */}
+            <FilterDetailsEditor
+              filters={sheet.carbon_filters.filters ?? []}
+              onChange={(filters) =>
+                onPatch({ carbon_filters: { ...sheet.carbon_filters, filters } })
+              }
+            />
           </div>
+
+          {/* Centrali aggiuntive */}
+          {(sheet.carbon_filters.units ?? []).map((unit, idx) => {
+            const updateUnit = (patch: Partial<CarbonFilterUnit>) => {
+              const units = [...(sheet.carbon_filters.units ?? [])];
+              units[idx] = { ...units[idx], ...patch };
+              onPatch({ carbon_filters: { ...sheet.carbon_filters, units } });
+            };
+            const removeUnit = () => {
+              const units = (sheet.carbon_filters.units ?? []).filter((_, i) => i !== idx);
+              onPatch({ carbon_filters: { ...sheet.carbon_filters, units } });
+            };
+            return (
+              <div key={idx} className="rounded-lg border p-3 space-y-3 bg-muted/30">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold">Centrale aggiuntiva #{idx + 1}</p>
+                  <Button type="button" variant="ghost" size="sm" onClick={removeUnit}>
+                    <Trash2 className="h-4 w-4 mr-1" /> Rimuovi
+                  </Button>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="sm:col-span-2">
+                    <Label>Etichetta</Label>
+                    <Input
+                      value={unit.label ?? ""}
+                      placeholder="es. Centrale zona pizzeria"
+                      onChange={(e) => updateUnit({ label: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Marca / Modello</Label>
+                    <Input
+                      value={unit.brand_model ?? ""}
+                      onChange={(e) => updateUnit({ brand_model: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Numero filtri carbone</Label>
+                    <Input
+                      type="number"
+                      value={unit.filter_count ?? ""}
+                      onChange={(e) => updateUnit({ filter_count: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Stato</Label>
+                    <Select
+                      value={unit.state ?? ""}
+                      onValueChange={(val) => updateUnit({ state: val as "good" | "medium" | "bad" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="good">🟢 Buono</SelectItem>
+                        <SelectItem value="medium">🟡 Da pulire</SelectItem>
+                        <SelectItem value="bad">🔴 Da sostituire</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Ultima manutenzione</Label>
+                    <Input
+                      type="date"
+                      value={unit.last_maintenance ?? ""}
+                      onChange={(e) => updateUnit({ last_maintenance: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Odori</Label>
+                    <Select
+                      value={unit.odor_level ?? ""}
+                      onValueChange={(val) => updateUnit({ odor_level: val as "none" | "medium" | "strong" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Nessuno</SelectItem>
+                        <SelectItem value="medium">Medio</SelectItem>
+                        <SelectItem value="strong">Forte</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <FilterDetailsEditor
+                  filters={unit.filters ?? []}
+                  onChange={(filters) => updateUnit({ filters })}
+                />
+              </div>
+            );
+          })}
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const units = [...(sheet.carbon_filters.units ?? []), {} as CarbonFilterUnit];
+              onPatch({ carbon_filters: { ...sheet.carbon_filters, units } });
+            }}
+          >
+            <Plus className="h-4 w-4 mr-1" /> Aggiungi centrale
+          </Button>
         </AccordionContent>
       </AccordionItem>
 
