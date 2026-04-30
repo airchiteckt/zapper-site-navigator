@@ -144,10 +144,10 @@ export default function ClientSheetSections({ sheet, onPatch }: Props) {
             <VisibilityBadge sectionKey="kitchen_hood" visible={v.kitchen_hood} onToggle={() => toggleVis("kitchen_hood")} />
           </div>
         </AccordionTrigger>
-        <AccordionContent className="space-y-3 pt-2">
+        <AccordionContent className="space-y-4 pt-2">
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <Label>Numero cappe</Label>
+              <Label>Numero totale cappe</Label>
               <Input
                 type="number"
                 min={0}
@@ -157,71 +157,175 @@ export default function ClientSheetSections({ sheet, onPatch }: Props) {
                 }
               />
             </div>
-            <div>
-              <Label>Tipologia</Label>
-              <Select
-                value={sheet.kitchen_hood.type ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ kitchen_hood: { ...sheet.kitchen_hood, type: val as "wall" | "central" | "island" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="wall">Parete</SelectItem>
-                  <SelectItem value="central">Centrale</SelectItem>
-                  <SelectItem value="island">Isola</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>Lunghezza (cm)</Label>
-              <Input
-                type="number"
-                value={sheet.kitchen_hood.length_cm ?? ""}
-                onChange={(e) =>
-                  onPatch({ kitchen_hood: { ...sheet.kitchen_hood, length_cm: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Profondità (cm)</Label>
-              <Input
-                type="number"
-                value={sheet.kitchen_hood.depth_cm ?? ""}
-                onChange={(e) =>
-                  onPatch({ kitchen_hood: { ...sheet.kitchen_hood, depth_cm: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Altezza da terra (cm)</Label>
-              <Input
-                type="number"
-                value={sheet.kitchen_hood.height_cm ?? ""}
-                onChange={(e) =>
-                  onPatch({ kitchen_hood: { ...sheet.kitchen_hood, height_cm: Number(e.target.value) || undefined } })
-                }
-              />
-            </div>
-            <div>
-              <Label>Stato visivo</Label>
-              <Select
-                value={sheet.kitchen_hood.state ?? ""}
-                onValueChange={(val) =>
-                  onPatch({ kitchen_hood: { ...sheet.kitchen_hood, state: val as "good" | "medium" | "bad" } })
-                }
-              >
-                <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="good">🟢 Pulita</SelectItem>
-                  <SelectItem value="medium">🟡 Media</SelectItem>
-                  <SelectItem value="bad">🔴 Molto sporca</SelectItem>
-                </SelectContent>
-              </Select>
+          </div>
+
+          {/* Cappa principale */}
+          <div className="rounded-lg border p-3 space-y-3 bg-muted/30">
+            <p className="text-sm font-semibold">Cappa #1 (principale)</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div>
+                <Label>Tipologia</Label>
+                <Select
+                  value={sheet.kitchen_hood.type ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ kitchen_hood: { ...sheet.kitchen_hood, type: val as "wall" | "central" | "island" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="wall">Parete</SelectItem>
+                    <SelectItem value="central">Centrale</SelectItem>
+                    <SelectItem value="island">Isola</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Stato visivo</Label>
+                <Select
+                  value={sheet.kitchen_hood.state ?? ""}
+                  onValueChange={(val) =>
+                    onPatch({ kitchen_hood: { ...sheet.kitchen_hood, state: val as "good" | "medium" | "bad" } })
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="good">🟢 Pulita</SelectItem>
+                    <SelectItem value="medium">🟡 Media</SelectItem>
+                    <SelectItem value="bad">🔴 Molto sporca</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Lunghezza (cm)</Label>
+                <Input
+                  type="number"
+                  value={sheet.kitchen_hood.length_cm ?? ""}
+                  onChange={(e) =>
+                    onPatch({ kitchen_hood: { ...sheet.kitchen_hood, length_cm: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Profondità (cm)</Label>
+                <Input
+                  type="number"
+                  value={sheet.kitchen_hood.depth_cm ?? ""}
+                  onChange={(e) =>
+                    onPatch({ kitchen_hood: { ...sheet.kitchen_hood, depth_cm: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Altezza da terra (cm)</Label>
+                <Input
+                  type="number"
+                  value={sheet.kitchen_hood.height_cm ?? ""}
+                  onChange={(e) =>
+                    onPatch({ kitchen_hood: { ...sheet.kitchen_hood, height_cm: Number(e.target.value) || undefined } })
+                  }
+                />
+              </div>
             </div>
           </div>
+
+          {/* Cappe aggiuntive */}
+          {(sheet.kitchen_hood.units ?? []).map((unit, idx) => {
+            const updateUnit = (patch: Partial<HoodUnit>) => {
+              const units = [...(sheet.kitchen_hood.units ?? [])];
+              units[idx] = { ...units[idx], ...patch };
+              onPatch({ kitchen_hood: { ...sheet.kitchen_hood, units } });
+            };
+            const removeUnit = () => {
+              const units = (sheet.kitchen_hood.units ?? []).filter((_, i) => i !== idx);
+              onPatch({ kitchen_hood: { ...sheet.kitchen_hood, units } });
+            };
+            return (
+              <div key={idx} className="rounded-lg border p-3 space-y-3 bg-muted/30">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold">Cappa #{idx + 2}</p>
+                  <Button type="button" variant="ghost" size="sm" onClick={removeUnit}>
+                    <Trash2 className="h-4 w-4 mr-1" /> Rimuovi
+                  </Button>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <Label>Tipologia</Label>
+                    <Select
+                      value={unit.type ?? ""}
+                      onValueChange={(val) => updateUnit({ type: val as "wall" | "central" | "island" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="wall">Parete</SelectItem>
+                        <SelectItem value="central">Centrale</SelectItem>
+                        <SelectItem value="island">Isola</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Stato visivo</Label>
+                    <Select
+                      value={unit.state ?? ""}
+                      onValueChange={(val) => updateUnit({ state: val as "good" | "medium" | "bad" })}
+                    >
+                      <SelectTrigger><SelectValue placeholder="Seleziona..." /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="good">🟢 Pulita</SelectItem>
+                        <SelectItem value="medium">🟡 Media</SelectItem>
+                        <SelectItem value="bad">🔴 Molto sporca</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Lunghezza (cm)</Label>
+                    <Input
+                      type="number"
+                      value={unit.length_cm ?? ""}
+                      onChange={(e) => updateUnit({ length_cm: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Profondità (cm)</Label>
+                    <Input
+                      type="number"
+                      value={unit.depth_cm ?? ""}
+                      onChange={(e) => updateUnit({ depth_cm: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Altezza da terra (cm)</Label>
+                    <Input
+                      type="number"
+                      value={unit.height_cm ?? ""}
+                      onChange={(e) => updateUnit({ height_cm: Number(e.target.value) || undefined })}
+                    />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const units = [...(sheet.kitchen_hood.units ?? []), {} as HoodUnit];
+              const currentCount = sheet.kitchen_hood.count ?? 1;
+              onPatch({
+                kitchen_hood: {
+                  ...sheet.kitchen_hood,
+                  units,
+                  count: Math.max(currentCount, units.length + 1),
+                },
+              });
+            }}
+          >
+            <Plus className="h-4 w-4 mr-1" /> Aggiungi cappa
+          </Button>
+
           <div className="pt-3 border-t">
-            <p className="text-sm font-medium mb-3">📷 Foto del sopralluogo</p>
+            <p className="text-sm font-medium mb-3">📷 Foto del sopralluogo (opzionali)</p>
             <SheetPhotoUploader sheetId={sheet.id} />
           </div>
         </AccordionContent>
